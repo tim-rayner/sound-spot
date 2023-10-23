@@ -5,6 +5,8 @@ export default defineNuxtConfig({
     // Keys within runtimeConfig are exposed client-side
     apiBase: "/api",
     mongodbUri: process.env.MONGODB_URI,
+    spotifyClientId: process.env.SPOTIFY_CLIENT_ID,
+    spotifyClientSecret: process.env.SPOTIFY_CLIENT_SECRET,
   },
   nitro: {
     plugins: ["~/server/index.ts"],

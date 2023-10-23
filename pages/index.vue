@@ -8,16 +8,11 @@ const getBlogs = async () => {
   const blogs = await res.json();
   return blogs;
 };
-
-function enableCustomLayout() {
-  setPageLayout("authorized");
-}
 </script>
 
 <template>
   <div>
     <h1>Welcome to SoundSpot</h1>
     <NuxtLink to="/SignUp">Sign Up</NuxtLink>
-    <button @click="enableCustomLayout">Enable Authorised Layout</button>
   </div>
 </template>
