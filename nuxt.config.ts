@@ -2,11 +2,11 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   runtimeConfig: {
-    // The private keys which are only available server-side
-    apiSecret: "123",
-    // Keys within public are also exposed client-side
-    public: {
-      apiBase: "/api",
-    },
+    // Keys within runtimeConfig are exposed client-side
+    apiBase: "/api",
+    mongodbUri: process.env.MONGODB_URI,
+  },
+  nitro: {
+    plugins: ["~/server/index.ts"],
   },
 });
