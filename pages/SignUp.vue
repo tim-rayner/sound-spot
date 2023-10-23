@@ -1,4 +1,8 @@
 <script setup lang="ts">
+/**
+ * @TODO Use Spotiy's auth code flow to signup and login users
+ * https://developer.spotify.com/documentation/web-api/concepts/authorization
+ */
 definePageMeta({
   layout: false,
 });
