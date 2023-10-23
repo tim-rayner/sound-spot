@@ -9,14 +9,15 @@ const getBlogs = async () => {
   return blogs;
 };
 
-onMounted(async () => {
-  blogs.value = await getBlogs();
-  console.log(blogs);
-});
+function enableCustomLayout() {
+  setPageLayout("authorized");
+}
 </script>
 
 <template>
-  <div v-for="blog in blogs">
-    <h1>{{ blog.name }}</h1>
+  <div>
+    <h1>Welcome to SoundSpot</h1>
+    <NuxtLink to="/SignUp">Sign Up</NuxtLink>
+    <button @click="enableCustomLayout">Enable Authorised Layout</button>
   </div>
 </template>
