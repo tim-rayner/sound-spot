@@ -1,18 +1,31 @@
 <script setup lang="ts">
-const runtimeConfig = useRuntimeConfig();
+import { ref } from "vue";
 
-const blogs = ref<object[]>([]);
+const { query } = useRoute();
+const info = ref(null);
 
-const getBlogs = async () => {
-  const res = await fetch(`/api/blogs`);
-  const blogs = await res.json();
-  return blogs;
-};
+if (query.code && query.state) {
+  const { data: api } = await useFetch("/api/auth/options", {
+    method: "post",
+    body: { code: query.code, state: query.code },
+  });
+
+  info.value = api;
+  console.log(api.value);
+  const { data: response } = await useFetch("/api/auth/token", {
+    method: "post",
+    body: api.value,
+  });
+  console.log(response.value);
+  info.value = response.value;
+}
 </script>
 
 <template>
   <div>
+    index
     <h1>Welcome to SoundSpot</h1>
+    <h2 v-if="info">Logged in as {{ info.display_name }}</h2>
     <NuxtLink to="/SignUp">Sign Up</NuxtLink>
   </div>
 </template>

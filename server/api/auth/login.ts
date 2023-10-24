@@ -1,6 +1,6 @@
 import { useGenerateRandomString } from "~/composables/generateRandomString";
 import queryString from "query-string";
-
+//https://developer.spotify.com/documentation/web-api/tutorials/code-flow#_=_
 const config = useRuntimeConfig();
 
 var client_id = config.spotifyClientId;
@@ -25,7 +25,5 @@ export default defineEventHandler(async (event) => {
         url,
       },
     };
-  }
-  if (event.method === "POST") {
   }
 });
