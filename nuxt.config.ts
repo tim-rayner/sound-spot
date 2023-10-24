@@ -1,7 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  css: ["~/assets/css/main.css"],
+  css: [
+    "~/assets/css/main.css",
+    "primevue/resources/primevue.css",
+    "primevue/resources/themes/lara-light-teal/theme.css",
+  ],
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -18,4 +22,5 @@ export default defineNuxtConfig({
   nitro: {
     plugins: ["~/server/index.ts"],
   },
+  plugins: [{ src: "~/plugins/primevue.ts", mode: "client" }],
 });

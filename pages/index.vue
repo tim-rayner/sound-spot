@@ -2,6 +2,8 @@
 import { ref } from "vue";
 
 const { query } = useRoute();
+const router = useRouter();
+
 const info = ref(null);
 
 if (query.code && query.state) {
@@ -19,6 +21,10 @@ if (query.code && query.state) {
 
   info.value = response.value;
 }
+
+const signUp = () => {
+  router.push({ name: "SignUp" });
+};
 </script>
 
 <template>
@@ -26,6 +32,7 @@ if (query.code && query.state) {
     index
     <h1 class="">Welcome to SoundSpot</h1>
     <h2 v-if="info">Logged in as {{ info.display_name }}</h2>
-    <NuxtLink to="/SignUp">Sign Up</NuxtLink>
+    <Button label="Sign up" @click="signUp" />
+    <!-- <NuxtLink to="/SignUp">Sign Up</NuxtLink> -->
   </div>
 </template>
