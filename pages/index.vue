@@ -11,12 +11,12 @@ if (query.code && query.state) {
   });
 
   info.value = api;
-  console.log(api.value);
+
   const { data: response } = await useFetch("/api/auth/token", {
     method: "post",
     body: api.value,
   });
-  console.log(response.value);
+
   info.value = response.value;
 }
 </script>
@@ -24,7 +24,7 @@ if (query.code && query.state) {
 <template>
   <div>
     index
-    <h1>Welcome to SoundSpot</h1>
+    <h1 class="">Welcome to SoundSpot</h1>
     <h2 v-if="info">Logged in as {{ info.display_name }}</h2>
     <NuxtLink to="/SignUp">Sign Up</NuxtLink>
   </div>
