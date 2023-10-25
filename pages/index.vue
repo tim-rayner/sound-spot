@@ -1,38 +1,31 @@
-<script setup lang="ts">
-import { ref } from "vue";
+<script lang="ts" setup>
+import { storeToRefs } from "pinia"; // import storeToRefs helper hook from pinia
+import { useAuthStore } from "~/store/auth"; // import the auth store we just created
+const { authenticateUser } = useAuthStore(); // use authenticateUser action from  auth store
+const { user } = storeToRefs(useAuthStore());
 
 const { query } = useRoute();
-const router = useRouter();
 
-const info = ref(null);
-
+//TODO: TAKE OUT OF INDEX PAGE AND SEGREGATE
 if (query.code && query.state) {
-  const { data: api } = await useFetch("/api/auth/options", {
+  //get options
+  const { data: optionsBody } = await useFetch("/api/auth/options", {
     method: "post",
-    body: { code: query.code, state: query.code },
+    body: { code: query.code, state: query.state },
   });
 
-  info.value = api;
-
+  //get token
   const { data: response } = await useFetch("/api/auth/token", {
     method: "post",
-    body: api.value,
+    body: optionsBody.value,
   });
 
-  info.value = response.value;
+  if (response) {
+    authenticateUser(response.value);
+  }
 }
-
-const signUp = () => {
-  router.push({ name: "SignUp" });
-};
 </script>
-
 <template>
-  <div>
-    index
-    <h1 class="">Welcome to SoundSpot</h1>
-    <h2 v-if="info">Logged in as {{ info.display_name }}</h2>
-    <Button label="Sign up" @click="signUp" />
-    <!-- <NuxtLink to="/SignUp">Sign Up</NuxtLink> -->
-  </div>
+  <div>Home Page</div>
+  <p v-if="user">Welcome back {{ user.display_name }}</p>
 </template>

@@ -12,6 +12,7 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  modules: ["@pinia/nuxt"],
   runtimeConfig: {
     // Keys within runtimeConfig are exposed client-side
     apiBase: "/api",
