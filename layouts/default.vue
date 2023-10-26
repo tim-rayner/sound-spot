@@ -18,6 +18,8 @@ const logout = () => {
     <nav class="bg-slate-600 p-3 text-white">
       <ul class="flex justify-between p-2 px-5">
         <li class="mr-3 font-bold"><nuxt-link to="/">SoundSpot</nuxt-link></li>
+        <li class="mr-3 font-bold"><nuxt-link to="/about">About</nuxt-link></li>
+
         <li class="float-right" v-if="!authenticated">
           <nuxt-link to="/login">Login</nuxt-link>
         </li>

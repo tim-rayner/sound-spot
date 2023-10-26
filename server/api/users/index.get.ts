@@ -2,8 +2,9 @@ import { Schema, model } from "mongoose";
 
 //define user schema
 const userSchema = new Schema({
-  name: String,
+  display_name: String,
   email: String,
+  id: String,
 });
 
 //define user model

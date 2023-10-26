@@ -1,25 +1,14 @@
 <script lang="ts" setup>
+import LoginWithSpotify from "~/components/spotify/LoginWithSpotify.vue";
 definePageMeta({
   layout: false,
 });
-
-//route to spotify auth
-const loginWithSpotify = async () => {
-  const response = await fetch(`/api/auth/login`);
-  const { redirect } = await response.json();
-  window.location.href = redirect.url;
-};
 </script>
 
 <template>
-  <div>
-    <div class="title">
-      <h2>Login</h2>
-    </div>
-    <div class="container form">
-      <Button @click.prevent="loginWithSpotify" class="button">
-        Login with Spotify
-      </Button>
+  <div class="flex h-screen">
+    <div class="spotify-signin m-auto">
+      <LoginWithSpotify />
     </div>
   </div>
 </template>

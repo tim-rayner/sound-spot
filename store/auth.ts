@@ -6,6 +6,7 @@ export const useAuthStore = defineStore("auth", {
     authenticated: false,
     loading: false,
     user: null,
+    isUserSignup: false, //this is for when a use has been signed in for the first time, so the app knows to take user through onboarding process
   }),
   actions: {
     async authenticateUser(userToken?: string) {

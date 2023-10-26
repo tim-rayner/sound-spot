@@ -6,12 +6,14 @@ export default defineNuxtConfig({
     "primevue/resources/primevue.css",
     "primevue/resources/themes/lara-light-teal/theme.css",
   ],
+
   postcss: {
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
     },
   },
+
   modules: ["@pinia/nuxt"],
   runtimeConfig: {
     // Keys within runtimeConfig are exposed client-side
