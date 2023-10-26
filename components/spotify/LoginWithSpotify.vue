@@ -13,7 +13,7 @@ const loginWithSpotify = async () => {
     Login with Spotify
   </Button> -->
   <div
-    class="relative form flex flex-col gap-5 p-8 px-20 pb-4 bg-black rounded-xl transition duration-400 ease-in-out h-full mx-auto shadow-2xl"
+    class="relative form flex flex-col gap-5 p-16 px-20 bg-black rounded-xl transition duration-400 ease-in-out h-full mx-auto shadow-2xl"
   >
     <div class="w-fit mx-auto">
       <img :src="SpotifyLogo" alt="" class="w-24 p-2 mx-auto" />
