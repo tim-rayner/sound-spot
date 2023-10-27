@@ -11,6 +11,10 @@ const logout = () => {
   logUserOut();
   router.push("/");
 };
+
+const loginWithSpotify = () => {
+  router.push("/lgoin");
+};
 </script>
 
 <template>
@@ -21,7 +25,7 @@ const logout = () => {
         <li class="mr-3 font-bold"><nuxt-link to="/about">About</nuxt-link></li>
 
         <li class="float-right" v-if="!authenticated">
-          <nuxt-link to="/login">Login</nuxt-link>
+          <SpotifyLoginWithSpotifyButton @buttonClicked="loginWithSpotify" />
         </li>
         <li class="float-right" v-else>
           <Button @click="logout">Logout</Button>
