@@ -21,7 +21,7 @@ const loginWithSpotify = () => {
 <template>
   <div>
     <nav
-      class="dark:bg-slate-200 bg-[#1e1e1e] p-3 text-[#f0ffff] dark:text-slate-500"
+      class="dark:bg-slate-200 bg-[#1e1e1e] p-3 text-[#f0ffff] dark:text-slate-500 w-full"
     >
       <ul class="flex justify-between p-2 px-5 align-middle items-center">
         <!-- LEFT-->

@@ -13,7 +13,7 @@ const toggleDropdown = () => {
 <template>
   <div class="relative">
     <div
-      class="btn flex m-auto items-center align-middle p-4 hover:cursor-pointer w-48 bg-[#5e5e5e] rounded-full"
+      class="btn flex p-3 hover:cursor-pointer w-48 bg-[#5e5e5e] rounded-full relative"
       v-if="user"
       @click="toggleDropdown"
     >
@@ -25,20 +25,29 @@ const toggleDropdown = () => {
         />
       </span>
       <span class="name ml-2"> {{ user.username }}</span>
-      <span class="arrow ml-2">
+
+      <span class="arrow absolute right-5">
         <font-awesome-icon :icon="'chevron-down'" />
       </span>
     </div>
+    <!-- DROPDOWN-->
     <div
       class="dropdown-content absolute top-16 hidden w-48 rounded-lg bg-[#c1c1c1] text-black"
     >
-      <div class="dropdown-item">
+      <div
+        class="dropdown-item p-2 hover:bg-slate-400 hover:cursor-pointer rounded-t-lg"
+      >
         <nuxt-link to="/profile">Profile</nuxt-link>
       </div>
-      <div class="dropdown-item">
+      <div
+        class="dropdown-item p-2 border-t-2 border-slate-200 hover:cursor-pointer hover:bg-slate-400"
+      >
         <nuxt-link to="/settings">Settings</nuxt-link>
       </div>
-      <div class="dropdown-item hover:cursor-pointer" @click="logUserOut">
+      <div
+        class="dropdown-item hover:cursor-pointer hover:bg-slate-400 p-2 border-t-2 border-slate-200 rounded-b-lg"
+        @click="logUserOut"
+      >
         Logout
       </div>
     </div>
