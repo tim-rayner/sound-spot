@@ -31,14 +31,14 @@ const loginWithSpotify = () => {
         </div>
         <!-- RIGHT -->
         <div class="justify-end flex gap-6 float-right">
-          <li v-if="!authenticated" class="align-middle m-auto">
+          <li class="align-middle m-auto">
             <ColorModeSwitch />
           </li>
           <li v-if="!authenticated">
             <SpotifyLoginWithSpotifyButton @buttonClicked="loginWithSpotify" />
           </li>
           <li v-else>
-            <Button @click="logout">Logout</Button>
+            <SpotifyProfileButton />
           </li>
         </div>
       </ul>

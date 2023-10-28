@@ -1,9 +1,4 @@
-<script setup lang="ts">
-definePageMeta({
-  //layout: "authorized",
-  //colorMode: "dark",
-});
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <h1>Home</h1>

@@ -4,6 +4,7 @@ import mongoose, { Schema, model } from "mongoose";
 const userSchema = new Schema({
   username: String,
   email: String,
+  profilePicture: String,
   id: String,
   _id: mongoose.Schema.Types.ObjectId,
 });

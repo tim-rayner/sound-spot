@@ -42,6 +42,7 @@ export default defineEventHandler(async (event) => {
 
     const newUser = new User({
       username: spotifyUser.display_name,
+      profilePicture: spotifyUser.images[1].url,
       email: spotifyUser.email,
       id: spotifyUser.id,
     });

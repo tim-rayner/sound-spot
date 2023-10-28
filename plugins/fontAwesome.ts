@@ -6,9 +6,20 @@ import {
   faGithubSquare,
 } from "@fortawesome/free-brands-svg-icons";
 
-import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSun,
+  faMoon,
+  faChevronDown,
+} from "@fortawesome/free-solid-svg-icons";
 
-library.add(faTwitterSquare, faTwitch, faGithubSquare, faSun, faMoon);
+library.add(
+  faTwitterSquare,
+  faTwitch,
+  faGithubSquare,
+  faSun,
+  faMoon,
+  faChevronDown
+);
 
 // This is important, we are going to let Nuxt worry about the CSS
 config.autoAddCss = false;
