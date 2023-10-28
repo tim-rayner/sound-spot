@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { storeToRefs } from "pinia"; // import storeToRefs helper hook from pinia
+import ColorModeSwitch from "~/components/forms/ColorModeSwitch.vue";
 import { useAuthStore } from "~/store/auth"; // import the auth store we just created
+
 const { authenticateUser } = useAuthStore(); // use authenticateUser action from  auth store
 const { user } = storeToRefs(useAuthStore());
 
@@ -29,3 +31,4 @@ if (query.code && query.state) {
   <div>Home Page</div>
   <p v-if="user">Welcome back {{ user.display_name }}</p>
 </template>
+<style></style>

@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     "~/assets/css/main.css",
     "primevue/resources/primevue.css",
     "primevue/resources/themes/lara-light-teal/theme.css",
+    "@fortawesome/fontawesome-svg-core/styles.css",
   ],
 
   postcss: {
@@ -14,7 +15,7 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ["@pinia/nuxt"],
+  modules: ["@pinia/nuxt", "@nuxtjs/color-mode"],
   runtimeConfig: {
     // Keys within runtimeConfig are exposed client-side
     apiBase: "/api",
@@ -26,4 +27,14 @@ export default defineNuxtConfig({
     plugins: ["~/server/index.ts"],
   },
   plugins: [{ src: "~/plugins/primevue.ts", mode: "client" }],
+  colorMode: {
+    preference: "light", // default value of $colorMode.preference
+
+    hid: "nuxt-color-mode-script",
+    globalName: "__NUXT_COLOR_MODE__",
+    componentName: "ColorScheme",
+    classPrefix: "",
+    classSuffix: "",
+    storageKey: "nuxt-color-mode",
+  },
 });
