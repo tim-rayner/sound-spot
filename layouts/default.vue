@@ -13,7 +13,7 @@ const logout = () => {
 };
 
 const loginWithSpotify = () => {
-  router.push("/lgoin");
+  router.push("/login");
 };
 </script>
 

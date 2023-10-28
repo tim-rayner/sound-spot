@@ -16,7 +16,8 @@ export const useAuthStore = defineStore("auth", {
         token.value = userToken; // set token to cookie
         this.authenticated = true; // set authenticated  state value to true
       }
-      const test = await axios
+
+      const spotifyUser = await axios
         .get("https://api.spotify.com/v1/me", {
           headers: {
             Authorization: `Bearer ${userToken}`,
@@ -29,7 +30,12 @@ export const useAuthStore = defineStore("auth", {
           //@ts-ignore
           return response.data;
         });
-      this.user = test;
+
+      console.log(spotifyUser);
+
+      await axios.post("/api/auth/login", spotifyUser).then((response) => {
+        console.log(response);
+      });
     },
     logUserOut() {
       const token = useCookie("token"); // useCookie new hook in nuxt 3

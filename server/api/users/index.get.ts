@@ -1,10 +1,18 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 
 //define user schema
 const userSchema = new Schema({
-  display_name: String,
+  username: String,
   email: String,
   id: String,
+  _id: mongoose.Schema.Types.ObjectId,
+});
+
+userSchema.pre("save", function (next) {
+  if (!this._id) {
+    this._id = new mongoose.Types.ObjectId();
+  }
+  next();
 });
 
 //define user model
