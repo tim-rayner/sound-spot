@@ -31,16 +31,20 @@ const fieldKeyPress = (event: any) => {
 
 <template>
   <div class="m-4">
-    <div class="flex flex-row">
-      <span class="p-float-label">
+    <div
+      class="flex flex-row w-fit"
+      :class="{ 'mx-auto  align-middle': spotlightSearch }"
+    >
+      <span :class="{ 'p-float-label': !spotlightSearch }">
         <InputText
           id="search"
           v-model="searchQuery"
           :onKeypress="fieldKeyPress"
           :autofocus="true"
           class="rounded-r-none"
+          :placeholder="spotlightSearch ? 'Search for a song' : ''"
         />
-        <label for="search">Search</label>
+        <label for="search" v-if="!spotlightSearch">Search</label>
       </span>
       <Button @click="search" class="rounded-l-none" :loading="searchLoading"
         >Search</Button

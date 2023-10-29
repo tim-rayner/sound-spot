@@ -5,7 +5,9 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="relative shadow-2xl hover:cursor-pointer">
+  <div
+    class="relative shadow-2xl hover:cursor-pointer rounded-lg overflow-hidden"
+  >
     <div class="bg-image">
       <img :src="searchResult.album.images[0].url" class="z-10 w-fit h-fit" />
     </div>
@@ -14,7 +16,7 @@ const props = defineProps<{
     ></div>
 
     <div
-      class="content absolute top-0 left-0 right-0 bottom-0 z-50 text-[#f0ffff]"
+      class="content absolute top-0 left-0 right-0 bottom-0 z-50 text-[#f0ffff] p-3"
     >
       <h3 class="text-2xl">{{ searchResult.name }}</h3>
       <p>{{ searchResult.artists[0].name }}</p>
