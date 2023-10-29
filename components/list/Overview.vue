@@ -1,13 +1,21 @@
 <script setup lang="ts">
-import type { List } from "~/server/api/lists/top.get";
+import type { List } from "~/types/list-types";
+
+const router = useRouter();
+
 const props = defineProps<{
   list: List;
 }>();
+
+const redirect = () => {
+  router.push(`/lists/${props.list._id}`);
+};
 </script>
 
 <template>
   <div
     class="relative shadow-2xl hover:cursor-pointer rounded-lg overflow-hidden w-fit"
+    @click="redirect"
   >
     <div class="bg-image">
       <img :src="list.coverPhoto" class="z-10 w-fit h-fit" />

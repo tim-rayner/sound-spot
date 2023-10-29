@@ -15,6 +15,11 @@ const listSchema = new Schema({
   },
   trackIds: [String],
   coverPhoto: String,
+  description: String,
+  isPublic: Boolean,
+  createdAt: String,
+  saves: Number,
+  followers: [String],
 });
 
 listSchema.pre("save", function (next) {

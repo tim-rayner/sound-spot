@@ -6,6 +6,11 @@ export interface List {
   owner: string;
   trackIds: string[];
   coverPhoto: string;
+  description: String;
+  isPublic: Boolean;
+  createdAt: String;
+  saves: Number;
+  followers: [String];
 }
 
 export interface ListWithTracks {
@@ -15,4 +20,9 @@ export interface ListWithTracks {
   trackIds: string[];
   tracks: Item[];
   coverPhoto: string;
+  description: String;
+  isPublic: Boolean;
+  createdAt: String;
+  saves: Number;
+  followers: [String];
 }

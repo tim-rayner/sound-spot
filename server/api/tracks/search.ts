@@ -4,8 +4,6 @@ import { Rating } from "../ratings/index.get";
 import { Item } from "~/types/spotify-types";
 import { defineEventHandler, H3Event, parseCookies, setCookie } from "h3";
 
-const config = useRuntimeConfig();
-
 //define user schema
 const trackSchema = new Schema({
   name: String,
