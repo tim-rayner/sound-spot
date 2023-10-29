@@ -4,16 +4,18 @@ import type { Tracks, Item } from "~/types/spotify-types.ts";
 
 const searchQuery = ref<string>("");
 const searchResults = ref<Item[]>([]);
+const searchLoading = ref<boolean>(false);
 // interface SpotifyTrack {
 
 const search = async () => {
+  searchLoading.value = true;
   const { data: results } = await useFetch("/api/tracks/search", {
     method: "post",
     body: { query: searchQuery.value, type: "track" },
   });
 
+  searchLoading.value = false;
   searchResults.value = results.value.tracks.items;
-  console.log(searchResults.value);
 };
 
 const fieldKeyPress = (event: any) => {
@@ -36,13 +38,13 @@ const fieldKeyPress = (event: any) => {
         />
         <label for="search">Search</label>
       </span>
-      <Button @click="search" class="rounded-l-none">Search</Button>
+      <Button @click="search" class="rounded-l-none" :loading="searchLoading"
+        >Search</Button
+      >
     </div>
 
-    <pre> Result: </pre>
-
     <div class="">
-      <ul v-if="searchResults.length">
+      <ul v-if="searchResults.length" class="flex flex-col justify-between">
         <li v-for="result in searchResults" :key="result.id">
           <SongSearchResult :searchResult="result" />
         </li>
