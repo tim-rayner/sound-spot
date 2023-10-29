@@ -44,6 +44,7 @@ const fieldKeyPress = (event: any) => {
           :autofocus="true"
           class="rounded-r-none"
           :placeholder="spotlightSearch ? 'Search for a song' : ''"
+          autocomplete="off"
         />
         <label for="search" v-if="!spotlightSearch">Search</label>
       </span>
