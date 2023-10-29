@@ -44,6 +44,7 @@ export default defineEventHandler(async (event) => {
       username: spotifyUser.display_name,
       profilePicture: spotifyUser.images[1].url,
       email: spotifyUser.email,
+      countryCode: spotifyUser.country,
       id: spotifyUser.id,
     });
 

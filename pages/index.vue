@@ -28,7 +28,8 @@ if (query.code && query.state) {
 }
 </script>
 <template>
-  <div>Home Page</div>
-  <p v-if="user">Welcome back {{ user.display_name }}</p>
+  <div class="m-4">Home Page</div>
+  <p v-if="user">Welcome back {{ user.username }}</p>
+  <SpotifySearch class="my-12" />
 </template>
 <style></style>
