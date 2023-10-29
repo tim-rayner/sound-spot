@@ -2,6 +2,8 @@ import { Schema, model } from "mongoose";
 import axios from "axios";
 import { Rating } from "../ratings/index.get";
 import { Item } from "~/types/spotify-types";
+import { defineEventHandler, H3Event, parseCookies, setCookie } from "h3";
+
 const config = useRuntimeConfig();
 
 //define user schema
@@ -43,6 +45,9 @@ export default defineEventHandler(async (event) => {
     );
 
     const accessToken = resposne.data.access_token;
+    //set cookie for future requests
+    //TODO: implement refresh token
+    setCookie(event, "spotifyClientAccessToken", accessToken);
 
     //TODO: SEGREGATE AND MAKE THIS A MORE EFFICIENT, LESS EXPENSIVE CALL
 

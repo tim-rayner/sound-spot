@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia"; // import storeToRefs helper hook from pinia
-import ColorModeSwitch from "~/components/forms/ColorModeSwitch.vue";
 import { useAuthStore } from "~/store/auth"; // import the auth store we just created
 
 const { authenticateUser } = useAuthStore(); // use authenticateUser action from  auth store
@@ -23,8 +22,8 @@ if (query.code && query.state) {
   });
 
   if (response) {
+    authenticateUser(response.value);
   }
-  authenticateUser(response.value);
 }
 </script>
 

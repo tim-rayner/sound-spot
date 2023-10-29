@@ -101,4 +101,5 @@ export interface Rating {
   userId: string;
   itemId: string;
   createdAt: string;
+  itemType: string;
 }

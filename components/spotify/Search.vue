@@ -9,6 +9,7 @@ const props = defineProps<{
 const searchQuery = ref<string>("");
 const searchResults = ref<Item[]>([]);
 const searchLoading = ref<boolean>(false);
+const show = ref<boolean>(false);
 // interface SpotifyTrack {
 
 const search = async () => {
@@ -30,7 +31,7 @@ const fieldKeyPress = (event: any) => {
 </script>
 
 <template>
-  <div class="m-4">
+  <div class="m-4 mt-12">
     <div
       class="flex flex-row w-fit"
       :class="{ 'mx-auto  align-middle': spotlightSearch }"
@@ -51,24 +52,42 @@ const fieldKeyPress = (event: any) => {
       >
     </div>
 
-    <div class="" v-if="!spotlightSearch">
-      <ul v-if="searchResults.length" class="flex flex-col justify-between">
-        <li v-for="result in searchResults" :key="result.id">
-          <SongSearchResult :searchResult="result" />
-        </li>
-      </ul>
-    </div>
-
-    <div class="" v-else>
-      <ul v-if="searchResults.length" class="flex flex-row my-12">
-        <li
-          v-for="result in searchResults"
-          :key="result.id"
-          class="w-[40vw] h-auto mx-2"
-        >
-          <SpotlightSearchResult :searchResult="result" />
-        </li>
-      </ul>
-    </div>
+    <Transition>
+      <div class="" v-if="!spotlightSearch && searchLoading">
+        <small> Results</small>
+        <ul v-if="searchResults.length" class="flex flex-col justify-between">
+          <li v-for="result in searchResults" :key="result.id">
+            <SongSearchResult :searchResult="result" />
+          </li>
+        </ul>
+      </div>
+    </Transition>
+    <Transition>
+      <div class="my-12" v-if="spotlightSearch && !searchLoading">
+        <ul v-if="searchResults.length" class="flex flex-row">
+          <li
+            v-for="result in searchResults"
+            :key="result.id"
+            class="w-[40vw] h-auto mx-2"
+          >
+            <SpotlightSearchResult :searchResult="result" />
+          </li>
+        </ul>
+      </div>
+    </Transition>
   </div>
+
+  <p v-if="show">hello</p>
 </template>
+<style>
+/* we will explain what these classes do next! */
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+</style>

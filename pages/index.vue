@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { storeToRefs } from "pinia"; // import storeToRefs helper hook from pinia
 import { useAuthStore } from "~/store/auth"; // import the auth store we just created
+import type { Item } from "~/types/spotify-types";
 
 const router = useRouter();
 const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive with storeToRefs
@@ -8,6 +9,19 @@ const { authenticated } = storeToRefs(useAuthStore()); // make authenticated sta
 const loginWithSpotify = () => {
   router.push("/login");
 };
+
+const topSongs = ref<Item[]>([]);
+
+const getTopSongs = async () => {
+  const { data: songs } = await useFetch("/api/items/tracks/top", {
+    method: "get",
+  });
+  if (songs.value?.length! > 0 || songs.value) {
+    topSongs.value = songs.value!;
+  }
+};
+
+getTopSongs();
 </script>
 <template>
   <div
@@ -24,6 +38,13 @@ const loginWithSpotify = () => {
       >Get Started, Its Free</Button
     >
   </div>
-  <SpotifySearch class="my-12" :spotlight-search="true" />
+  <SpotifySearch :spotlight-search="true" />
+
+  <h3 class="text-xl mx-6">Our Top Tracks</h3>
+  <div class="flex flex-row my-12 mt-6 mx-4">
+    <div v-for="song in topSongs" :key="song.id" class="w-[40vw] h-auto mx-2">
+      <SpotlightSearchResult :searchResult="song" />
+    </div>
+  </div>
 </template>
 <style></style>
