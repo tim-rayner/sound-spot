@@ -30,6 +30,8 @@ export interface Item {
   track_number: number;
   type: string;
   uri: string;
+  avgRating?: number;
+  ratings?: Rating[];
 }
 
 export interface Album {
@@ -90,4 +92,13 @@ export interface ExternalIds {
 
 export interface ExternalUrls4 {
   spotify: string;
+}
+
+export interface Rating {
+  _id: string;
+  rating: number;
+  comment: string;
+  userId: string;
+  itemId: string;
+  createdAt: string;
 }

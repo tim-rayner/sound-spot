@@ -1,5 +1,7 @@
 import { Schema, model } from "mongoose";
 import axios from "axios";
+import { Rating } from "../ratings/index.get";
+import { Item } from "~/types/spotify-types";
 const config = useRuntimeConfig();
 
 //define user schema
@@ -42,7 +44,10 @@ export default defineEventHandler(async (event) => {
 
     const accessToken = resposne.data.access_token;
 
-    const response = await axios
+    //TODO: SEGREGATE AND MAKE THIS A MORE EFFICIENT, LESS EXPENSIVE CALL
+
+    //get  list from spotify
+    const spotifyResponse = await axios
       .get("https://api.spotify.com/v1/search", {
         params: {
           q: query,
@@ -57,7 +62,23 @@ export default defineEventHandler(async (event) => {
         return res.data;
       });
 
-    return response;
+    //merge with rating info from db
+    const items = spotifyResponse.tracks.items;
+    const ratings = await Rating.find();
+
+    items.forEach((track: Item) => {
+      const trackRatings = ratings.filter(
+        (rating) => rating.itemId === track.id
+      );
+      const totalRating = trackRatings.reduce(
+        (acc, curr) => acc + curr.rating,
+        0
+      );
+      track.avgRating = totalRating / trackRatings.length;
+      track.ratings = trackRatings;
+    });
+
+    return items;
   }
 
   //return nothing if no query

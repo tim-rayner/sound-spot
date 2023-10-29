@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import axios from "axios";
-import type { Tracks, Item } from "~/types/spotify-types.ts";
+import type { Item } from "~/types/spotify-types.ts";
 
 const props = defineProps<{
   spotlightSearch?: boolean;
@@ -19,7 +19,7 @@ const search = async () => {
   });
 
   searchLoading.value = false;
-  searchResults.value = results.value.tracks.items;
+  searchResults.value = results.value;
 };
 
 const fieldKeyPress = (event: any) => {

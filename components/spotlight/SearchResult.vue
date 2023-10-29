@@ -1,3 +1,4 @@
+import type log from '~/middleware/log';
 <script setup lang="ts">
 const props = defineProps<{
   searchResult: Item;
@@ -20,7 +21,7 @@ const props = defineProps<{
     >
       <h3 class="text-2xl">{{ searchResult.name }}</h3>
       <p>{{ searchResult.artists[0].name }}</p>
-      <FormsRating :rating="searchResult.rating" class="mt-1" />
+      <FormsRating :rating="searchResult.avgRating" class="mt-1" />
     </div>
   </div>
 </template>
