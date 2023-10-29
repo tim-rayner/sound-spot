@@ -7,8 +7,10 @@ export default defineEventHandler(async (event) => {
   //TODO: IMPLEMENT THIS PROPERLY, FOR NOW WE WILL UST USE THE ONLY RATINGS WE HAVE IN THE DB
 
   const { spotifyClientAccessToken } = parseCookies(event);
-  let token = spotifyClientAccessToken;
 
+  if (!spotifyClientAccessToken) {
+    return [];
+  }
   //GET TOP RATINGS FROM DB
   const ratings = await Rating.find({ itemType: "track" });
 
@@ -23,7 +25,7 @@ export default defineEventHandler(async (event) => {
         ids: trackIds,
       },
       headers: {
-        Authorization: `Bearer ${token} `,
+        Authorization: `Bearer ${spotifyClientAccessToken} `,
       },
     })
     .then((res) => {

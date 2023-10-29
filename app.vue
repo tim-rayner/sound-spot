@@ -21,7 +21,7 @@ if (query.code && query.state) {
     body: optionsBody.value,
   });
 
-  if (response) {
+  if (response.value) {
     authenticateUser(response.value);
   }
 }
