@@ -2,6 +2,8 @@ import { useAuthStore } from "~/store/auth";
 
 export default defineNuxtRouteMiddleware((to) => {
   //exclude index page from auth middleware
+
+  //@ts-ignore
   if (["index"].includes(to.name)) {
     return;
   }
