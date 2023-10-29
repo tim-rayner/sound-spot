@@ -31,7 +31,7 @@ const listenOnSpotify = () => {
   <div
     class="content container w-[1070px] mx-auto min-h-screen my-12 shadow-2xl rounded-lg"
   >
-    <div class="flex flex-row header border">
+    <div class="flex flex-row header rounded-t-xl">
       <div class="img">
         <img
           :src="list?.coverPhoto"
