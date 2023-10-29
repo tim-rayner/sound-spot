@@ -4,6 +4,7 @@ import InputText from "primevue/inputtext";
 import Toast from "primevue/toast";
 import ToastService from "primevue/toastservice";
 import InputSwitch from "primevue/inputswitch";
+import Card from "primevue/card";
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.use(PrimeVue, { ripple: true });
@@ -13,4 +14,5 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.component("InputText", InputText);
   nuxtApp.vueApp.component("Toast", Toast);
   nuxtApp.vueApp.component("InputSwitch", InputSwitch);
+  nuxtApp.vueApp.component("Card", Card);
 });

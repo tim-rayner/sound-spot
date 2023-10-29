@@ -1,5 +1,3 @@
-import type { FormsRating } from '#build/components';
-
 <script setup lang="ts">
 const props = defineProps<{
   searchResult: Item;

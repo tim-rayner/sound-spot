@@ -2,6 +2,10 @@
 import axios from "axios";
 import type { Tracks, Item } from "~/types/spotify-types.ts";
 
+const props = defineProps<{
+  spotlightSearch?: boolean;
+}>();
+
 const searchQuery = ref<string>("");
 const searchResults = ref<Item[]>([]);
 const searchLoading = ref<boolean>(false);
@@ -43,10 +47,22 @@ const fieldKeyPress = (event: any) => {
       >
     </div>
 
-    <div class="">
+    <div class="" v-if="!spotlightSearch">
       <ul v-if="searchResults.length" class="flex flex-col justify-between">
         <li v-for="result in searchResults" :key="result.id">
           <SongSearchResult :searchResult="result" />
+        </li>
+      </ul>
+    </div>
+
+    <div class="" v-else>
+      <ul v-if="searchResults.length" class="flex flex-row my-12">
+        <li
+          v-for="result in searchResults"
+          :key="result.id"
+          class="w-[40vw] h-auto mx-2"
+        >
+          <SpotlightSearchResult :searchResult="result" />
         </li>
       </ul>
     </div>

@@ -3,10 +3,16 @@ import { storeToRefs } from "pinia"; // import storeToRefs helper hook from pini
 import { useAuthStore } from "~/store/auth"; // import the auth store we just created
 const { logUserOut } = useAuthStore();
 const { user } = storeToRefs(useAuthStore());
+const router = useRouter();
 
 const toggleDropdown = () => {
   const dropdown = document.querySelector(".dropdown-content");
   dropdown?.classList.toggle("hidden");
+};
+
+const logout = () => {
+  logUserOut();
+  router.push("/");
 };
 </script>
 
@@ -46,7 +52,7 @@ const toggleDropdown = () => {
       </div>
       <div
         class="dropdown-item hover:cursor-pointer hover:bg-slate-400 p-2 border-t-2 border-slate-200 rounded-b-lg"
-        @click="logUserOut"
+        @click="logout"
       >
         Logout
       </div>

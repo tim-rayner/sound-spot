@@ -1,0 +1,24 @@
+<script setup lang="ts">
+const props = defineProps<{
+  searchResult: Item;
+}>();
+</script>
+
+<template>
+  <div class="relative shadow-2xl hover:cursor-pointer">
+    <div class="bg-image">
+      <img :src="searchResult.album.images[0].url" class="z-10 w-fit h-fit" />
+    </div>
+    <div
+      class="overlay absolute top-0 left-0 right-0 bottom-0 bg-black opacity-70 z-20"
+    ></div>
+
+    <div
+      class="content absolute top-0 left-0 right-0 bottom-0 z-50 text-[#f0ffff]"
+    >
+      <h3 class="text-2xl">{{ searchResult.name }}</h3>
+      <p>{{ searchResult.artists[0].name }}</p>
+      <FormsRating :rating="searchResult.rating" class="mt-1" />
+    </div>
+  </div>
+</template>
