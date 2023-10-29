@@ -21,6 +21,7 @@ const search = async () => {
 
   searchLoading.value = false;
   searchResults.value = results.value;
+  console.log(results.value);
 };
 
 const fieldKeyPress = (event: any) => {

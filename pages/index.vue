@@ -1,6 +1,9 @@
 <script lang="ts" setup>
+import type { ListOverview } from "#build/components";
 import { storeToRefs } from "pinia"; // import storeToRefs helper hook from pinia
 import { useAuthStore } from "~/store/auth"; // import the auth store we just created
+import type { List } from "~/types/list-types";
+
 import type { Item } from "~/types/spotify-types";
 
 const router = useRouter();
@@ -11,6 +14,7 @@ const loginWithSpotify = () => {
 };
 
 const topSongs = ref<Item[]>([]);
+const topLists = ref<List[]>([]);
 
 const getTopSongs = async () => {
   const { data: songs } = await useFetch("/api/items/tracks/top", {
@@ -21,7 +25,18 @@ const getTopSongs = async () => {
   }
 };
 
+const getTopLists = async () => {
+  const { data: lists } = await useFetch("/api/lists/top", {
+    method: "get",
+  });
+  if (lists.value) {
+    //@ts-ignore
+    topLists.value = lists.value!;
+  }
+};
+
 getTopSongs();
+getTopLists();
 </script>
 <template>
   <div
@@ -44,6 +59,13 @@ getTopSongs();
   <div class="flex flex-row my-12 mt-6 mx-4">
     <div v-for="song in topSongs" :key="song.id" class="w-[40vw] h-auto mx-2">
       <SpotlightSearchResult :searchResult="song" />
+    </div>
+  </div>
+
+  <h3 class="text-xl mx-6">Our Top Lists</h3>
+  <div class="flex flex-row my-12 mt-6 mx-4">
+    <div v-for="list in topLists" :key="list._id" class="h-auto mx-2 w-[40vw]">
+      <ListOverview :list="list" />
     </div>
   </div>
 </template>
