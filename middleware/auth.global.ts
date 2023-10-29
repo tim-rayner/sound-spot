@@ -4,7 +4,7 @@ export default defineNuxtRouteMiddleware((to) => {
   //exclude index page from auth middleware
 
   //@ts-ignore
-  if (["index"].includes(to.name)) {
+  if (["index", "tracks"].includes(to.name)) {
     return;
   }
 

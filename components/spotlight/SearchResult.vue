@@ -3,11 +3,14 @@ import type log from '~/middleware/log';
 const props = defineProps<{
   searchResult: Item;
 }>();
+
+const router = useRouter();
 </script>
 
 <template>
   <div
     class="relative shadow-2xl hover:cursor-pointer rounded-lg overflow-hidden"
+    @click="router.push(`/tracks/${searchResult.id}`)"
   >
     <div class="bg-image">
       <img :src="searchResult.album.images[0].url" class="z-10 w-fit h-fit" />
