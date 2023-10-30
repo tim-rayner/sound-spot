@@ -29,6 +29,23 @@ if (trackData.value) {
 const listenOnSpotify = () => {
   window.open(track.value?.external_urls.spotify, "_blank");
 };
+
+//
+interface FeaturedArtist {
+  name: string;
+  url: string;
+}
+
+const featuredArtists = computed(() => {
+  const artists: FeaturedArtist[] = [];
+  track.value?.artists.forEach((artist) => {
+    artists.push({
+      name: artist.name,
+      url: `/artists/${artist.id}`,
+    });
+  });
+  return artists;
+});
 </script>
 
 <template>
@@ -56,12 +73,14 @@ const listenOnSpotify = () => {
         </h1>
         <p class="text-xl font-bold">{{ track?.album.name }}</p>
         <p class="font-bold">
-          <CustomLink
-            :link="`/artists/${track?.artists[0].id}`"
-            highlight="#1ab26b"
-          >
-            {{ track?.artists[0].name }}</CustomLink
-          >
+          <span v-for="artist in featuredArtists">
+            <CustomLink :link="artist.url" class="text-[#1ab26b]">
+              {{ artist.name }}</CustomLink
+            >
+            <span v-if="artist !== featuredArtists[featuredArtists.length - 1]"
+              >,
+            </span>
+          </span>
           -
           {{ track?.album.release_date.slice(0, 4) }}
         </p>
