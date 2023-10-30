@@ -52,15 +52,17 @@ const featuredArtists = computed(() => {
   <div
     class="content container w-[1070px] mx-auto min-h-screen my-12 shadow-2xl rounded-lg"
   >
-    <div class="flex flex-row">
-      <div class="img">
-        <img
-          :src="track?.album.images[0].url"
-          :alt="track?.album.name"
-          class="w-96 rounded-tl-2xl"
-        />
+    <div class="flex flex-row header border">
+      <div class="img rounded-full p-12 pr-0">
+        <div class="img">
+          <img
+            :src="track?.album.images[0].url"
+            :alt="track?.album.name"
+            class="w-96 rounded-2xl"
+          />
+        </div>
       </div>
-      <div class="info mx-12 my-6">
+      <div class="info mx-12 my-6 pt-12">
         <h1 class="text-4xl font-bold i flex">
           {{ track?.name }}
           <span
@@ -71,7 +73,11 @@ const featuredArtists = computed(() => {
             <img :src="ExplicitIcon" alt="" class="w-6 h-6 dark:bg-white" />
           </span>
         </h1>
-        <p class="text-xl font-bold">{{ track?.album.name }}</p>
+        <p class="text-xl font-bold">
+          <CustomLink :link="`/albums/${track?.album.id}`">{{
+            track?.album.name
+          }}</CustomLink>
+        </p>
         <p class="font-bold">
           <span v-for="artist in featuredArtists">
             <CustomLink :link="artist.url" class="text-[#1ab26b]">
