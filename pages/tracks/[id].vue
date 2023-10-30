@@ -8,6 +8,8 @@ import ExplicitIcon from "~/assets/svg/explicit.svg";
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "~/store/auth";
 
+import CustomLink from "~/components/router/CustomLink.vue";
+
 const { authenticated } = storeToRefs(useAuthStore());
 const router = useRouter();
 
@@ -54,7 +56,13 @@ const listenOnSpotify = () => {
         </h1>
         <p class="text-xl font-bold">{{ track?.album.name }}</p>
         <p class="font-bold">
-          {{ track?.artists[0].name }} -
+          <CustomLink
+            :link="`/artists/${track?.artists[0].id}`"
+            highlight="#1ab26b"
+          >
+            {{ track?.artists[0].name }}</CustomLink
+          >
+          -
           {{ track?.album.release_date.slice(0, 4) }}
         </p>
         <div v-if="track?.avgRating">
@@ -62,7 +70,7 @@ const listenOnSpotify = () => {
         </div>
         <p v-else>
           Not rated yet, be the first to
-          <a href="#" class="text-[#1ab26b]"> leave a rating</a>
+          <CustomLink link="#" highlight="#1ab26b"> leave a rating</CustomLink>
         </p>
         <Button class="mt-4" @click="" v-if="authenticated">
           Leave a rating
