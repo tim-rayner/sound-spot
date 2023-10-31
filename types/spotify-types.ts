@@ -99,6 +99,7 @@ export interface Rating {
   rating: number;
   comment: string;
   userId: string;
+  username: string;
   itemId: string;
   createdAt: string;
   itemType: string;

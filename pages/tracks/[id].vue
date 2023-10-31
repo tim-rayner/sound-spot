@@ -9,6 +9,7 @@ import { storeToRefs } from "pinia";
 import { useAuthStore } from "~/store/auth";
 
 import CustomLink from "~/components/router/CustomLink.vue";
+import type { RatingListedRating } from "#build/components";
 
 const { authenticated } = storeToRefs(useAuthStore());
 const router = useRouter();
@@ -109,6 +110,13 @@ const featuredArtists = computed(() => {
       </div>
     </div>
 
+    <div class="ratings p-12">
+      <RatingListedRating
+        v-for="rating in track?.ratings"
+        :rating="rating"
+        class="mb-12"
+      />
+    </div>
     <div class="leave-rating-input p-12">
       <RatingInputBox
         :itemId="track?.id"

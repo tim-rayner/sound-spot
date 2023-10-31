@@ -4,7 +4,8 @@ import { useToast } from "primevue/usetoast";
 import { useField, useForm } from "vee-validate";
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "~/store/auth";
-// import { iRating } from "~/types/rating-types";
+import type { iRating } from "~/types/rating-types";
+
 const authStore = useAuthStore();
 const { user, authenticated } = storeToRefs(authStore);
 
@@ -63,6 +64,7 @@ const postRating = async () => {
     comment: comment.value,
     itemType: props.itemType,
     itemId: props.itemId,
+    username: user.value.username,
     userId: user.value.id,
     createdAt: new Date().toString(),
   };

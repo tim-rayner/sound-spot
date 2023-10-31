@@ -6,6 +6,7 @@ const ratingSchema = new Schema({
   rating: Number,
   comment: String,
   userId: String, // this is the user who made the rating as spotify user id
+  username: String,
   itemId: String, // this could be a track, artist, album, or playlist
   createdAt: String,
   itemType: String,
