@@ -15,9 +15,9 @@ ratingSchema.pre("save", function (next) {
   if (!this._id) {
     this._id = new mongoose.Types.ObjectId();
   }
-  if (this.comment) {
-    //TODO: sanitize comment
-  }
+  // if (this.comment) {
+  //   //TODO: sanitize comment
+  // }
   next();
 });
 

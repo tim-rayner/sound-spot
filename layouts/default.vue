@@ -11,6 +11,19 @@ const { authenticated } = storeToRefs(useAuthStore()); // make authenticated sta
 const loginWithSpotify = () => {
   router.push("/login");
 };
+
+const clearAllCookies = () => {
+  ///function which should clear all cookies
+  const cookies = document.cookie.split(";");
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i];
+    const eqPos = cookie.indexOf("=");
+    const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+    document.cookie =
+      name +
+      "=;expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=localhost";
+  }
+};
 </script>
 
 <template>
@@ -26,6 +39,11 @@ const loginWithSpotify = () => {
         </div>
         <!-- RIGHT -->
         <div class="justify-end flex gap-6 float-right">
+          <li class="align-middle m-auto">
+            <div @click="clearAllCookies" class="hover:cursor-pointer">
+              [dev] clear cookies
+            </div>
+          </li>
           <li class="align-middle m-auto">
             <ColorModeSwitch />
           </li>

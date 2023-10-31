@@ -52,8 +52,8 @@ const featuredArtists = computed(() => {
   <div
     class="content container w-[1070px] mx-auto min-h-screen my-12 shadow-2xl rounded-lg"
   >
-    <div class="flex flex-row header border">
-      <div class="img rounded-full p-12 pr-0">
+    <div class="flex flex-row header border p-12 rounded-t-lg">
+      <div class="img rounded-full pr-0">
         <div class="img">
           <img
             :src="track?.album.images[0].url"
@@ -62,7 +62,7 @@ const featuredArtists = computed(() => {
           />
         </div>
       </div>
-      <div class="info mx-12 my-6 pt-12">
+      <div class="info mx-12 my-6">
         <h1 class="text-4xl font-bold i flex">
           {{ track?.name }}
           <span
@@ -97,16 +97,25 @@ const featuredArtists = computed(() => {
           Not rated yet, be the first to
           <CustomLink link="#" highlight="#1ab26b"> leave a rating</CustomLink>
         </p>
-        <Button class="mt-4" @click="" v-if="authenticated">
+        <Button class="mt-4 mr-4" @click="" v-if="authenticated">
           Leave a rating
         </Button>
-        <Button class="mt-4 ml-4" @click="" v-if="authenticated">
+        <Button class="mt-4 mr-4" @click="" v-if="authenticated">
           Add to list
         </Button>
-        <Button class="mt-4 ml-4" @click="listenOnSpotify">
+        <Button class="mt-4 mr-4" @click="listenOnSpotify">
           Listen on Spotify
         </Button>
       </div>
+    </div>
+
+    <div class="leave-rating-input p-12">
+      <RatingInputBox
+        :itemId="track?.id"
+        itemType="track"
+        :previouslyRated="false"
+        :previousRating="track?.avgRating"
+      />
     </div>
   </div>
 </template>

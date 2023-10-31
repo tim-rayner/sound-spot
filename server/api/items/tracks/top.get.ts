@@ -11,18 +11,23 @@ export default defineEventHandler(async (event) => {
   if (!spotifyClientAccessToken) {
     return [];
   }
-  //GET TOP RATINGS FROM DB
+
+  //TODO: GET TOP RATINGS FROM DB WHERE ITEM TYPE IS TRACK
   const ratings = await Rating.find({ itemType: "track" });
 
   //delcare a variable which is a comma separated list of track ids in a single string
-  const trackIds = ratings.map((rating) => rating.itemId).join(",");
+  const trackIds: string[] = [];
+
+  ratings.forEach((rating) => {
+    if (!trackIds.includes(rating.itemId)) trackIds.push(rating.itemId);
+  });
 
   if (ratings.length === 0) return [];
   //FOR EACH RATING, GET THE ITEM FROM SPOTIFY
   const spotifyResponse = await axios
     .get("https://api.spotify.com/v1/tracks", {
       params: {
-        ids: trackIds,
+        ids: trackIds.join(","),
       },
       headers: {
         Authorization: `Bearer ${spotifyClientAccessToken} `,

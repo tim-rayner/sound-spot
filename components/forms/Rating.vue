@@ -62,7 +62,7 @@ const toggleHoverState = (value: boolean) => {
         <StarIcon
           class="h-6 w-6 mr-1"
           :class="{
-            'text-yellow-500': star.active,
+            'text-[#1ab26b]': star.active,
             'text-gray-500': !star.active,
           }"
           :key="star.value"

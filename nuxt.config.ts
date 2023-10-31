@@ -27,6 +27,10 @@ export default defineNuxtConfig({
     plugins: ["~/server/index.ts"],
   },
   plugins: [{ src: "~/plugins/primevue.ts", mode: "client" }],
+
+  build: {
+    transpile: ["vee-validate/dist/rules"],
+  },
   colorMode: {
     preference: "light", // default value of $colorMode.preference
 

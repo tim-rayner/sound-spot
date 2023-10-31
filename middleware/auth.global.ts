@@ -5,7 +5,7 @@ export default defineNuxtRouteMiddleware((to) => {
 
   console.log("TO NAME: ", to.name);
   //@ts-ignore
-  if (["index", "tracks-id", "lists-id"].includes(to.name)) {
+  if (["index", "tracks-id", "lists-id", "albums-id"].includes(to.name)) {
     return;
   }
 
