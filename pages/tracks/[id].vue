@@ -10,8 +10,9 @@ import { useAuthStore } from "~/store/auth";
 
 import CustomLink from "~/components/router/CustomLink.vue";
 import type { RatingListedRating } from "#build/components";
+import type { iRating } from "~/types/rating-types";
 
-const { authenticated } = storeToRefs(useAuthStore());
+const { authenticated, user } = storeToRefs(useAuthStore());
 const router = useRouter();
 
 definePageMeta({ auth: false });
@@ -47,6 +48,12 @@ const featuredArtists = computed(() => {
   });
   return artists;
 });
+
+const ratingPosted = (rating: iRating) => {
+  rating.username = user.value?.username!;
+  rating.userProfilePicture = user.value?.profilePicture!;
+  track?.value?.ratings.push(rating);
+};
 </script>
 
 <template>
@@ -123,6 +130,7 @@ const featuredArtists = computed(() => {
         itemType="track"
         :previouslyRated="false"
         :previousRating="track?.avgRating"
+        @ratingPosted="ratingPosted"
       />
     </div>
   </div>

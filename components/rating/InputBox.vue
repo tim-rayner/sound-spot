@@ -11,6 +11,7 @@ const { user, authenticated } = storeToRefs(authStore);
 
 const { handleSubmit } = useForm();
 
+const emit = defineEmits(["ratingPosted"]);
 const props = defineProps({
   itemId: {
     type: String,
@@ -73,8 +74,9 @@ const postRating = async () => {
     body: rating,
   });
 
-  //TODO: Properly handle ratings
+  //TODO: Properly handle response
   if (response) {
+    emit("ratingPosted", rating);
     toast.add({
       severity: "success",
       summary: "Rating submitted",
@@ -82,6 +84,7 @@ const postRating = async () => {
       life: 3000,
     });
     rated.value = true;
+    emit;
   } else {
     toast.add({
       severity: "error",
