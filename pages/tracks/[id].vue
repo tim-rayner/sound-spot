@@ -119,7 +119,7 @@ const featuredArtists = computed(() => {
     </div>
     <div class="leave-rating-input p-12">
       <RatingInputBox
-        :itemId="track?.id"
+        :itemId="track?.id!"
         itemType="track"
         :previouslyRated="false"
         :previousRating="track?.avgRating"

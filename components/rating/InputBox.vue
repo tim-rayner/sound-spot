@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import axios from "axios";
 import { useToast } from "primevue/usetoast";
 import { useField, useForm } from "vee-validate";
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "~/store/auth";
-import type { iRating } from "~/types/rating-types";
+import type { Rating, iRating } from "~/types/rating-types";
+import mongoose from "mongoose";
 
 const authStore = useAuthStore();
 const { user, authenticated } = storeToRefs(authStore);
@@ -48,8 +48,8 @@ const ratingUpdated = (rating) => {
 const validateRating = () => starRating.value !== 0;
 
 const onSubmit = handleSubmit((values) => {
-  console.log("USER:", user);
-  if (validateRating()) {
+  console.log("USER:", user.value);
+  if (validateRating() && user.value) {
     postRating();
     return;
   }
@@ -59,13 +59,12 @@ const onSubmit = handleSubmit((values) => {
 });
 
 const postRating = async () => {
-  const rating: iRating = {
+  const rating: Rating = {
     rating: starRating.value,
     comment: comment.value,
     itemType: props.itemType,
     itemId: props.itemId,
-    username: user.value.username,
-    userId: user.value.id,
+    user: user?.value?._id,
     createdAt: new Date().toString(),
   };
 
@@ -117,11 +116,11 @@ const postRating = async () => {
           cols="80"
           aria-describedby="text-error"
           placeholder="Leave a review"
-          :class="{ 'p-invalid': errorMessage }"
+          :class="{ 'p-invalid': false }"
         />
 
-        <small id="text-error" class="p-error mb-2" v-if="errorMessage">{{
-          errorMessage || "&nbsp;"
+        <small id="text-error" class="p-error mb-2" v-if="false">{{
+          false || "&nbsp;"
         }}</small>
       </form>
       <Button

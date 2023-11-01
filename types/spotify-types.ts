@@ -1,3 +1,5 @@
+import type { iRating } from "./rating-types";
+
 export interface Root {
   tracks: Tracks;
 }
@@ -31,7 +33,7 @@ export interface Item {
   type: string;
   uri: string;
   avgRating?: number;
-  ratings?: Rating[];
+  ratings?: iRating[];
 }
 
 export interface Album {
@@ -92,15 +94,4 @@ export interface ExternalIds {
 
 export interface ExternalUrls4 {
   spotify: string;
-}
-
-export interface Rating {
-  _id: string;
-  rating: number;
-  comment: string;
-  userId: string;
-  username: string;
-  itemId: string;
-  createdAt: string;
-  itemType: string;
 }

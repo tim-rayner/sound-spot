@@ -2,17 +2,19 @@ import axios from "axios";
 import { defineEventHandler, H3Event, parseCookies, setCookie } from "h3";
 import type { Item } from "~/types/spotify-types";
 import { Rating } from "../../ratings/index.get";
+import { User } from "../../users/index.get";
+import { iRating } from "~/types/rating-types";
 
-export default defineEventHandler(async (event): Promise<Item> => {
+export default defineEventHandler(async (event) => {
   // Grab the parameter from the route
 
   const id = getRouterParam(event, "id");
   const { spotifyClientAccessToken } = parseCookies(event);
 
   //get all ratings from db for this track
-  const ratings = await Rating.find({ itemId: id });
+  const ratings: iRating[] = await Rating.find({ itemId: id });
 
-  const spotifyResponse: Item = await axios
+  const spotifyResponse = await axios
     .get(`https://api.spotify.com/v1/tracks/${id}`, {
       headers: {
         Authorization: `Bearer ${spotifyClientAccessToken} `,
@@ -22,10 +24,24 @@ export default defineEventHandler(async (event): Promise<Item> => {
       return res.data;
     });
 
-  const trackRatings = ratings;
-  const totalRating = trackRatings.reduce((acc, curr) => acc + curr.rating, 0);
-  spotifyResponse.avgRating = totalRating / trackRatings.length;
-  spotifyResponse.ratings = trackRatings;
+  const totalRating = ratings.reduce((acc, curr) => acc + curr.rating, 0);
+  spotifyResponse.avgRating = totalRating / ratings.length;
+
+  spotifyResponse.ratings = await Promise.all(
+    ratings.map(async (itemRating: iRating) => {
+      const user = await User.findById(itemRating.user._id);
+      return {
+        comment: itemRating.comment,
+        rating: itemRating.rating,
+        createdAt: itemRating.createdAt,
+        itemType: itemRating.itemType,
+        //
+        username: user.username,
+        userProfilePicture: user.profilePicture,
+      };
+    })
+  );
+
   return spotifyResponse;
   //
 });

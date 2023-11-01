@@ -1,18 +1,21 @@
 <script setup lang="ts">
-import type { Rating } from "~/types/spotify-types";
+import type { iRating } from "~/types/rating-types";
+
 const props = defineProps({
   rating: {
-    type: Object as PropType<Rating>,
+    type: Object as PropType<iRating>,
     required: true,
   },
 });
+
+console.log(props.rating);
 </script>
 
 <template>
   <Fieldset>
     <template #legend>
       <div class="flex align-items-center gap-2 px-2">
-        <!-- <Avatar image="/images/avatar/amyelsner.png" shape="circle" /> -->
+        <Avatar :image="rating.userProfilePicture" shape="circle" />
         <span class="font-bold">{{ rating.username }}</span>
       </div>
     </template>
