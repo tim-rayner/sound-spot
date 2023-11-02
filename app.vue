@@ -22,7 +22,10 @@ if (query.code && query.state) {
   });
 
   if (response.value) {
-    authenticateUser(response.value);
+    authenticateUser(
+      response.value.body.accessToken,
+      response.value.body.refreshToken
+    );
   }
 }
 </script>

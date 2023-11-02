@@ -9,8 +9,12 @@ export const useAuthStore = defineStore("auth", {
     isUserSignup: false, //this is for when a use has been signed in for the first time, so the app knows to take user through onboarding process
   }),
   actions: {
-    async authenticateUser(userToken?: string) {
+    async authenticateUser(userToken: string, refreshToken?: string) {
       //set token cookie
+      if (refreshToken) {
+        const refresh = useCookie("refresh_token"); // useCookie new hook in nuxt 3
+        refresh.value = refreshToken; // set token to cookie
+      }
       if (userToken) {
         const token = useCookie("token"); // useCookie new hook in nuxt 3
         token.value = userToken; // set token to cookie

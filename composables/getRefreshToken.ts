@@ -2,7 +2,9 @@ export const useGetRefreshToken = async () => {
   const { spotifyClientId } = useRuntimeConfig();
   // refresh token that has been previously stored
   const refreshToken = localStorage.getItem("refresh_token");
+
   const url = "https://accounts.spotify.com/api/token";
+
   const payload = {
     method: "POST",
     headers: {

@@ -2,14 +2,21 @@ import { useAuthStore } from "~/store/auth";
 
 export default defineNuxtRouteMiddleware((to) => {
   //exclude index page from auth middleware
+  const { authenticateUser } = useAuthStore();
+  const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive
 
-  console.log("TO NAME: ", to.name);
+  const accessToken = useCookie("token");
+  const refreshToken = useCookie("refresh_token");
+
+  if (accessToken.value) {
+    authenticateUser(accessToken.value, refreshToken.value ?? undefined);
+  }
+
   //@ts-ignore
   if (["index", "tracks-id", "lists-id", "albums-id"].includes(to.name)) {
     return;
   }
 
-  const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive
   const token = useCookie("token"); // get token from cookies
 
   if (token.value) {
