@@ -27,6 +27,11 @@ if (query.code && query.state) {
       response.value.body.refreshToken
     );
   }
+} else {
+  authenticateUser(
+    useCookie("token").value ?? "",
+    useCookie("refresh_token").value ?? ""
+  );
 }
 </script>
 

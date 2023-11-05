@@ -10,6 +10,7 @@ export const useAuthStore = defineStore("auth", {
   }),
   actions: {
     async authenticateUser(userToken: string, refreshToken?: string) {
+      if (!userToken) return this.logUserOut();
       //set token cookie
       if (refreshToken) {
         const refresh = useCookie("refresh_token"); // useCookie new hook in nuxt 3
@@ -28,14 +29,12 @@ export const useAuthStore = defineStore("auth", {
           },
         })
         .catch((err) => {
-          console.log(err);
+          this.logUserOut();
         })
         .then((response) => {
           //@ts-ignore
           return response.data;
         });
-
-      console.log(spotifyUser);
 
       await axios.post("/api/auth/login", spotifyUser).then((response) => {
         this.user = response.data;
@@ -43,9 +42,11 @@ export const useAuthStore = defineStore("auth", {
     },
     logUserOut() {
       const token = useCookie("token"); // useCookie new hook in nuxt 3
+      const refreshToken = useCookie("refresh_token"); // useCookie new hook in nuxt 3
+
       this.authenticated = false; // set authenticated  state value to false
       token.value = null; // clear the token cookie
-
+      refreshToken.value = null; // clear the refresh token cookie
       //clear the user object from state
       this.user = null;
     },
