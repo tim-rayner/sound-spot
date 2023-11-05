@@ -61,6 +61,8 @@ export interface Artist {
   name: string;
   type: string;
   uri: string;
+  avgRating?: number;
+  ratings?: iRating[];
 }
 
 export interface ExternalUrls {

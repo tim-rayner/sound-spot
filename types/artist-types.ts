@@ -1,3 +1,5 @@
+import type { iRating } from "./rating-types";
+
 export interface iArtist {
   name: string;
   image: string;
@@ -7,6 +9,8 @@ export interface iArtist {
   type: string;
   images: [iImage];
   uri: string;
+  avgRating?: number;
+  ratings?: iRating[];
 }
 
 export interface iImage {

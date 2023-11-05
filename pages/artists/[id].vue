@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import ExplicitIcon from "~/assets/svg/explicit.svg";
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "~/store/auth";
-import type { iArtist } from "~/types/artist-types";
+import type { Artist } from "~/types/spotify-types";
+import type { iRating } from "~/types/rating-types";
 
-const { authenticated } = storeToRefs(useAuthStore());
+const { authenticated, user } = storeToRefs(useAuthStore());
 const router = useRouter();
 
 definePageMeta({ auth: false });
 
 const route = useRoute();
-const artist = ref<iArtist>();
+const artist = ref<Artist>();
 
 const { data: artistData } = await useFetch(
   `/api/items/artists/${route.params.id}`
@@ -19,6 +19,12 @@ const { data: artistData } = await useFetch(
 if (artistData.value) {
   artist.value = artistData.value;
 }
+
+const ratingPosted = (rating: iRating) => {
+  rating.username = user.value?.username!;
+  rating.userProfilePicture = user.value?.profilePicture!;
+  artist.value?.ratings?.push(rating);
+};
 </script>
 
 <template>
@@ -41,6 +47,9 @@ if (artistData.value) {
         <div>
           <small class="mt-3">{{ artist?.followers.total }} followers </small>
         </div>
+        <div v-if="artist?.avgRating">
+          <FormsRating :rating="artist?.avgRating" class="mt-3" />
+        </div>
       </div>
     </div>
 
@@ -54,5 +63,23 @@ if (artistData.value) {
         <SpotlightSearchResult :searchResult="song" />
       </div>
     </div> -->
+    <div class="rating-area">
+      <div class="ratings p-12">
+        <RatingListedRating
+          v-for="rating in artist?.ratings"
+          :rating="rating"
+          class="mb-12"
+        />
+      </div>
+      <div class="leave-rating-input p-12">
+        <RatingInputBox
+          :itemId="artist?.id!"
+          itemType="artist"
+          :previouslyRated="false"
+          :previousRating="artist?.avgRating"
+          @ratingPosted="ratingPosted"
+        />
+      </div>
+    </div>
   </div>
 </template>
