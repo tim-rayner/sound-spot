@@ -31,33 +31,30 @@ export default defineEventHandler(async (event) => {
   }
   if (event.method === "POST") {
     const spotifyUser = await readBody(event);
-    User.findOneAndUpdate(
-      { id: spotifyUser.id },
-      { name: spotifyUser.display_name, email: spotifyUser.email }
-    ).then((user) => {
-      if (user.id === spotifyUser.id) {
-        return user;
+    const user = await User.findOne({ uri: spotifyUser.uri });
+
+    //if user found, return user
+    if (!user) {
+      const newUser = new User({
+        username: spotifyUser.display_name,
+        profilePicture: spotifyUser.images[1].url,
+        email: spotifyUser.email,
+        countryCode: spotifyUser.country,
+        uri: spotifyUser.uri,
+      });
+
+      try {
+        await newUser.save();
+        return newUser;
+      } catch (err) {
+        return {
+          status: 500,
+          body: "Error saving user, please try again later",
+        };
       }
-    });
-
-    const newUser = new User({
-      username: spotifyUser.display_name,
-      profilePicture: spotifyUser.images[1].url,
-      email: spotifyUser.email,
-      countryCode: spotifyUser.country,
-      id: spotifyUser.id,
-    });
-
-    try {
-      await newUser.save();
-      return newUser;
-    } catch (err) {
-      return {
-        status: 500,
-        body: "Error saving user, please try again later",
-      };
     }
 
+    return user;
     //if no user found, add user to db
   }
 });

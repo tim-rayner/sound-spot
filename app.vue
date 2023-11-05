@@ -26,13 +26,15 @@ if (query.code && query.state) {
       response.value.body.accessToken,
       response.value.body.refreshToken
     );
+  } else {
+    authenticateUser(
+      useCookie("token").value ?? "",
+      useCookie("refresh_token").value ?? ""
+    );
   }
-} else {
-  authenticateUser(
-    useCookie("token").value ?? "",
-    useCookie("refresh_token").value ?? ""
-  );
 }
+
+console.log(user.value);
 </script>
 
 <template>

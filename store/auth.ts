@@ -36,6 +36,7 @@ export const useAuthStore = defineStore("auth", {
           return response.data;
         });
 
+      console.log(spotifyUser);
       await axios.post("/api/auth/login", spotifyUser).then((response) => {
         this.user = response.data;
       });
