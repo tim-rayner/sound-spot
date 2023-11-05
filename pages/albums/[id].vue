@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useAuthStore } from "~/store/auth";
+import type { iRating } from "~/types/rating-types";
 import type { Album } from "~/types/spotify-types";
 
 const route = useRoute();
+const { user } = storeToRefs(useAuthStore());
 
 const album = ref<Album>();
 
@@ -13,6 +16,13 @@ const { data: trackData } = await useFetch(
 if (trackData.value) {
   album.value = trackData.value;
 }
+
+const ratingPosted = (rating: iRating) => {
+  rating.username = user.value?.username!;
+  rating.userProfilePicture = user.value?.profilePicture!;
+
+  album.value?.ratings?.push(rating);
+};
 </script>
 
 <template>
@@ -31,9 +41,11 @@ if (trackData.value) {
         <h1 class="text-4xl font-bold i flex">
           {{ album?.name }}
         </h1>
-
         <div>
-          <small class="mt-3">{{ album?.release_date }} followers </small>
+          <small class="mt-3">{{ album?.release_date }} </small>
+        </div>
+        <div v-if="album?.avgRating">
+          <FormsRating :rating="album?.avgRating" class="mt-3" />
         </div>
       </div>
     </div>
@@ -48,5 +60,24 @@ if (trackData.value) {
           <SpotlightSearchResult :searchResult="song" />
         </div>
       </div> -->
+
+    <div class="rating-area">
+      <div class="ratings p-12">
+        <RatingListedRating
+          v-for="rating in album?.ratings"
+          :rating="rating"
+          class="mb-12"
+        />
+      </div>
+      <div class="leave-rating-input p-12">
+        <RatingInputBox
+          :itemId="album?.id!"
+          itemType="album"
+          :previouslyRated="false"
+          :previousRating="album?.avgRating"
+          @ratingPosted="ratingPosted"
+        />
+      </div>
+    </div>
   </div>
 </template>

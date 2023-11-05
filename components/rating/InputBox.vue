@@ -49,7 +49,6 @@ const ratingUpdated = (rating) => {
 const validateRating = () => starRating.value !== 0;
 
 const onSubmit = handleSubmit((values) => {
-  console.log("USER:", user.value);
   if (validateRating() && user.value) {
     postRating();
     return;

@@ -116,22 +116,23 @@ const ratingPosted = (rating: iRating) => {
         </Button>
       </div>
     </div>
-
-    <div class="ratings p-12">
-      <RatingListedRating
-        v-for="rating in track?.ratings"
-        :rating="rating"
-        class="mb-12"
-      />
-    </div>
-    <div class="leave-rating-input p-12">
-      <RatingInputBox
-        :itemId="track?.id!"
-        itemType="track"
-        :previouslyRated="false"
-        :previousRating="track?.avgRating"
-        @ratingPosted="ratingPosted"
-      />
+    <div class="rating-area">
+      <div class="ratings p-12">
+        <RatingListedRating
+          v-for="rating in track?.ratings"
+          :rating="rating"
+          class="mb-12"
+        />
+      </div>
+      <div class="leave-rating-input p-12">
+        <RatingInputBox
+          :itemId="track?.id!"
+          itemType="track"
+          :previouslyRated="false"
+          :previousRating="track?.avgRating"
+          @ratingPosted="ratingPosted"
+        />
+      </div>
     </div>
   </div>
 </template>

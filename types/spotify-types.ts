@@ -50,6 +50,8 @@ export interface Album {
   total_tracks: number;
   type: string;
   uri: string;
+  avgRating?: number;
+  ratings?: iRating[];
 }
 
 export interface Artist {
