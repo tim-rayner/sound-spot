@@ -2,7 +2,6 @@ import axios from "axios";
 import { defineEventHandler, parseCookies } from "h3";
 import type { Item } from "~/types/spotify-types";
 import { List } from "./top.get";
-import { Rating } from "../ratings/index.get";
 import { User } from "../users/index.get";
 import { ListWithTracks } from "~/types/list-types";
 
@@ -10,6 +9,7 @@ export default defineEventHandler(async (event) => {
   // Grab the parameter from the route
 
   const id = getRouterParam(event, "id");
+
   const { spotifyClientAccessToken } = parseCookies(event);
 
   //get list by id

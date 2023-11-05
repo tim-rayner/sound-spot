@@ -108,9 +108,11 @@ const ratingPosted = (rating: iRating) => {
         <Button class="mt-4 mr-4" @click="" v-if="authenticated">
           Leave a rating
         </Button>
-        <Button class="mt-4 mr-4" @click="" v-if="authenticated">
-          Add to list
-        </Button>
+        <FormsAddToList
+          :trackId="track!.id"
+          class="mr-4"
+          v-if="authenticated"
+        />
         <Button class="mt-4 mr-4" @click="listenOnSpotify">
           Listen on Spotify
         </Button>

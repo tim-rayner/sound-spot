@@ -45,7 +45,7 @@ const listenOnSpotify = () => {
         </h1>
         <h3 class="mt-3">by {{ list.owner }}</h3>
         <small class="mt-3"
-          >{{ list?.followers.length }} followers |
+          >{{ list?.followers?.length }} followers |
           {{ list?.saves }} saves</small
         >
       </div>
