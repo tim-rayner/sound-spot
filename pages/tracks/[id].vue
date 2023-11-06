@@ -118,23 +118,50 @@ const ratingPosted = (rating: iRating) => {
         </Button>
       </div>
     </div>
-    <div class="rating-area">
-      <div class="ratings p-12">
-        <RatingListedRating
-          v-for="rating in track?.ratings"
-          :rating="rating"
-          class="mb-12"
-        />
-      </div>
-      <div class="leave-rating-input p-12">
-        <RatingInputBox
-          :itemId="track?.id!"
-          itemType="track"
-          :previouslyRated="false"
-          :previousRating="track?.avgRating"
-          @ratingPosted="ratingPosted"
-        />
-      </div>
-    </div>
+    <!-- TAB AREA-->
+    <TabView class="mx-4">
+      <TabPanel header="Reviews">
+        <div class="rating-area">
+          <div class="ratings px-12 py-4">
+            <RatingListedRating
+              v-for="rating in track?.ratings"
+              :rating="rating"
+              class="mb-12"
+            />
+          </div>
+          <div class="leave-rating-input px-12 py-2">
+            <RatingInputBox
+              :itemId="track?.id!"
+              itemType="track"
+              :previouslyRated="false"
+              :previousRating="track?.avgRating"
+              @ratingPosted="ratingPosted"
+            />
+          </div>
+        </div>
+      </TabPanel>
+      <TabPanel header="Related">
+        <p class="m-0">
+          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
+          ab illo inventore veritatis et quasi architecto beatae vitae dicta
+          sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
+          aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
+          qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit,
+          sed quia non numquam eius modi.
+        </p>
+      </TabPanel>
+      <TabPanel header="Track Info">
+        <p class="m-0">
+          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
+          ab illo inventore veritatis et quasi architecto beatae vitae dicta
+          sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
+          aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
+          qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit,
+          sed quia non numquam eius modi.
+        </p>
+      </TabPanel>
+    </TabView>
   </div>
 </template>
