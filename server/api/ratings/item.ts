@@ -12,12 +12,10 @@ export default defineEventHandler(async (event) => {
   //for each itemRating, get the user who made the rating and map to iRating
   itemRatings.map(async (itemRating) => {
     const user = await User.findById({ user: { _id: itemRating.userId } });
-    console.log("user", user);
+
     // itemRating.username = user.username;
     // itemRating.userProfilePicture = user.profilePicture;
   });
-
-  console.log("itemRatings", itemRatings);
 
   return test;
 });

@@ -25,6 +25,8 @@ if (listData.value) {
 const listenOnSpotify = () => {
   window.open(list.value?.external_urls.spotify, "_blank");
 };
+
+console.log("LIST WITH TRACKS: ", list.value);
 </script>
 
 <template>

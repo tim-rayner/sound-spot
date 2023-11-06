@@ -1,5 +1,6 @@
-import type log from '~/middleware/log';
 <script setup lang="ts">
+import type { Item } from "~/types/spotify-types";
+
 const props = defineProps<{
   searchResult: Item;
 }>();

@@ -4,6 +4,7 @@ import type { Item } from "~/types/spotify-types";
 import { List } from "./top.get";
 import { User } from "../users/index.get";
 import { ListWithTracks } from "~/types/list-types";
+import { Rating } from "../ratings/index.get";
 
 export default defineEventHandler(async (event) => {
   // Grab the parameter from the route
@@ -40,6 +41,22 @@ export default defineEventHandler(async (event) => {
       owner: owner?.username,
       tracks: tracks,
     };
+
+    //for all items
+    await Promise.all(
+      listWithOwnerName.tracks.map(async (track) => {
+        //get all ratings for an item
+        const itemRatings = await Rating.find({ itemId: track.id });
+        //get avg rating
+
+        const totalRating = itemRatings.reduce(
+          (acc, curr) => acc + curr.rating,
+          0
+        );
+        track.avgRating = totalRating / itemRatings.length;
+        return track;
+      })
+    );
     return listWithOwnerName;
   }
 

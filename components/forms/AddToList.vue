@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import axios from "axios";
+import { useToast } from "primevue/usetoast";
 import { ref } from "vue";
 import { useAuthStore } from "~/store/auth";
 import type { List } from "~/types/list-types";
 
 const authStore = useAuthStore();
 const { user } = storeToRefs(authStore);
+
+const toast = useToast();
 
 const props = defineProps<{
   trackId: string;
@@ -37,9 +40,7 @@ const closeDialog = () => {
   showAddToListModal.value = false;
 };
 
-const { data: listData } = await useFetch(
-  `/api/lists/user/:user=${user.value?._id}`
-);
+const { data: listData } = await useFetch(`/api/lists/user/${user.value?._id}`);
 
 if (listData.value) {
   myLists.value = listData.value;
@@ -53,6 +54,22 @@ const postNewList = async (newList: List) => {
   newList.createdAt = new Date().toString();
 
   const response = await axios.post("/api/lists/new", newList);
+};
+
+const submitTrackToList = async (list: List) => {
+  const response = await axios.post("/api/lists/add", {
+    listId: list._id,
+    trackId: props.trackId,
+  });
+  if (response.status === 200) {
+    console.log(response);
+    closeDialog();
+    toast.add({
+      severity: "success",
+      detail: response.data.message,
+      life: 3000,
+    });
+  }
 };
 </script>
 
@@ -75,12 +92,22 @@ const postNewList = async (newList: List) => {
       >
         <div class="" v-if="view === views.addToList">
           <h1 class="text-2xl font-bold">Add to list</h1>
-          <p class="text-gray-400" v-if="myLists.length > 0">
-            Select a list to add this track to.
-          </p>
-          <p class="text-gray-400" v-else>
-            You don't have any lists yet. Create one to add this track to.
-          </p>
+          <div class="text-gray-400" v-if="myLists.length > 0">
+            <p>Select a list to add this track to</p>
+            <div class="list-options py-4 my-2">
+              <ListSmallListOption
+                v-for="list in myLists"
+                :key="list._id"
+                :list="list"
+                @add-to-list="submitTrackToList"
+              />
+            </div>
+          </div>
+          <div class="text-gray-400" v-else>
+            <p>
+              You don't have any lists yet. Create one to add this track to.
+            </p>
+          </div>
         </div>
         <div class="" v-else-if="view === views.createNewList">
           <h1 class="text-2xl font-bold">Create new list</h1>

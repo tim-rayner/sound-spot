@@ -31,7 +31,7 @@ export default defineEventHandler(async (event) => {
   }
   if (event.method === "POST") {
     const spotifyUser = await readBody(event);
-    const user = await User.findOne({ uri: spotifyUser.uri });
+    const user = await User.findOne({ id: spotifyUser.id });
 
     //if user found, return user
     if (!user) {
@@ -40,7 +40,7 @@ export default defineEventHandler(async (event) => {
         profilePicture: spotifyUser.images[1].url,
         email: spotifyUser.email,
         countryCode: spotifyUser.country,
-        uri: spotifyUser.uri,
+        id: spotifyUser.id,
       });
 
       try {
