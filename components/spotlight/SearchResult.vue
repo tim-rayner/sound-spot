@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Item } from "~/types/spotify-types";
+import type { Album, Item } from "~/types/spotify-types";
 
 const props = defineProps<{
   searchResult: Item;

@@ -1,13 +1,17 @@
 <script setup lang="ts">
+import axios from "axios";
 import { ref } from "vue";
 import { useAuthStore } from "~/store/auth";
 import type { iRating } from "~/types/rating-types";
 import type { Album } from "~/types/spotify-types";
 
 const route = useRoute();
+const router = useRouter();
+
 const { user } = storeToRefs(useAuthStore());
 
 const album = ref<Album>();
+const suggestedAlbums = ref<Album[]>();
 
 const { data: trackData } = await useFetch(
   `/api/items/albums/${route.params.id}`
@@ -15,6 +19,18 @@ const { data: trackData } = await useFetch(
 
 if (trackData.value) {
   album.value = trackData.value;
+}
+
+const { data: suggestedArtistData } = await axios
+  .post("/api/items/albums/suggested", {
+    album: album.value,
+  })
+  .then((res) => {
+    return res;
+  });
+
+if (suggestedArtistData) {
+  suggestedAlbums.value = suggestedArtistData;
 }
 
 const ratingPosted = (rating: iRating) => {
@@ -83,15 +99,24 @@ const ratingPosted = (rating: iRating) => {
         </div>
       </TabPanel>
       <TabPanel header="Related">
-        <p class="m-0">
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
-          ab illo inventore veritatis et quasi architecto beatae vitae dicta
-          sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-          aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
-          qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit,
-          sed quia non numquam eius modi.
-        </p>
+        <div class="related-albums">
+          <!-- TODO: BUILD RELATED ALBUM COMPONENT -->
+          <div
+            v-for="album in suggestedAlbums"
+            :key="album.id"
+            class="h-auto mx-2 my-12 w-full flex hover:cursor-pointer"
+            @click="router.push(`/albums/${album.id}`)"
+          >
+            <div class="media">
+              <img :src="album.images[0].url" class="w-48 h-48 rounded-full" />
+            </div>
+            <div class="info align-middle my-auto mx-12">
+              <h3 class="text-2xl">{{ album.name }}</h3>
+              <p>{{ album.artists[0].name }}</p>
+              <FormsRating :rating="album.avgRating!" class="mt-1" />
+            </div>
+          </div>
+        </div>
       </TabPanel>
       <TabPanel header="Album Info">
         <p class="m-0">
