@@ -13,7 +13,11 @@ export default defineNuxtRouteMiddleware((to) => {
   }
 
   //@ts-ignore
-  if (["index", "tracks-id", "lists-id", "albums-id"].includes(to.name)) {
+  if (
+    ["index", "tracks-id", "lists-id", "albums-id", "artists-id"].includes(
+      to.name
+    )
+  ) {
     return;
   }
 
