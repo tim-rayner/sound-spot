@@ -41,9 +41,13 @@ const clearAllCookies = () => {
         <!-- RIGHT -->
         <div class="justify-end flex gap-6 float-right">
           <li class="align-middle m-auto">
-            <div @click="clearAllCookies" class="hover:cursor-pointer">
-              [dev] clear cookies
-            </div>
+            <Button
+              @click="clearAllCookies"
+              class="hover:cursor-pointer p-2"
+              severity="secondary"
+            >
+              somthing wrong?
+            </Button>
           </li>
           <li class="align-middle m-auto">
             <ColorModeSwitch />
