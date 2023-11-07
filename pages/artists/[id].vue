@@ -3,8 +3,8 @@ import { storeToRefs } from "pinia";
 import { useAuthStore } from "~/store/auth";
 import type { Artist } from "~/types/spotify-types";
 import type { iRating } from "~/types/rating-types";
-// import suggested from "~/server/api/items/artists/suggested";
-// import axios from "axios";
+
+import axios from "axios";
 
 const { authenticated, user } = storeToRefs(useAuthStore());
 const router = useRouter();
@@ -13,7 +13,7 @@ definePageMeta({ auth: false });
 
 const route = useRoute();
 const artist = ref<Artist>();
-// const suggestedArtists = ref<Artist[]>();
+const suggestedArtists = ref<Artist[]>();
 
 const { data: artistData } = await useFetch(
   `/api/items/artists/${route.params.id}`
@@ -23,17 +23,17 @@ if (artistData.value) {
   artist.value = artistData.value;
 }
 
-// const { data: suggestedArtistData } = await axios
-//   .post("/api/items/artists/suggested", {
-//     artist: artist.value,
-//   })
-//   .then((res) => {
-//     return res.data;
-//   });
+const { data: suggestedArtistData } = await axios
+  .post("/api/items/artists/suggested", {
+    artist: artist.value,
+  })
+  .then((res) => {
+    return res;
+  });
 
-// if (suggestedArtistData) {
-//   suggestedArtists.value = suggestedArtistData;
-// }
+if (suggestedArtistData) {
+  suggestedArtists.value = suggestedArtistData;
+}
 
 const ratingPosted = (rating: iRating) => {
   rating.username = user.value?.username!;
@@ -102,18 +102,33 @@ const ratingPosted = (rating: iRating) => {
         </div>
       </TabPanel>
       <TabPanel header="Related">
-        <!-- <div class="related-tracks">
-          <div class="flex flex-row flex-wrap">
-            <h3>Related Artists</h3>
+        <div class="related-tracks">
+          <div class="flex flex-wrap">
+            <!-- TODO: CREATE ARTIST LIST CARD COMPONENT -->
             <div
               v-for="artist in suggestedArtists"
               :key="artist.id"
-              class="w-[40vw] h-auto mx-2"
+              class="h-auto mx-2 flex w-full"
             >
-              {{ artist?.name }}
+              <img
+                :src="artist?.images[0].url"
+                :alt="artist?.image"
+                class="w-48 h-48 rounded-full align-middle my-auto mx-1"
+              />
+              <div class="info mx-12 my-6 p-12 pl-6">
+                <h1 class="text-4xl font-bold i flex">
+                  {{ artist?.name }}
+                </h1>
+                <h3 class="my-2">{{ artist?.genres.join(",") }}</h3>
+                <div>
+                  <small class="mt-3"
+                    >{{ artist?.followers.total }} followers
+                  </small>
+                </div>
+              </div>
             </div>
           </div>
-        </div> -->
+        </div>
       </TabPanel>
       <TabPanel header="Artist Info">
         <p class="m-0">
