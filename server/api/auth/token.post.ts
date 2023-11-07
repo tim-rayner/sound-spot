@@ -26,13 +26,16 @@ export default defineEventHandler(async (event) => {
     };
   }
 
-  const response = await axios.post(
-    url,
-    new URLSearchParams(requestForm).toString(),
-    {
+  const response = await axios
+    .post(url, new URLSearchParams(requestForm).toString(), {
       headers: headers,
-    }
-  );
+    })
+    .catch((err) => {
+      throw createError({
+        statusCode: err.response.status,
+        statusMessage: "Spotify error: " + err.response.statusText,
+      });
+    });
 
   const accessToken = response.data.access_token;
   const refreshToken = response.data.refresh_token;

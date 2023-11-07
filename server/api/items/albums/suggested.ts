@@ -27,7 +27,10 @@ export default defineEventHandler(async (event): Promise<Album> => {
       return res.data.tracks;
     })
     .catch((err) => {
-      return err;
+      throw createError({
+        statusCode: err.response.status,
+        statusMessage: "Spotify error: " + err.response.statusText,
+      });
     });
 
   //get album tracks are from, excluding any dupilcates and the current album

@@ -20,6 +20,12 @@ export default defineEventHandler(async (event) => {
     })
     .then((res) => {
       return res.data;
+    })
+    .catch((err) => {
+      throw createError({
+        statusCode: err.response.status,
+        statusMessage: "Spotify error: " + err.response.statusText,
+      });
     });
 
   const totalRating = ratings.reduce((acc, curr) => acc + curr.rating, 0);

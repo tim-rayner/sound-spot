@@ -35,6 +35,12 @@ export default defineEventHandler(async (event) => {
     })
     .then((res) => {
       return res.data;
+    })
+    .catch((err) => {
+      throw createError({
+        statusCode: err.response.status,
+        statusMessage: "Spotify error: " + err.response.statusText,
+      });
     });
 
   //TODO: MERGE WITH RATING INFO FROM DB

@@ -15,6 +15,12 @@ export default defineEventHandler(async (event): Promise<Artist[]> => {
     })
     .then((res) => {
       return res.data.artists;
+    })
+    .catch((err) => {
+      throw createError({
+        statusCode: err.response.status,
+        statusMessage: "Spotify error: " + err.response.statusText,
+      });
     });
 
   recommendations.splice(5, recommendations.length).map(async (artist) => {

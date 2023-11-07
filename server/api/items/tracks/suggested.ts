@@ -34,6 +34,12 @@ export default defineEventHandler(async (event): Promise<Item[]> => {
     })
     .then((res) => {
       return res.data.tracks;
+    })
+    .catch((err) => {
+      throw createError({
+        statusCode: err.response.status,
+        statusMessage: "Spotify Error: " + err.response.statusText,
+      });
     });
 
   await Promise.all(
