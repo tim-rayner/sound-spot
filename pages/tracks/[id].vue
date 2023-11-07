@@ -11,6 +11,7 @@ import { useAuthStore } from "~/store/auth";
 import CustomLink from "~/components/router/CustomLink.vue";
 import type { RatingListedRating } from "#build/components";
 import type { iRating } from "~/types/rating-types";
+import axios from "axios";
 
 const { authenticated, user } = storeToRefs(useAuthStore());
 const router = useRouter();
@@ -19,6 +20,7 @@ definePageMeta({ auth: false });
 
 const route = useRoute();
 const track = ref<Item>();
+const suggestedTracks = ref<Item[]>();
 
 const { data: trackData } = await useFetch(
   `/api/items/tracks/${route.params.id}`
@@ -26,6 +28,17 @@ const { data: trackData } = await useFetch(
 
 if (trackData.value) {
   track.value = trackData.value;
+}
+
+const { data: suggestedTracksData } = await axios.post(
+  "/api/items/tracks/suggested",
+  {
+    track: track.value,
+  }
+);
+
+if (suggestedTracksData) {
+  suggestedTracks.value = suggestedTracksData;
 }
 
 const listenOnSpotify = () => {
@@ -141,15 +154,15 @@ const ratingPosted = (rating: iRating) => {
         </div>
       </TabPanel>
       <TabPanel header="Related">
-        <p class="m-0">
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
-          ab illo inventore veritatis et quasi architecto beatae vitae dicta
-          sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-          aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
-          qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit,
-          sed quia non numquam eius modi.
-        </p>
+        <div class="related-tracks">
+          <div class="flex flex-row flex-wrap">
+            <SpotlightSearchResult
+              v-for="track in suggestedTracks"
+              :searchResult="track"
+              class="mb-12 w-[15vw] mx-2"
+            />
+          </div>
+        </div>
       </TabPanel>
       <TabPanel header="Track Info">
         <p class="m-0">

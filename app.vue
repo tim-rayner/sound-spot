@@ -33,8 +33,6 @@ if (query.code && query.state) {
     );
   }
 }
-
-console.log(user.value);
 </script>
 
 <template>

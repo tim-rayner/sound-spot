@@ -47,7 +47,6 @@ if (listData.value) {
 }
 
 const postNewList = async (newList: List) => {
-  console.log("posting: ", newList);
   view.value = views.addToList;
   newList.owner = user.value?._id;
   newList.isPublic = true;
@@ -62,7 +61,6 @@ const submitTrackToList = async (list: List) => {
     trackId: props.trackId,
   });
   if (response.status === 200) {
-    console.log(response);
     closeDialog();
     toast.add({
       severity: "success",
