@@ -3,6 +3,8 @@ import { storeToRefs } from "pinia";
 import { useAuthStore } from "~/store/auth";
 import type { Artist } from "~/types/spotify-types";
 import type { iRating } from "~/types/rating-types";
+// import suggested from "~/server/api/items/artists/suggested";
+// import axios from "axios";
 
 const { authenticated, user } = storeToRefs(useAuthStore());
 const router = useRouter();
@@ -11,6 +13,7 @@ definePageMeta({ auth: false });
 
 const route = useRoute();
 const artist = ref<Artist>();
+// const suggestedArtists = ref<Artist[]>();
 
 const { data: artistData } = await useFetch(
   `/api/items/artists/${route.params.id}`
@@ -19,6 +22,18 @@ const { data: artistData } = await useFetch(
 if (artistData.value) {
   artist.value = artistData.value;
 }
+
+// const { data: suggestedArtistData } = await axios
+//   .post("/api/items/artists/suggested", {
+//     artist: artist.value,
+//   })
+//   .then((res) => {
+//     return res.data;
+//   });
+
+// if (suggestedArtistData) {
+//   suggestedArtists.value = suggestedArtistData;
+// }
 
 const ratingPosted = (rating: iRating) => {
   rating.username = user.value?.username!;
@@ -87,15 +102,18 @@ const ratingPosted = (rating: iRating) => {
         </div>
       </TabPanel>
       <TabPanel header="Related">
-        <p class="m-0">
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
-          ab illo inventore veritatis et quasi architecto beatae vitae dicta
-          sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-          aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
-          qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit,
-          sed quia non numquam eius modi.
-        </p>
+        <!-- <div class="related-tracks">
+          <div class="flex flex-row flex-wrap">
+            <h3>Related Artists</h3>
+            <div
+              v-for="artist in suggestedArtists"
+              :key="artist.id"
+              class="w-[40vw] h-auto mx-2"
+            >
+              {{ artist?.name }}
+            </div>
+          </div>
+        </div> -->
       </TabPanel>
       <TabPanel header="Artist Info">
         <p class="m-0">
