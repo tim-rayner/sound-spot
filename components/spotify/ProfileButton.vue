@@ -48,7 +48,7 @@ const logout = () => {
       <div
         class="dropdown-item p-2 border-t-2 border-slate-200 hover:cursor-pointer hover:bg-slate-400"
       >
-        <nuxt-link to="/settings">Settings</nuxt-link>
+        <nuxt-link to="/profile/settings">Settings</nuxt-link>
       </div>
       <div
         class="dropdown-item hover:cursor-pointer hover:bg-slate-400 p-2 border-t-2 border-slate-200 rounded-b-lg"
