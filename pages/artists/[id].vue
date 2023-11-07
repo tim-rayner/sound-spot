@@ -108,7 +108,8 @@ const ratingPosted = (rating: iRating) => {
             <div
               v-for="artist in suggestedArtists"
               :key="artist.id"
-              class="h-auto mx-2 flex w-full"
+              class="h-auto mx-2 flex w-full hover:cursor-pointer"
+              @click="router.push(`/artists/${artist.id}`)"
             >
               <img
                 :src="artist?.images[0].url"
