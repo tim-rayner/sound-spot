@@ -1,8 +1,10 @@
 import { Nitro } from "nitropack";
 import mongoose from "mongoose";
 import axios from "axios";
+import createError from "http-errors";
 
 //synchronous function to excecute every time the web application is started; to ensure MongoDB is connected
+
 export default async (_nitroApp: Nitro) => {
   const config = useRuntimeConfig();
   try {
@@ -24,5 +26,9 @@ export default async (_nitroApp: Nitro) => {
     }
   } catch (err) {
     console.log(err);
+    throw createError({
+      statusCode: 500,
+      statusMessage: "Internal Server Error",
+    });
   }
 };
