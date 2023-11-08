@@ -1,3 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useAuthStore } from "~/store/auth";
 
-<template>PROFILE PAGE</template>
+const { user } = storeToRefs(useAuthStore());
+</script>
+
+<template>
+  <ProfileHeader :user="user" />
+</template>

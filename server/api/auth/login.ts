@@ -2,6 +2,7 @@ import { useGenerateRandomString } from "~/composables/generateRandomString";
 import queryString from "query-string";
 import { User } from "~/server/api/users/index.get";
 import mongoose from "mongoose";
+import { iUser } from "~/types/user-types";
 
 //https://developer.spotify.com/documentation/web-api/tutorials/code-flow#_=_
 const config = useRuntimeConfig();
