@@ -1,14 +1,10 @@
-<!-- 
-    File: /pages/lists/[id].vue
-    Url:  /lists/123
- -->
 <script setup lang="ts">
 import type { ListWithTracks } from "~/types/list-types";
-import ExplicitIcon from "~/assets/svg/explicit.svg";
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "~/store/auth";
+import axios from "axios";
 
-const { authenticated } = storeToRefs(useAuthStore());
+const { authenticated, user } = storeToRefs(useAuthStore());
 const router = useRouter();
 
 definePageMeta({ auth: false });
@@ -25,6 +21,13 @@ if (listData.value) {
 const listenOnSpotify = () => {
   window.open(list.value?.external_urls.spotify, "_blank");
 };
+
+const generatePlaylistFromList = async () => {
+  const { data } = await axios.post(`/api/spotify/listToPlaylist`, {
+    list: list.value,
+    userId: user.value.id,
+  });
+};
 </script>
 
 <template>
@@ -39,7 +42,7 @@ const listenOnSpotify = () => {
           class="w-96 rounded-tl-2xl"
         />
       </div>
-      <div class="info mx-12 my-6">
+      <div class="info flex flex-col mx-12 my-6">
         <h1 class="text-4xl font-bold i flex">
           {{ list?.name }}
         </h1>
@@ -48,6 +51,12 @@ const listenOnSpotify = () => {
           >{{ list?.followers?.length }} followers |
           {{ list?.saves }} saves</small
         >
+        <Button
+          v-if="authenticated"
+          @click="generatePlaylistFromList"
+          label="Build Spotify playlist"
+          class="my-12"
+        />
       </div>
     </div>
     <div class="flex flex-row my-12 mt-6 mx-4">
