@@ -3,7 +3,7 @@ import { useAuthStore } from "~/store/auth";
 export default defineNuxtRouteMiddleware((to) => {
   //exclude index page from auth middleware
   const { authenticateUser } = useAuthStore();
-  const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive
+  const { authenticated, user } = storeToRefs(useAuthStore()); // make authenticated state reactive
 
   const accessToken = useCookie("token");
   const refreshToken = useCookie("refresh_token");

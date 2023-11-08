@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { iUser } from "~/types/user-types";
+
 const props = defineProps({
   user: {
     type: Object as PropType<iUser>,
@@ -22,13 +23,13 @@ const props = defineProps({
       <div class="flex flex-row mt-4">
         <div class="flex flex-col items-center justify-center mx-4">
           <h1 class="text-2xl font-bold text-gray-800">
-            {{ user.followers ?? 10000 }}
+            {{ user?.followers?.length ?? 10000 }}
           </h1>
           <p class="text-sm text-gray-500 mt-1">Followers</p>
         </div>
         <div class="flex flex-col items-center justify-center mx-4">
           <h1 class="text-2xl font-bold text-gray-800">
-            {{ user.following ?? 1 }}
+            {{ user?.following?.length ?? 1 }}
           </h1>
           <p class="text-sm text-gray-500 mt-1">Following</p>
         </div>

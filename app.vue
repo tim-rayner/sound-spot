@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia"; // import storeToRefs helper hook from pinia
 import { useAuthStore } from "~/store/auth"; // import the auth store we just created
+import { useLocalStorage } from "@vueuse/core";
 
 const { authenticateUser } = useAuthStore(); // use authenticateUser action from  auth store
 const { user } = storeToRefs(useAuthStore());

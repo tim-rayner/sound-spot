@@ -36,10 +36,11 @@ export const useAuthStore = defineStore("auth", {
           return response.data;
         });
 
-      console.log(spotifyUser);
       await axios.post("/api/auth/login", spotifyUser).then((response) => {
         this.user = response.data;
       });
+
+      localStorage.setItem("ud01xy", JSON.stringify(this.user)); //TODO: not sure if this is the best way to do this
     },
     logUserOut() {
       const token = useCookie("token"); // useCookie new hook in nuxt 3

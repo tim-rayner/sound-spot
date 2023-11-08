@@ -11,6 +11,8 @@ const toggleDropdown = () => {
 };
 
 const logout = () => {
+  //clear local storage value for use
+  localStorage.removeItem("ud01xy");
   logUserOut();
   router.push("/");
 };
