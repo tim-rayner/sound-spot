@@ -31,7 +31,9 @@ export default defineEventHandler(async (event) => {
     });
 
   const totalRating = ratings.reduce((acc, curr) => acc + curr.rating, 0);
-  spotifyResponse.avgRating = totalRating / ratings.length;
+  spotifyResponse.avgRating = Number(
+    (totalRating / ratings.length).toFixed(1)
+  ).toString();
 
   spotifyResponse.ratings = await Promise.all(
     ratings.map(async (itemRating: iRating) => {

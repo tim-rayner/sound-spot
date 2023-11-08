@@ -135,6 +135,13 @@ const ratingPosted = (rating: iRating) => {
     <TabView class="mx-4">
       <TabPanel header="Reviews">
         <div class="rating-area">
+          <div class="mx-12" v-if="track?.ratings?.length > 3">
+            <h3 v-if="track?.avgRating > 0">
+              Rated {{ track?.avgRating }} stars by
+            </h3>
+            <AvatarGroup v-if="track?.ratings" :ratings="track?.ratings" />
+          </div>
+
           <div class="ratings px-12 py-4">
             <RatingListedRating
               v-for="rating in track?.ratings"
