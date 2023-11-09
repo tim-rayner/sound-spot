@@ -12,10 +12,26 @@ if (userFS) {
 const topLists = await axios
   .get(`/api/users/top/list/${user?.value?._id}`)
   .then((res) => res.data);
+
+const topTracks = await axios
+  .get(`/api/users/top/track/${user?.value?._id}`)
+  .then((res) => res.data);
 </script>
 
 <template>
   <ProfileHeader :user="user" />
+  <div class="flex flex-row">
+    <h3 class="text-xl mx-6 align-middle my-auto">Your Top Tracks</h3>
+  </div>
+  <div class="flex flex-row my-12 mt-6 mx-4">
+    <div
+      v-for="track in topTracks"
+      :key="track._id"
+      class="h-auto mx-2 w-[40vw]"
+    >
+      <SongOverview :track="track" />
+    </div>
+  </div>
   <div class="flex flex-row">
     <h3 class="text-xl mx-6 align-middle my-auto">Your Top Lists</h3>
     <SpotifyImportPlaylist />

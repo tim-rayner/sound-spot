@@ -6,7 +6,6 @@ import type { List as iList } from "~/types/list-types";
 export default defineEventHandler(async (event): Promise<iList[]> => {
   const userId = getRouterParam(event, "id");
 
-  console.log("got userId:", userId); //get top lists from database for this user
   //this will eventually be owned lists, and liked lists (and maybe more)
   const { spotifyClientAccessToken } = parseCookies(event);
 

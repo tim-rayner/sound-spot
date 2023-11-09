@@ -1,10 +1,9 @@
 import axios from "axios";
 import { Rating } from "~/server/api/ratings/index.get";
-
-import type { List as iList } from "~/types/list-types";
 import { Item } from "~/types/spotify-types";
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (event): Promise<Item[]> => {
+  const userId = getRouterParam(event, "id");
   //TODO: IMPLEMENT THIS PROPERLY, FOR NOW WE WILL UST USE THE ONLY RATINGS WE HAVE IN THE DB
 
   const { spotifyClientAccessToken } = parseCookies(event);
