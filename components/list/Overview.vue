@@ -18,7 +18,7 @@ const redirect = () => {
     @click="redirect"
   >
     <div class="bg-image">
-      <img :src="list.coverPhoto" class="z-10 w-fit h-fit" />
+      <img :src="list.coverPhoto" class="z-10 w-full h-full" />
     </div>
     <div
       class="overlay absolute top-0 left-0 right-0 bottom-0 bg-black opacity-40 z-20"

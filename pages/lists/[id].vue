@@ -59,13 +59,11 @@ const generatePlaylistFromList = async () => {
         />
       </div>
     </div>
-    <div class="flex flex-row my-12 mt-6 mx-4">
-      <div
-        v-for="song in list.tracks"
-        :key="song.id"
-        class="w-[40vw] h-auto mx-2"
-      >
-        <SpotlightSearchResult :searchResult="song" />
+    <div
+      class="flex flex-row flex-wrap gap-12 my-12 mt-6 mx-4 auto-rows-fr pb-12"
+    >
+      <div v-for="song in list?.tracks" :key="song.id">
+        <SongOverview :track="song" class="w-[20vw]" />
       </div>
     </div>
   </div>

@@ -21,7 +21,7 @@ const getTopSongs = async () => {
     method: "get",
   });
   if (songs.value?.length! > 0 || songs.value) {
-    topSongs.value = songs.value!;
+    topSongs.value = songs.value?.slice(0, 4)!;
   }
 };
 
@@ -56,16 +56,16 @@ getTopLists();
   <SpotifySearch :spotlight-search="true" />
 
   <h3 class="text-xl mx-6">Our Top Tracks</h3>
-  <div class="flex flex-row my-12 mt-6 mx-4">
-    <div v-for="song in topSongs" :key="song.id" class="w-[40vw] h-auto mx-2">
-      <SpotlightSearchResult :searchResult="song" />
+  <div class="flex flex-row flex-wrap gap-12 my-12 mt-6 mx-4">
+    <div v-for="song in topSongs" :key="song.id">
+      <SongOverview :track="song" class="w-[20vw] h-auto" />
     </div>
   </div>
 
   <h3 class="text-xl mx-6">Our Top Lists</h3>
-  <div class="flex flex-row my-12 mt-6 mx-4">
-    <div v-for="list in topLists" :key="list._id" class="h-auto mx-2 w-[40vw]">
-      <ListOverview :list="list" />
+  <div class="flex flex-row flex-wrap gap-12 my-12 mt-6 mx-4 auto-rows-fr">
+    <div v-for="list in topLists" :key="list._id">
+      <ListOverview :list="list" class="w-[30vw] h-[25vh]" />
     </div>
   </div>
 </template>
