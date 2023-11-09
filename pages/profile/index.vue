@@ -16,7 +16,10 @@ const topLists = await axios
 
 <template>
   <ProfileHeader :user="user" />
-  <h3 class="text-xl mx-6">Your Top Lists</h3>
+  <div class="flex flex-row">
+    <h3 class="text-xl mx-6 align-middle my-auto">Your Top Lists</h3>
+    <SpotifyImportPlaylist />
+  </div>
   <div class="flex flex-row my-12 mt-6 mx-4">
     <div v-for="list in topLists" :key="list._id" class="h-auto mx-2 w-[40vw]">
       <ListOverview :list="list" />

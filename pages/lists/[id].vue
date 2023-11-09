@@ -23,7 +23,7 @@ const listenOnSpotify = () => {
 };
 
 const generatePlaylistFromList = async () => {
-  const { data } = await axios.post(`/api/spotify/listToPlaylist`, {
+  const { data } = await axios.post(`/api/spotify/playlist/listToPlaylist`, {
     list: list.value,
     userId: user.value.id,
   });
