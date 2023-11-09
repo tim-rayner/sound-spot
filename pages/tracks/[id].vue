@@ -162,11 +162,13 @@ const ratingPosted = (rating: iRating) => {
       </TabPanel>
       <TabPanel header="Related">
         <div class="related-tracks">
-          <div class="flex flex-row flex-wrap">
-            <SpotlightSearchResult
+          <div
+            class="flex flex-row flex-wrap gap-12 my-12 mt-6 mx-4 auto-rows-fr"
+          >
+            <SongOverview
               v-for="track in suggestedTracks"
-              :searchResult="track"
-              class="mb-12 w-[15vw] mx-2"
+              :track="track"
+              class="w-[20vw] h-auto"
             />
           </div>
         </div>

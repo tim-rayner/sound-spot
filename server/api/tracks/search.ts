@@ -22,7 +22,7 @@ export default defineEventHandler(async (event) => {
         params: {
           q: query,
           type: type,
-          limit: 5, //only return 5 results
+          limit: 4, //only return 5 results
         },
         headers: {
           Authorization: `Bearer ${spotifyClientAccessToken} `,

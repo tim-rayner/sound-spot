@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import axios from "axios";
 import type { Item } from "~/types/spotify-types.ts";
-
-const props = defineProps<{
-  spotlightSearch?: boolean;
-}>();
 
 const searchQuery = ref<string>("");
 const searchResults = ref<Item[]>([]);
@@ -31,22 +26,18 @@ const fieldKeyPress = (event: any) => {
 </script>
 
 <template>
-  <div class="m-4 mt-12">
-    <div
-      class="flex flex-row w-fit"
-      :class="{ 'mx-auto  align-middle': spotlightSearch }"
-    >
-      <span :class="{ 'p-float-label': !spotlightSearch }">
+  <div class="mt-12">
+    <div class="flex flex-row w-fit mx-auto align-middle">
+      <span>
         <InputText
           id="search"
           v-model="searchQuery"
           :onKeypress="fieldKeyPress"
           :autofocus="true"
           class="rounded-r-none"
-          :placeholder="spotlightSearch ? 'Search for a song' : ''"
+          placeholder="Search for a song"
           autocomplete="off"
         />
-        <label for="search" v-if="!spotlightSearch">Search</label>
       </span>
       <Button @click="search" class="rounded-l-none" :loading="searchLoading"
         >Search</Button
@@ -54,24 +45,13 @@ const fieldKeyPress = (event: any) => {
     </div>
 
     <Transition>
-      <div class="" v-if="!spotlightSearch && searchLoading">
-        <small> Results</small>
-        <ul v-if="searchResults.length" class="flex flex-col justify-between">
-          <li v-for="result in searchResults" :key="result.id">
-            <SongSearchResult :searchResult="result" />
-          </li>
-        </ul>
-      </div>
-    </Transition>
-    <Transition>
-      <div class="my-12" v-if="spotlightSearch && !searchLoading">
-        <ul v-if="searchResults.length" class="flex flex-row">
-          <li
-            v-for="result in searchResults"
-            :key="result.id"
-            class="w-[40vw] h-auto mx-2"
-          >
-            <SpotlightSearchResult :searchResult="result" />
+      <div class="my-12" v-if="!searchLoading">
+        <ul
+          v-if="searchResults.length"
+          class="flex flex-row flex-wrap gap-12 my-12 mt-6 mx-4"
+        >
+          <li v-for="result in searchResults" :key="result.id" class="">
+            <SongOverview :track="result" class="w-[20vw] h-auto" />
           </li>
         </ul>
       </div>

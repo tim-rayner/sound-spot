@@ -53,7 +53,7 @@ getTopLists();
       >Get Started, Its Free</Button
     >
   </div>
-  <SpotifySearch :spotlight-search="true" />
+  <SpotifySearch />
 
   <h3 class="text-xl mx-6">Our Top Tracks</h3>
   <div class="flex flex-row flex-wrap gap-12 my-12 mt-6 mx-4">

@@ -70,6 +70,9 @@ const generateList = async (playlist: Playlist) => {
       >
         <h3 class="text-xl mb-4">Import playlist from Spotify</h3>
         <h4>{{ playlists?.length }} playlists found</h4>
+        <small class="p-error">
+          Currently, you can only import playlists with 50 songs or less
+        </small>
         <div>
           <SpotifyPlaylistResult
             v-for="playlist in playlists"

@@ -67,15 +67,7 @@ const ratingPosted = (rating: iRating) => {
     </div>
 
     <!-- TODO: GET  SONGS FROM ALBUM -->
-    <!-- <div class="flex flex-row my-12 mt-6 mx-4">
-        <div
-          v-for="song in artist.tracks"
-          :key="song.id"
-          class="w-[40vw] h-auto mx-2"
-        >
-          <SpotlightSearchResult :searchResult="song" />
-        </div>
-      </div> -->
+
     <!-- TAB AREA-->
     <TabView class="mx-4">
       <TabPanel header="Reviews">

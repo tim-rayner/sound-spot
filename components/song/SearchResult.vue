@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { Item } from "~/types/spotify-types";
+
 const props = defineProps<{
   searchResult: Item;
 }>();
@@ -18,7 +20,7 @@ const props = defineProps<{
 
     <div class="justify-end flex gap-6 float-right">
       <li class="align-middle m-auto">
-        <FormsRating :rating="searchResult.rating" class="mt-1" />
+        <FormsRating :rating="searchResult?.avgRating!" class="mt-1" />
       </li>
       <div>
         <img :src="searchResult.album.images[0].url" class="w-24" />
