@@ -16,6 +16,10 @@ const topLists = await axios
 const topTracks = await axios
   .get(`/api/users/top/track/${user?.value?._id}`)
   .then((res) => res.data);
+
+const topAlbums = await axios
+  .get(`/api/users/top/album/${user?.value?._id}`)
+  .then((res) => res.data);
 </script>
 
 <template>
@@ -30,6 +34,18 @@ const topTracks = await axios
       class="h-auto mx-2 w-[40vw]"
     >
       <SongOverview :track="track" />
+    </div>
+  </div>
+  <div class="flex flex-row">
+    <h3 class="text-xl mx-6 align-middle my-auto">Your Top Albums</h3>
+  </div>
+  <div class="flex flex-row my-12 mt-6 mx-4">
+    <div
+      v-for="album in topAlbums"
+      :key="album._id"
+      class="h-auto mx-2 w-[40vw]"
+    >
+      <AlbumOverview :album="album" />
     </div>
   </div>
   <div class="flex flex-row">
