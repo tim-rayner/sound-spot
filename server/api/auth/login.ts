@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
   if (event.method === "GET") {
     var state = useGenerateRandomString(16);
     var scope =
-      "user-read-private user-read-email user-library-read user-library-modify user-top-read user-read-recently-played playlist-read-private playlist-read-collaborative playlist-modify-private";
+      "user-read-private user-read-email user-library-read user-library-modify user-top-read user-read-recently-played playlist-read-private playlist-read-collaborative playlist-modify-private user-read-currently-playing";
     const url =
       "https://accounts.spotify.com/authorize?" +
       queryString.stringify({
