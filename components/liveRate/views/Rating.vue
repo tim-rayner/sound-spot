@@ -16,7 +16,15 @@ async function updateStream() {
   }
 }
 updateStream();
-setInterval(updateStream, 5000);
+
+import { onUnmounted } from "vue";
+
+//on unmount stop setInterval
+const intervalId = setInterval(updateStream, 5000);
+
+onUnmounted(() => {
+  clearInterval(intervalId);
+});
 </script>
 
 <template>
@@ -24,7 +32,7 @@ setInterval(updateStream, 5000);
     <p class="my-5">Currently Listing To:</p>
     <img
       class="rounded-lg h-[40vh] m-auto my-12"
-      :src="spotifyStream.album.images[0].url"
+      :src="spotifyStream?.album?.images[0].url"
     />
     {{ spotifyStream.name }}
   </div>
