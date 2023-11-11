@@ -40,6 +40,7 @@ if (query.code && query.state) {
   <ColorScheme placeholder="..." tag="span">
     <div class="dark:bg-[#1e1e1e] dark:text-[#f0ffff] min-h-screen">
       <NuxtLayout>
+        <LoaderIndicator />
         <NuxtPage />
       </NuxtLayout>
     </div>
