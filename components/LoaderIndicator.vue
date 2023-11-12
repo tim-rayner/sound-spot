@@ -38,7 +38,7 @@ export default {
 <template>
   <div
     ref="progressBar"
-    class="fixed left-0 top-0 z-50 transition-all bg-orange h-[3px] LoadingBar shadow-[0_0_10px] shadow-orange"
+    class="fixed left-0 top-0 z-50 transition-all bg-[#1ab26b] h-[3px] LoadingBar shadow-[0_0_10px] shadow[#1ab26b]"
     :style="{ width: '0%' }"
   ></div>
 </template>
