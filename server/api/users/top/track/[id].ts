@@ -13,7 +13,11 @@ export default defineEventHandler(async (event): Promise<Item[]> => {
   }
 
   //TODO: GET TOP RATINGS FROM DB WHERE ITEM TYPE IS TRACK
-  const ratings = await Rating.find({ itemType: "track" });
+  const ratings = await Rating.find({ itemType: "track", user: userId });
+
+  if (ratings.length === 0) {
+    return []; // return empty array if user has no rated ratings
+  }
 
   //delcare a variable which is a comma separated list of track ids in a single string
   const trackIds: string[] = [];
@@ -22,7 +26,6 @@ export default defineEventHandler(async (event): Promise<Item[]> => {
     if (!trackIds.includes(rating.itemId)) trackIds.push(rating.itemId);
   });
 
-  if (ratings.length === 0) return [];
   //FOR EACH RATING, GET THE ITEM FROM SPOTIFY
   const spotifyResponse = await axios
     .get("https://api.spotify.com/v1/tracks", {

@@ -21,6 +21,10 @@ export default defineEventHandler(async (event): Promise<Album[] | any> => {
     user: userId,
   });
 
+  if (usersRatedAlbums.length === 0) {
+    return []; // return empty array if user has no rated albums
+  }
+
   const albumIds = usersRatedAlbums.map((rating) => rating.itemId);
 
   const spotifyAlbums: Album[] = await axios

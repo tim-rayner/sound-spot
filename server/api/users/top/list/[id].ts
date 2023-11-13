@@ -18,6 +18,9 @@ export default defineEventHandler(async (event): Promise<iList[]> => {
   }
   const lists = await List.find({ owner: userId });
 
+  if (lists.length === 0) {
+    return []; // return empty array if user has no lists
+  }
   // map lists to replace owner id with owners name from Users collection in each list
   const newLists = await Promise.all(
     lists.map(async (list) => {
