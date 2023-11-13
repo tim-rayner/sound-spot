@@ -6,3 +6,9 @@ export interface iUser {
   profilePicture: string;
   countryCode: string;
 }
+
+export interface publicUserProfile {
+  username: string;
+  profilePicture: string;
+  countryCode: string;
+}

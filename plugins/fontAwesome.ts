@@ -11,6 +11,7 @@ import {
   faMoon,
   faChevronDown,
   faE,
+  faEdit,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -20,7 +21,8 @@ library.add(
   faSun,
   faMoon,
   faChevronDown,
-  faE
+  faE,
+  faEdit
 );
 
 // This is important, we are going to let Nuxt worry about the CSS

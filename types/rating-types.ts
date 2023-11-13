@@ -24,6 +24,7 @@ export interface iRating {
   itemId: string; // this could be a track, artist, album, or playlist
   createdAt: string;
   itemType: string;
+  userId?: mongoose.Types.ObjectId;
   username: string;
   userProfilePicture: string;
 }

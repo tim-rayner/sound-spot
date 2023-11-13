@@ -44,6 +44,7 @@ export default defineEventHandler(async (event) => {
         createdAt: itemRating.createdAt,
         itemType: itemRating.itemType,
         //
+        userId: user._id,
         username: user.username,
         userProfilePicture: user.profilePicture,
       };
