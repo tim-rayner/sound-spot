@@ -1,7 +1,5 @@
-import { User } from "../../index.get";
 import { Album } from "~/types/spotify-types";
 import { Rating } from "~/server/api/ratings/index.get";
-import { iRating } from "~/types/rating-types";
 import axios from "axios";
 
 export default defineEventHandler(async (event): Promise<Album[] | any> => {

@@ -1,4 +1,3 @@
-import { useRoute } from "vue-router";
 import { List } from "../../../lists/top.get";
 import { User } from "../../index.get";
 import type { List as iList } from "~/types/list-types";
