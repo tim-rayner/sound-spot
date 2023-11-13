@@ -4,11 +4,10 @@ import { User } from "~/server/api/users/index.get";
 import mongoose from "mongoose";
 import { iUser } from "~/types/user-types";
 
-//https://developer.spotify.com/documentation/web-api/tutorials/code-flow#_=_
 const config = useRuntimeConfig();
 
 var client_id = config.spotifyClientId;
-var redirect_uri = "http://localhost:3000/";
+var redirect_uri = config.spotifyRedirectUri;
 
 export default defineEventHandler(async (event) => {
   if (event.method === "GET") {

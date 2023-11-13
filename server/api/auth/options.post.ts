@@ -1,6 +1,8 @@
 const config = useRuntimeConfig();
 
 export default defineEventHandler(async (event) => {
+  const config = useRuntimeConfig();
+
   const { code, state } = await readBody(event);
   if (!state) {
     return {
@@ -12,7 +14,7 @@ export default defineEventHandler(async (event) => {
     url: "https://accounts.spotify.com/api/token",
     form: {
       code: code,
-      redirect_uri: "http://localhost:3000/",
+      redirect_uri: config.spotifyRedirectUri,
       grant_type: "authorization_code",
     },
     headers: {
