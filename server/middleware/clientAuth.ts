@@ -33,8 +33,10 @@ export default defineEventHandler(async (event) => {
     );
 
     const accessToken = resposne.data.access_token;
-    //set cookie for future requests
-    //TODO: implement refresh token
-    setCookie(event, "spotifyClientAccessToken", accessToken);
+    const expiry = resposne.data.expires_in;
+
+    setCookie(event, "spotifyClientAccessToken", accessToken, {
+      expires: new Date(Date.now() + expiry * 1000),
+    });
   }
 });

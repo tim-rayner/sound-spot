@@ -1,8 +1,6 @@
 import { useGenerateRandomString } from "~/composables/generateRandomString";
 import queryString from "query-string";
 import { User } from "~/server/api/users/index.get";
-import mongoose from "mongoose";
-import { iUser } from "~/types/user-types";
 
 const config = useRuntimeConfig();
 
@@ -12,6 +10,7 @@ var redirect_uri = config.spotifyRedirectUri;
 export default defineEventHandler(async (event) => {
   if (event.method === "GET") {
     var state = useGenerateRandomString(16);
+    console.log("redirect URI", redirect_uri);
     var scope =
       "user-read-private user-read-email user-library-read user-library-modify user-top-read user-read-recently-played playlist-read-private playlist-read-collaborative playlist-modify-private user-read-currently-playing";
     const url =
