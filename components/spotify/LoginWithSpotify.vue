@@ -2,9 +2,21 @@
 import SpotifyLogo from "./assets/images/Spotify_Icon_CMYK_Green.png";
 
 const loginWithSpotify = async () => {
-  const response = await fetch(`/api/auth/login`);
-  const { redirect } = await response.json();
-  window.location.href = redirect.url;
+  try {
+    const response = await fetch(`/api/auth/login`)
+      .catch((err) => {
+        console.log(err);
+        return {};
+      })
+      .then((res) => {
+        return res;
+      });
+
+    const { redirect } = await response.json();
+    window.location.href = redirect.url;
+  } catch (err) {
+    console.log(err);
+  }
 };
 </script>
 

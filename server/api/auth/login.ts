@@ -10,7 +10,6 @@ var redirect_uri = config.spotifyRedirectUri;
 export default defineEventHandler(async (event) => {
   if (event.method === "GET") {
     var state = useGenerateRandomString(16);
-    console.log("redirect URI", redirect_uri);
     var scope =
       "user-read-private user-read-email user-library-read user-library-modify user-top-read user-read-recently-played playlist-read-private playlist-read-collaborative playlist-modify-private user-read-currently-playing";
     const url =
@@ -30,30 +29,37 @@ export default defineEventHandler(async (event) => {
   }
   if (event.method === "POST") {
     const spotifyUser = await readBody(event);
-    const user = await User.findOne({ id: spotifyUser.id });
+    try {
+      const user = await User.findOne({ id: spotifyUser.id });
 
-    //if user found, return user
-    if (!user) {
-      const newUser = new User({
-        username: spotifyUser.display_name,
-        profilePicture: spotifyUser.images[1].url,
-        email: spotifyUser.email,
-        countryCode: spotifyUser.country,
-        id: spotifyUser.id,
-      });
+      //if user found, return user
+      if (!user) {
+        const newUser = new User({
+          username: spotifyUser.display_name,
+          profilePicture: spotifyUser.images[1].url,
+          email: spotifyUser.email,
+          countryCode: spotifyUser.country,
+          id: spotifyUser.id,
+        });
 
-      try {
-        await newUser.save();
-        return newUser;
-      } catch (err) {
-        return {
-          status: 500,
-          body: "Error saving user, please try again later",
-        };
+        try {
+          await newUser.save();
+          return newUser;
+        } catch (err) {
+          return {
+            status: 500,
+            body: `Server error: ${err}`,
+          };
+        }
       }
-    }
 
-    return user;
+      return user;
+    } catch (err) {
+      return {
+        status: 500,
+        body: `Server error: ${err}`,
+      };
+    }
     //if no user found, add user to db
   }
 });

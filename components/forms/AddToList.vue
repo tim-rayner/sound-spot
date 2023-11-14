@@ -113,7 +113,7 @@ const submitTrackToList = async (list: List) => {
           <FormsCreateNewList @list-submitted="postNewList" />
         </div>
         <Button
-          label="Create new list"
+          label="Add to new list"
           v-if="view === views.addToList"
           @click="view = views.createNewList"
         />
