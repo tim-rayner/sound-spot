@@ -11,7 +11,6 @@ export default async (_nitroApp: Nitro) => {
     //create mongodb connectionx
     await mongoose.connect(config.mongodbUri);
     console.log("MongoDB Connected");
-    console.log("Vercel should see this");
     const response = await axios
       .get("https://status.spotify.dev/api/v2/status.json")
       .then((res) => res.data.status.indicator);

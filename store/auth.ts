@@ -37,7 +37,7 @@ export const useAuthStore = defineStore("auth", {
           return response.data;
         });
 
-      //TODO: squash bug here. Causing axios error
+      console.log("is it me?");
       await axios
         .post("/api/auth/login", spotifyUser)
         .then((response) => {

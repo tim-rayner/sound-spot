@@ -7,9 +7,8 @@ const { authenticateUser } = useAuthStore(); // use authenticateUser action from
 const { user } = storeToRefs(useAuthStore());
 
 const { query } = useRoute();
-console.log("Vercel should see this");
 //TODO: TAKE OUT OF INDEX PAGE AND SEGREGATE
-if (query.code && query.state) {
+if (query.code && query.state && !user.value) {
   //get options
   const { data: optionsBody } = await useFetch("/api/auth/options", {
     method: "post",

@@ -8,7 +8,7 @@ export default defineNuxtRouteMiddleware((to) => {
   const accessToken = useCookie("token");
   const refreshToken = useCookie("refresh_token");
 
-  if (accessToken.value) {
+  if (accessToken.value && !user.value) {
     authenticateUser(accessToken.value, refreshToken.value ?? undefined);
   }
 
