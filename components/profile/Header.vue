@@ -7,6 +7,8 @@ const props = defineProps({
     required: true,
   },
 });
+
+const router = useRouter();
 </script>
 
 <template>
@@ -17,7 +19,15 @@ const props = defineProps({
         :src="user.profilePicture"
         :alt="user.name"
       />
-      <h1 class="mt-4 text-2xl font-bold text-gray-800">{{ user.username }}</h1>
+      <h1 class="mt-4 text-2xl font-bold text-gray-800">
+        {{ user.username }}
+        <font-awesome-icon
+          title="edit profile"
+          icon="fa-edit"
+          class="ml-2 text-lg cursor-pointer"
+          @click="router.push('/profile/settings')"
+        />
+      </h1>
       <p class="text-sm text-gray-500 mt-1">{{ user.email }}</p>
       <!-- <p class="text-sm text-gray-500 mt-1">{{ user.bio }}</p> -->
       <div class="flex flex-row mt-4">
