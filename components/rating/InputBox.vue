@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { useToast } from "primevue/usetoast";
-import { useField, useForm } from "vee-validate";
+import { useForm } from "vee-validate";
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "~/store/auth";
-import type { Rating, iRating } from "~/types/rating-types";
-import mongoose from "mongoose";
+import type { Rating } from "~/types/rating-types";
 
 const authStore = useAuthStore();
 const { user, authenticated } = storeToRefs(authStore);
@@ -144,6 +143,4 @@ const postRating = async () => {
       You rated this {{ itemType }} {{ previousRating }} stars.
     </p>
   </div>
-  <!-- TODO: change positioning and color -->
-  <Toast />
 </template>

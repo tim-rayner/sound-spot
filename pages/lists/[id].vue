@@ -3,12 +3,13 @@ import type { ListWithTracks } from "~/types/list-types";
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "~/store/auth";
 import axios from "axios";
+import { useToast } from "primevue/usetoast";
 
 const { authenticated, user } = storeToRefs(useAuthStore());
-const router = useRouter();
 
 definePageMeta({ auth: false });
 
+const toast = useToast();
 const route = useRoute();
 const list = ref<ListWithTracks>();
 
@@ -23,10 +24,27 @@ const listenOnSpotify = () => {
 };
 
 const generatePlaylistFromList = async () => {
-  const { data } = await axios.post(`/api/spotify/playlist/listToPlaylist`, {
-    list: list.value,
-    userId: user.value.id,
-  });
+  await axios
+    .post(`/api/spotify/playlist/listToPlaylist`, {
+      list: list.value,
+      userId: user.value.id,
+    })
+    .then((r) => {
+      toast.add({
+        severity: "success",
+        summary: "Success",
+        detail: "Playlist created!",
+        life: 3000,
+      });
+    })
+    .catch((err) => {
+      toast.add({
+        severity: "error",
+        summary: "Error",
+        detail: err.response.data.message,
+        life: 3000,
+      });
+    });
 };
 </script>
 
