@@ -1,7 +1,5 @@
 import axios from "axios";
 import { Rating } from "~/server/api/ratings/index.get";
-
-import type { List as iList } from "~/types/list-types";
 import { Item } from "~/types/spotify-types";
 
 export default defineEventHandler(async (event) => {
@@ -16,20 +14,10 @@ export default defineEventHandler(async (event) => {
   //TODO: GET TOP RATINGS FROM DB WHERE ITEM TYPE IS TRACK
   const ratings = await Rating.find({ itemType: "track" });
 
-  //delcare a variable which is a comma separated list of track ids in a single string
-  const trackIds: string[] = [];
-
-  ratings.forEach((rating) => {
-    if (!trackIds.includes(rating.itemId)) trackIds.push(rating.itemId);
-  });
-
   if (ratings.length === 0) return [];
   //FOR EACH RATING, GET THE ITEM FROM SPOTIFY
   const spotifyResponse = await axios
-    .get("https://api.spotify.com/v1/tracks", {
-      params: {
-        ids: trackIds.join(","),
-      },
+    .get("https://api.spotify.com/v1/playlists/37i9dQZF1DX0XUsuxWHRQd", {
       headers: {
         Authorization: `Bearer ${spotifyClientAccessToken} `,
       },
@@ -45,7 +33,9 @@ export default defineEventHandler(async (event) => {
     });
 
   //TODO: MERGE WITH RATING INFO FROM DB
-  const items: Item[] = spotifyResponse.tracks;
+  const items: Item[] = spotifyResponse.tracks.items.map(
+    (item: any) => item.track
+  );
 
   items.forEach((track: Item) => {
     const trackRatings = ratings.filter((rating) => rating.itemId === track.id);
