@@ -5,6 +5,9 @@ const searchQuery = ref<string>("");
 const searchResults = ref<Item[]>([]);
 const searchLoading = ref<boolean>(false);
 const show = ref<boolean>(false);
+
+const loaderSkeletons = ref(["1", "2", "3", "4"]);
+
 // interface SpotifyTrack {
 
 const search = async () => {
@@ -50,10 +53,19 @@ const fieldKeyPress = (event: any) => {
           v-if="searchResults.length"
           class="flex flex-row flex-wrap gap-12 my-12 mt-6 mx-4"
         >
-          <li v-for="result in searchResults" :key="result.id" class="">
+          <li v-for="result in searchResults" :key="result.id">
             <SongOverview :track="result" class="w-[20vw] h-auto" />
           </li>
         </ul>
+      </div>
+    </Transition>
+    <Transition>
+      <div class="my-12" v-if="searchLoading">
+        <div class="flex flex-row flex-wrap gap-12 my-12 mt-6 mx-4">
+          <div v-for="skeleton in loaderSkeletons" :key="skeleton">
+            <LoaderTile class="w-[20vw] h-auto" />
+          </div>
+        </div>
       </div>
     </Transition>
   </div>

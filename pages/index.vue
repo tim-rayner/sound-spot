@@ -15,6 +15,9 @@ const loginWithSpotify = () => {
 
 const topSongs = ref<Item[]>([]);
 const topLists = ref<List[]>([]);
+const loaderSkeletons = ref(["1", "2", "3", "4"]);
+const topSongsLoading = ref(true);
+const topListsLoading = ref(true);
 
 const getTopSongs = async () => {
   const { data: songs } = await useFetch("/api/items/tracks/top", {
@@ -22,6 +25,7 @@ const getTopSongs = async () => {
   });
   if (songs.value?.length! > 0 || songs.value) {
     topSongs.value = songs.value?.slice(0, 4)!;
+    topSongsLoading.value = false;
   }
 };
 
@@ -32,6 +36,7 @@ const getTopLists = async () => {
   if (lists.value) {
     //@ts-ignore
     topLists.value = lists.value!;
+    topListsLoading.value = false;
   }
 };
 
@@ -57,14 +62,20 @@ getTopLists();
 
   <h3 class="text-xl mx-6">Our Top Tracks</h3>
   <div class="flex flex-row flex-wrap gap-12 my-12 mt-6 mx-4">
-    <div v-for="song in topSongs" :key="song.id">
+    <div v-for="song in topSongs" :key="song.id" v-if="!topSongsLoading">
       <SongOverview :track="song" class="w-[20vw] h-auto" />
     </div>
+    <LoaderTile
+      v-else
+      v-for="loader in loaderSkeletons"
+      :key="loader"
+      class="w-[20vw] h-auto"
+    />
   </div>
 
   <h3 class="text-xl mx-6">Our Top Lists</h3>
   <div class="flex flex-row flex-wrap gap-12 my-12 mt-6 mx-4 auto-rows-fr">
-    <div v-for="list in topLists" :key="list._id">
+    <div v-for="list in topLists" :key="list._id" v-if="!topListsLoading">
       <ListOverview :list="list" class="w-[30vw] h-[25vh]" />
     </div>
   </div>

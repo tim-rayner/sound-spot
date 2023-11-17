@@ -12,6 +12,7 @@ import Dialog from "primevue/dialog";
 import TabView from "primevue/tabview";
 import TabPanel from "primevue/tabpanel";
 import AvatarGroup from "primevue/avatargroup";
+import Skeleton from "primevue/skeleton";
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.use(PrimeVue, { ripple: true });
@@ -28,5 +29,5 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.component("Dialog", Dialog);
   nuxtApp.vueApp.component("TabView", TabView);
   nuxtApp.vueApp.component("TabPanel", TabPanel);
-  nuxtApp.vueApp.component("TabPanel", TabPanel);
+  nuxtApp.vueApp.component("Skeleton", Skeleton);
 });
