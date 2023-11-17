@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { Item } from "~/types/spotify-types.ts";
+import type { SearchResponse } from "~/types/search-types";
 
 const searchQuery = ref<string>("");
-const searchResults = ref<Item[]>([]);
+const searchResults = ref<SearchResponse>();
 const searchLoading = ref<boolean>(false);
 const show = ref<boolean>(false);
 
@@ -12,9 +12,10 @@ const loaderSkeletons = ref(["1", "2", "3", "4"]);
 
 const search = async () => {
   searchLoading.value = true;
-  const { data: results } = await useFetch("/api/tracks/search", {
+
+  const { data: results } = await useFetch("/api/spotify/search", {
     method: "post",
-    body: { query: searchQuery.value, type: "track" },
+    body: { query: searchQuery.value },
   });
 
   searchLoading.value = false;
@@ -50,11 +51,21 @@ const fieldKeyPress = (event: any) => {
     <Transition>
       <div class="my-12" v-if="!searchLoading">
         <ul
-          v-if="searchResults.length"
+          v-if="searchResults?.items?.length"
           class="flex flex-row flex-wrap gap-12 my-12 mt-6 mx-4"
         >
-          <li v-for="result in searchResults" :key="result.id">
-            <SongOverview :track="result" class="w-[20vw] h-auto" />
+          <li v-for="result in searchResults.items" :key="result.id">
+            <SongOverview
+              v-if="result.type === 'track'"
+              :track="result"
+              class="w-[20vw] h-auto"
+            />
+            <AlbumOverview
+              v-if="result.type === 'album'"
+              :album="result"
+              class="w-[20vw] h-auto"
+            />
+            <div v-else></div>
           </li>
         </ul>
       </div>
