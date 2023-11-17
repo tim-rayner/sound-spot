@@ -51,6 +51,11 @@ export default defineEventHandler(async (event) => {
             body: `Server error: ${err}`,
           };
         }
+      } else {
+        user.username = spotifyUser.display_name;
+        user.profilePicture = spotifyUser.images[1].url;
+        user.email = spotifyUser.email;
+        await user.save();
       }
 
       return user;
