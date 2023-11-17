@@ -8,13 +8,15 @@ export default defineEventHandler(async (event): Promise<iList[]> => {
   //this will eventually be owned lists, and liked lists (and maybe more)
   const { spotifyClientAccessToken } = parseCookies(event);
 
-  if (!spotifyClientAccessToken) {
+  if (!spotifyClientAccessToken || !userId) {
     // handle error
     return [];
   }
-  {
-    owner: userId;
-  }
+
+  return await getUserTopLists(userId);
+});
+
+export const getUserTopLists = async (userId: string) => {
   const lists = await List.find({ owner: userId });
 
   if (lists.length === 0) {
@@ -33,4 +35,4 @@ export default defineEventHandler(async (event): Promise<iList[]> => {
   );
 
   return newLists;
-});
+};

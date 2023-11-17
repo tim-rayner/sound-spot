@@ -8,10 +8,17 @@ export default defineEventHandler(async (event): Promise<Item[]> => {
 
   const { spotifyClientAccessToken } = parseCookies(event);
 
-  if (!spotifyClientAccessToken) {
+  if (!spotifyClientAccessToken || !userId) {
     return [];
   }
 
+  return await getUserTopTracks(userId, spotifyClientAccessToken);
+});
+
+export const getUserTopTracks = async (
+  userId: string,
+  spotifyClientAccessToken: string
+) => {
   //TODO: GET TOP RATINGS FROM DB WHERE ITEM TYPE IS TRACK
   const ratings = await Rating.find({ itemType: "track", user: userId });
 
@@ -60,4 +67,4 @@ export default defineEventHandler(async (event): Promise<Item[]> => {
   });
 
   return items;
-});
+};
