@@ -36,7 +36,9 @@ const clearAllCookies = () => {
         <!-- LEFT-->
         <div class="justify-between flex gap-20">
           <li class="font-bold"><nuxt-link to="/">SoundSpot</nuxt-link></li>
-          <li class="font-bold"><nuxt-link to="/about">About</nuxt-link></li>
+          <li class="font-bold">
+            <nuxt-link to="/leaderboard">Leaderboard</nuxt-link>
+          </li>
         </div>
         <!-- RIGHT -->
         <div class="justify-end flex gap-6 float-right">
