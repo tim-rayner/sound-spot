@@ -14,6 +14,11 @@ const props = defineProps({
     required: false,
     default: false,
   },
+  size: {
+    type: String,
+    required: false,
+    default: "md",
+  },
 });
 
 const hoverActive = ref<Boolean>(false);
@@ -49,7 +54,8 @@ const toggleHoverState = (value: boolean) => {
 
 <template>
   <div
-    class="flex flex-row"
+    class="flex flex-row align-middle my-auto"
+    :class="size === 'sm' ? ' ' : ''"
     @mouseover="toggleHoverState(true)"
     @mouseleave="toggleHoverState(false)"
   >
@@ -57,13 +63,15 @@ const toggleHoverState = (value: boolean) => {
       <button
         :disabled="star.value === rating"
         @click="submitRating(star.value)"
-        class="btn-invisible"
+        class="btn-invisible my-auto align-middle"
       >
         <StarIcon
-          class="h-6 w-6 mr-1"
+          class=""
           :class="{
             'text-[#1ab26b]': star.active,
             'text-gray-500': !star.active,
+            ' w-[0.95rem] h-[0.95rem] ': size === 'sm',
+            'mr-1 h-6 w-6': size === 'md',
           }"
           :key="star.value"
           @mouseover="hoverRating = star.value"

@@ -15,14 +15,17 @@ const router = useRouter();
   <Fieldset>
     <template #legend>
       <div
-        class="flex align-items-center gap-2 px-2 hover:cursor-pointer"
+        class="flex align-items-center gap-3 px-2 hover:cursor-pointer"
         @click="router.push(`/profile/${rating.userId}`)"
       >
         <Avatar :image="rating.userProfilePicture" shape="circle" />
-        <span class="font-bold">{{ rating.username }} </span>
+        <span class="font-bold align-middle my-auto"
+          >{{ rating.username }}
+        </span>
+        <FormsRating :rating="rating.rating" :size="'sm'" />
       </div>
     </template>
-    <p class="m-0">
+    <p class="m-0" v-if="rating.comment.length">
       {{ rating.comment }}
     </p>
   </Fieldset>
