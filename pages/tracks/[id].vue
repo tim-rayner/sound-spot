@@ -20,6 +20,7 @@ definePageMeta({ auth: false });
 
 const route = useRoute();
 const track = ref<Item>();
+const tabActiveIndex = ref(0);
 const suggestedTracks = ref<Item[]>();
 
 const { data: trackData } = await useFetch(
@@ -66,6 +67,17 @@ const ratingPosted = (rating: iRating) => {
   rating.username = user.value?.username!;
   rating.userProfilePicture = user.value?.profilePicture!;
   track?.value?.ratings.push(rating);
+};
+
+const focusRatingInput = async () => {
+  await setTab(0);
+  const ratingInput = document.getElementById("rating-input");
+  ratingInput?.scrollIntoView({ behavior: "smooth" });
+  ratingInput?.focus();
+};
+
+const setTab = async (tab: number) => {
+  tabActiveIndex.value = tab;
 };
 </script>
 
@@ -116,9 +128,13 @@ const ratingPosted = (rating: iRating) => {
         </div>
         <p v-else>
           Not rated yet, be the first to
-          <CustomLink link="#" highlight="#1ab26b"> leave a rating</CustomLink>
+          <Button @click="focusRatingInput"> leave a rating </Button>
         </p>
-        <Button class="mt-4 mr-4" @click="" v-if="authenticated">
+        <Button
+          class="mt-4 mr-4"
+          @click="focusRatingInput"
+          v-if="authenticated"
+        >
           Leave a rating
         </Button>
         <FormsAddToList
@@ -132,7 +148,7 @@ const ratingPosted = (rating: iRating) => {
       </div>
     </div>
     <!-- TAB AREA-->
-    <TabView class="mx-4">
+    <TabView class="mx-4" v-model:activeIndex="tabActiveIndex">
       <TabPanel header="Reviews">
         <div class="rating-area">
           <div class="mx-12" v-if="track?.ratings?.length > 3">

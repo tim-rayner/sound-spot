@@ -118,6 +118,7 @@ const postRating = async () => {
           aria-describedby="text-error"
           placeholder="Leave a review"
           :class="{ 'p-invalid': false }"
+          id="rating-input"
         />
 
         <small id="text-error" class="p-error mb-2" v-if="false">{{
