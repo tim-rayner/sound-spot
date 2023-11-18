@@ -31,14 +31,15 @@ export default defineEventHandler(async (event) => {
     const spotifyUser = await readBody(event);
     try {
       const user = await User.findOne({ id: spotifyUser.id });
-
+      console.log(user);
       //if user found, return user
       if (!user) {
+        console.log("no user found");
         const newUser = new User({
           username: spotifyUser.display_name,
-          profilePicture: spotifyUser.images[1].url,
-          email: spotifyUser.email,
-          countryCode: spotifyUser.country,
+          profilePicture: spotifyUser?.images[1]?.url ?? null,
+          email: spotifyUser?.email,
+          countryCode: spotifyUser?.country,
           id: spotifyUser.id,
         });
 
@@ -53,7 +54,7 @@ export default defineEventHandler(async (event) => {
         }
       } else {
         user.username = spotifyUser.display_name;
-        user.profilePicture = spotifyUser.images[1].url;
+        user.profilePicture = spotifyUser.images[1]?.url ?? null;
         user.email = spotifyUser.email;
         await user.save();
       }

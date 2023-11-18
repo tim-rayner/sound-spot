@@ -29,17 +29,17 @@ export const useAuthStore = defineStore("auth", {
             Authorization: `Bearer ${userToken}`,
           },
         })
+        .then((response) => {
+          return response.data;
+        })
         .catch((err) => {
           this.logUserOut();
-        })
-        .then((response) => {
-          //@ts-ignore
-          return response.data;
         });
 
       await axios
         .post("/api/auth/login", spotifyUser)
         .then((response) => {
+          if (response.status == 500) return this.logUserOut();
           this.user = response.data;
           useLocalStorage("ud01xy", JSON.stringify(this.user)); //TODO: not sure if this is the best way to do this
         })

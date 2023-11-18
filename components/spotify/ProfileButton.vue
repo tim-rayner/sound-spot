@@ -25,14 +25,14 @@ const logout = () => {
       v-if="user"
       @click="toggleDropdown"
     >
-      <span class="img">
+      <span class="img" v-if="user?.profilePicture">
         <img
           :src="user.profilePicture"
           alt="profile picture"
           class="w-6 rounded-full"
         />
       </span>
-      <span class="name ml-2"> {{ user.username }}</span>
+      <span class="name ml-2"> {{ user?.username }}</span>
 
       <span class="arrow absolute right-5">
         <font-awesome-icon :icon="'chevron-down'" />

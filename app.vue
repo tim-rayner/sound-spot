@@ -1,38 +1,4 @@
-<script setup lang="ts">
-import { storeToRefs } from "pinia"; // import storeToRefs helper hook from pinia
-import { useAuthStore } from "~/store/auth"; // import the auth store we just created
-
-const { authenticateUser } = useAuthStore(); // use authenticateUser action from  auth store
-const { user } = storeToRefs(useAuthStore());
-
-const { query } = useRoute();
-//TODO: TAKE OUT OF INDEX PAGE AND SEGREGATE
-if (query.code && query.state && !user.value) {
-  //get options
-  const { data: optionsBody } = await useFetch("/api/auth/options", {
-    method: "post",
-    body: { code: query.code, state: query.state },
-  });
-
-  //get token
-  const { data: response } = await useFetch("/api/auth/token", {
-    method: "post",
-    body: optionsBody.value,
-  });
-
-  if (response.value) {
-    authenticateUser(
-      response.value.body.accessToken,
-      response.value.body.refreshToken
-    );
-  } else {
-    authenticateUser(
-      useCookie("token").value ?? "",
-      useCookie("refresh_token").value ?? ""
-    );
-  }
-}
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <ColorScheme placeholder="..." tag="span">
