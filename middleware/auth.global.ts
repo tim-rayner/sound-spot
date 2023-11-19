@@ -44,9 +44,14 @@ export default defineNuxtRouteMiddleware(async (to) => {
 
   //@ts-ignore
   if (
-    ["index", "tracks-id", "lists-id", "albums-id", "artists-id"].includes(
-      to.name
-    )
+    [
+      "index",
+      "tracks-id",
+      "lists-id",
+      "albums-id",
+      "artists-id",
+      "leaderboard",
+    ].includes(to.name)
   ) {
     return;
   }
