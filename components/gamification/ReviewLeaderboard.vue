@@ -54,26 +54,18 @@ if (userPlace.value === 1) {
         <template #body="slotProps">
           <div class="flex">
             <span
-              class="font-bold"
+              class="font-bold my-auto"
               :class="{ 'mx-auto': slotProps.index + 1 > 3 }"
               >{{ slotProps.index + 1 }}</span
             >
-            <div v-if="slotProps.index === 0" class="my-auto">
-              <span class="font-bold">
-                <font-awesome-icon
-                  icon="fa-crown"
-                  class="text-lg ml-2 text-yellow-600"
-              /></span>
+            <div v-if="slotProps.index === 0" class="ml-2 my-auto">
+              <span class="font-bold text-2xl">👑</span>
             </div>
             <div
               v-if="slotProps.index + 1 > 1 && slotProps.index + 1 <= 3"
               class="my-auto"
             >
-              <span class="font-bold">
-                <font-awesome-icon
-                  icon="fa-fire"
-                  class="text-lg ml-2 text-orange-600"
-              /></span>
+              <span class="font-bold font-bold text-2xl">🔥</span>
             </div>
           </div>
         </template>
