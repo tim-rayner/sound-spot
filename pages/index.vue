@@ -63,20 +63,15 @@ getTopLists();
   <h3 class="text-xl mx-6">Our Top Tracks</h3>
   <div class="flex flex-row flex-wrap gap-12 my-12 mt-6 mx-4">
     <div v-for="song in topSongs" :key="song.id" v-if="!topSongsLoading">
-      <SongOverview :track="song" class="w-[20vw] h-auto" />
+      <SongOverview :track="song" />
     </div>
-    <LoaderTile
-      v-else
-      v-for="loader in loaderSkeletons"
-      :key="loader"
-      class="w-[20vw] h-auto"
-    />
+    <LoaderTile v-else v-for="loader in loaderSkeletons" :key="loader" />
   </div>
 
   <h3 class="text-xl mx-6">Our Top Lists</h3>
   <div class="flex flex-row flex-wrap gap-12 my-12 mt-6 mx-4 auto-rows-fr">
     <div v-for="list in topLists" :key="list._id" v-if="!topListsLoading">
-      <ListOverview :list="list" class="w-[30vw] h-[25vh]" />
+      <ListOverview :list="list" />
     </div>
   </div>
 </template>

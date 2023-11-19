@@ -43,20 +43,22 @@ const ratingPosted = (rating: iRating) => {
 
 <template>
   <div
-    class="content container w-[1070px] mx-auto min-h-screen my-12 shadow-2xl rounded-lg"
+    class="content container md:w-[1070px] mx-auto min-h-screen my-12 shadow-2xl rounded-lg"
   >
-    <div class="flex flex-row header rounded-t-xl border">
-      <div class="img rounded-full p-12 pr-0">
+    <div class="flex flex-col md:flex-row header rounded-t-xl border p-12">
+      <div class="img rounded-full md:pr-0">
         <img
           :src="album?.images[0].url"
           :alt="album?.name"
-          class="w-96 rounded-2xl"
+          class="w-96 rounded-2xl mx-auto"
         />
       </div>
-      <div class="info mx-12 my-6 p-12 pl-6">
+
+      <div class="info md:mx-12 my-6 md:p-12 md:px-12">
         <h1 class="text-4xl font-bold i flex">
           {{ album?.name }}
         </h1>
+        <h2>{{ album?.artists.map((artist) => artist.name).join(",") }}</h2>
         <div>
           <small class="mt-3">{{ album?.release_date }} </small>
         </div>
@@ -72,14 +74,14 @@ const ratingPosted = (rating: iRating) => {
     <TabView class="mx-4">
       <TabPanel header="Reviews">
         <div class="rating-area">
-          <div class="ratings px-12 py-4">
+          <div class="ratings md:px-12 py-4">
             <RatingListedRating
               v-for="rating in album?.ratings"
               :rating="rating"
               class="mb-12"
             />
           </div>
-          <div class="leave-rating-input px-12 py-4">
+          <div class="leave-rating-input md:px-12 py-4">
             <RatingInputBox
               :itemId="album?.id!"
               itemType="album"

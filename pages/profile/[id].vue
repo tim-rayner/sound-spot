@@ -25,7 +25,7 @@ const firstName = computed(() => {
       </div>
       <div class="flex flex-row flex-wrap gap-12 my-12 mt-6 mx-4 auto-rows-fr">
         <div v-for="track in profileData.topTracks" :key="track._id">
-          <SongOverview :track="track" class="w-[20vw] h-auto" />
+          <SongOverview :track="track" />
         </div>
       </div>
     </div>

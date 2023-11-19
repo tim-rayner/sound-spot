@@ -44,17 +44,17 @@ const ratingPosted = (rating: iRating) => {
 
 <template>
   <div
-    class="content container w-[1070px] mx-auto min-h-screen my-12 shadow-2xl rounded-lg"
+    class="content container md:w-[1070px] mx-auto min-h-screen my-12 shadow-2xl rounded-lg"
   >
-    <div class="flex flex-row header rounded-t-xl border">
-      <div class="img rounded-full p-12 pr-0">
+    <div class="flex flex-col md:flex-row header rounded-t-xl border">
+      <div class="img rounded-full md:p-12 md:pr-0">
         <img
           :src="artist?.images[0].url"
           :alt="artist?.image"
-          class="w-48 h-48 rounded-full float-right"
+          class="w-48 h-48 rounded-full md:float-right mx-auto md:m-0"
         />
       </div>
-      <div class="info mx-12 my-6 p-12 pl-6">
+      <div class="info md:mx-12 my-6 p-12 md:pl-6">
         <h1 class="text-4xl font-bold i flex">
           {{ artist?.name }}
         </h1>
@@ -83,14 +83,14 @@ const ratingPosted = (rating: iRating) => {
     <TabView class="mx-4">
       <TabPanel header="Reviews">
         <div class="rating-area">
-          <div class="ratings px-12 py-4">
+          <div class="ratings md:px-12 py-4">
             <RatingListedRating
               v-for="rating in artist?.ratings"
               :rating="rating"
               class="mb-12"
             />
           </div>
-          <div class="leave-rating-input px-12 py-4">
+          <div class="leave-rating-input md:px-12 py-4">
             <RatingInputBox
               :itemId="artist?.id!"
               itemType="artist"
@@ -108,15 +108,15 @@ const ratingPosted = (rating: iRating) => {
             <div
               v-for="artist in suggestedArtists"
               :key="artist.id"
-              class="h-auto mx-2 flex w-full hover:cursor-pointer"
+              class="h-auto md:mx-2 flex w-full hover:cursor-pointer"
               @click="router.push(`/artists/${artist.id}`)"
             >
               <img
                 :src="artist?.images[0].url"
                 :alt="artist?.image"
-                class="w-48 h-48 rounded-full align-middle my-auto mx-1"
+                class="w-32 h-32 md:w-48 md:h-48 rounded-full align-middle my-auto mx-1"
               />
-              <div class="info mx-12 my-6 p-12 pl-6">
+              <div class="info md:mx-12 my-6 p-12 pl-6">
                 <h1 class="text-4xl font-bold i flex">
                   {{ artist?.name }}
                 </h1>

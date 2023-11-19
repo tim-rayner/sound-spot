@@ -55,11 +55,7 @@ const fieldKeyPress = (event: any) => {
           class="flex flex-row flex-wrap gap-12 my-12 mt-6 mx-4"
         >
           <li v-for="result in searchResults.items" :key="result.id">
-            <SongOverview
-              v-if="result.type === 'track'"
-              :track="result"
-              class="w-[20vw] h-auto"
-            />
+            <SongOverview v-if="result.type === 'track'" :track="result" />
             <AlbumOverview
               v-if="result.type === 'album'"
               :album="result"
@@ -74,7 +70,7 @@ const fieldKeyPress = (event: any) => {
       <div class="my-12" v-if="searchLoading">
         <div class="flex flex-row flex-wrap gap-12 my-12 mt-6 mx-4">
           <div v-for="skeleton in loaderSkeletons" :key="skeleton">
-            <LoaderTile class="w-[20vw] h-auto" />
+            <LoaderTile />
           </div>
         </div>
       </div>

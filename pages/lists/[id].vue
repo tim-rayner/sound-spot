@@ -50,17 +50,17 @@ const generatePlaylistFromList = async () => {
 
 <template>
   <div
-    class="content container w-[1070px] mx-auto min-h-screen my-12 shadow-2xl rounded-lg"
+    class="content container md:w-[1070px] mx-auto min-h-screen my-12 shadow-2xl rounded-lg"
   >
-    <div class="flex flex-row header rounded-t-xl">
+    <div class="flex flex-col md:flex-row header rounded-t-xl p-12">
       <div class="img">
         <img
           :src="list?.coverPhoto"
           :alt="list?.name"
-          class="w-96 rounded-tl-2xl"
+          class="w-96 rounded-2xl"
         />
       </div>
-      <div class="info flex flex-col mx-12 my-6">
+      <div class="info flex flex-col md:mx-12 my-6">
         <h1 class="text-4xl font-bold i flex">
           {{ list?.name }}
         </h1>
@@ -81,7 +81,7 @@ const generatePlaylistFromList = async () => {
       class="flex flex-row flex-wrap gap-12 my-12 mt-6 mx-4 auto-rows-fr pb-12"
     >
       <div v-for="song in list?.tracks" :key="song.id">
-        <SongOverview :track="song" class="w-[20vw]" />
+        <SongOverview :track="song" />
       </div>
     </div>
   </div>

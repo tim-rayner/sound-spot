@@ -83,9 +83,9 @@ const setTab = async (tab: number) => {
 
 <template>
   <div
-    class="content container w-[1070px] mx-auto min-h-screen my-12 shadow-2xl rounded-lg"
+    class="content container md:w-[1070px] mx-auto min-h-screen my-12 shadow-2xl rounded-lg"
   >
-    <div class="flex flex-row header border p-12 rounded-t-lg">
+    <div class="flex flex-col md:flex-row header border p-12 rounded-t-lg">
       <div class="img rounded-full pr-0">
         <div class="img">
           <img
@@ -95,7 +95,8 @@ const setTab = async (tab: number) => {
           />
         </div>
       </div>
-      <div class="info mx-12 my-6">
+      <!-- Info -->
+      <div class="info md:mx-12 my-6">
         <h1 class="text-4xl font-bold i flex">
           {{ track?.name }}
           <span
@@ -147,6 +148,7 @@ const setTab = async (tab: number) => {
         </Button>
       </div>
     </div>
+
     <!-- TAB AREA-->
     <TabView class="mx-4" v-model:activeIndex="tabActiveIndex">
       <TabPanel header="Reviews">
@@ -158,14 +160,14 @@ const setTab = async (tab: number) => {
             <AvatarGroup v-if="track?.ratings" :ratings="track?.ratings" />
           </div>
 
-          <div class="ratings px-12 py-4">
+          <div class="ratings md:px-12 py-4">
             <RatingListedRating
               v-for="rating in track?.ratings"
               :rating="rating"
               class="mb-12"
             />
           </div>
-          <div class="leave-rating-input px-12 py-2">
+          <div class="leave-rating-input md:px-12 py-2">
             <RatingInputBox
               :itemId="track?.id!"
               itemType="track"
@@ -181,11 +183,7 @@ const setTab = async (tab: number) => {
           <div
             class="flex flex-row flex-wrap gap-12 my-12 mt-6 mx-4 auto-rows-fr"
           >
-            <SongOverview
-              v-for="track in suggestedTracks"
-              :track="track"
-              class="w-[20vw] h-auto"
-            />
+            <SongOverview v-for="track in suggestedTracks" :track="track" />
           </div>
         </div>
       </TabPanel>

@@ -1,3 +1,4 @@
+import type { TransitionGroup } from 'vue';
 <script setup lang="ts">
 import { storeToRefs } from "pinia"; // import storeToRefs helper hook from pinia
 import ColorModeSwitch from "~/components/forms/ColorModeSwitch.vue";
@@ -10,6 +11,7 @@ const mobileMenuToggled = ref(false);
 const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive with storeToRefs
 
 const loginWithSpotify = () => {
+  mobileMenuToggled.value = false;
   router.push("/login");
 };
 
@@ -26,6 +28,11 @@ const clearAllCookies = () => {
   }
   window.location.reload();
 };
+
+const redirect = (to: string) => {
+  mobileMenuToggled.value = false;
+  router.push(to);
+};
 </script>
 
 <template>
@@ -33,9 +40,8 @@ const clearAllCookies = () => {
     <div class="main-nav bg-[#1e1e1e] p-3 text-[#f0ffff]">
       <ul class="flex justify-between p-2 px-5 align-middle items-center">
         <!-- LEFT-->
-
         <div class="justify-between flex gap-20">
-          <li class="font-bold"><nuxt-link to="/">SoundSpot</nuxt-link></li>
+          <li class="font-bold"><div @click="redirect('/')">SoundSpot</div></li>
           <li class="font-bold hidden md:flex">
             <nuxt-link to="/leaderboard">Leaderboard</nuxt-link>
           </li>
@@ -71,13 +77,12 @@ const clearAllCookies = () => {
         </div>
       </ul>
     </div>
-
     <div
       class="md:hidden bg-[#1e1e1e] p-3 text-[#f0ffff] rounded-b-xl md:rounded-b-none"
       v-if="mobileMenuToggled"
     >
       <div class="flex flex-col gap-2 mx-[20px]">
-        <nuxt-link to="/leaderboard">Leaderboard</nuxt-link>
+        <div @click="redirect('/leaderboard')">Leaderboard</div>
         <div>
           <span v-if="!authenticated">
             <SpotifyLoginWithSpotifyButton @buttonClicked="loginWithSpotify" />
