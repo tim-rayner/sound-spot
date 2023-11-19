@@ -9,6 +9,10 @@
   @tailwind utilities;
 }
 
+#app {
+  max-width: 100vw;
+  /* overflow-x: hidden; */
+}
 /*
 STANDARDISATION 
   Y-AXIS GUTTER: my-4
