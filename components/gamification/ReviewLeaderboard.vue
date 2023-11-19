@@ -1,24 +1,57 @@
 <script setup lang="ts">
 import axios from "axios";
 import type { RatingUserAggr } from "~/types/user-types";
+import { useAuthStore } from "~/store/auth";
 
+import { useToast } from "primevue/usetoast";
+
+const { user } = storeToRefs(useAuthStore());
 const router = useRouter();
+const toast = useToast();
 
 const tableData = ref<RatingUserAggr[]>([]);
+const userPlace = ref<number>(0);
 
-const { data: response } = await axios
+await axios
   .get("http://localhost:3000/api/leaderboards/reviews")
   .catch((err) => {
-    console.log(err);
+    toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: "Could not load leaderboard",
+      life: 3000,
+    });
+  })
+  .then((resp) => {
+    //first is the current user ID in top 10?
+    if (user) {
+      userPlace.value =
+        resp.data.findIndex(
+          (listedUser) => listedUser._id === user.value?._id
+        ) + 1;
+    }
+    tableData.value = resp.data;
   });
-if (response) {
-  tableData.value = response;
+
+const stlyeUserCell = (data: any) => {
+  if (data._id === user.value?._id) {
+    return "bg-green-100 border-green-200 border-2 rounded-md";
+  }
+};
+
+//if user is first place begin a 5 second countdown to then kill the confetti component
+//this is done to prevent the confetti from playing on every page load
+if (userPlace.value === 1) {
+  setTimeout(() => {
+    userPlace.value = 0;
+  }, 3000);
 }
 </script>
 
 <template>
+  <GamificationConfetti v-if="userPlace === 1" />
   <div>
-    <DataTable :value="tableData" class="card !z-0">
+    <DataTable :value="tableData" class="card !z-0" :rowClass="stlyeUserCell">
       <Column header="Rank" :style="`width: 5rem`">
         <template #body="slotProps">
           <div class="flex">
