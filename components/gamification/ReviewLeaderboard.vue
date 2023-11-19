@@ -44,7 +44,7 @@ const stlyeUserCell = (data: any) => {
 if (userPlace.value === 1) {
   setTimeout(() => {
     userPlace.value = 0;
-  }, 3000);
+  }, 4500);
 }
 </script>
 
