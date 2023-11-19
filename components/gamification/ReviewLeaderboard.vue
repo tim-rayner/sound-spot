@@ -14,14 +14,6 @@ const userPlace = ref<number>(0);
 
 await axios
   .get("http://localhost:3000/api/leaderboards/reviews")
-  .catch((err) => {
-    toast.add({
-      severity: "error",
-      summary: "Error",
-      detail: "Could not load leaderboard",
-      life: 3000,
-    });
-  })
   .then((resp) => {
     //first is the current user ID in top 10?
     if (user) {
@@ -31,6 +23,14 @@ await axios
         ) + 1;
     }
     tableData.value = resp.data;
+  })
+  .catch((err) => {
+    toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: err.message,
+      life: 3000,
+    });
   });
 
 const stlyeUserCell = (data: any) => {
