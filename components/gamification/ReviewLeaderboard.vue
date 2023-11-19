@@ -12,19 +12,22 @@ const toast = useToast();
 const tableData = ref<RatingUserAggr[]>([]);
 const userPlace = ref<number>(0);
 
-const { data: topReviewers } = await axios
-  .get("http://localhost:3000/api/leaderboards/reviews")
-  .catch((err) => {
-    toast.add({
-      severity: "error",
-      summary: "Error",
-      detail: err.message,
-      life: 3000,
-    });
+const { data: topReviewers } = await useFetch(
+  "http://localhost:3000/api/leaderboards/reviews",
+  { method: "GET" }
+).catch((err) => {
+  toast.add({
+    severity: "error",
+    summary: "Error",
+    detail: err.message,
+    life: 3000,
   });
+});
 
-tableData.value = topReviewers;
-if (user) {
+if (topReviewers.value) {
+  tableData.value = topReviewers.value;
+}
+if (user && tableData.value) {
   userPlace.value =
     tableData.value.findIndex(
       (listedUser) => listedUser._id === user.value?._id
@@ -65,7 +68,7 @@ if (userPlace.value === 1) {
               v-if="slotProps.index + 1 > 1 && slotProps.index + 1 <= 3"
               class="my-auto"
             >
-              <span class="font-bold font-bold text-2xl">🔥</span>
+              <span class="font-bold text-2xl">🔥</span>
             </div>
           </div>
         </template>
