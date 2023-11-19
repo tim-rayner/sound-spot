@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { iRating } from "~/types/rating-types";
+import { getProfilePicture } from "~/helpers/getProfilePicture";
 
 const props = defineProps({
   rating: {
@@ -18,7 +19,10 @@ const router = useRouter();
         class="flex align-items-center gap-3 px-2 hover:cursor-pointer"
         @click="router.push(`/profile/${rating.userId}`)"
       >
-        <Avatar :image="rating.userProfilePicture" shape="circle" />
+        <Avatar
+          :image="getProfilePicture(rating.userProfilePicture, rating.username)"
+          shape="circle"
+        />
         <span class="font-bold align-middle my-auto"
           >{{ rating.username }}
         </span>

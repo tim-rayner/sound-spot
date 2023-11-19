@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { iRating } from "~/types/rating-types";
-
+import { getProfilePicture } from "~/helpers/getProfilePicture";
 const props = defineProps({
   ratings: {
     type: Array as PropType<iRating[]>,
@@ -16,7 +16,11 @@ const remainingRatingCount = computed(() => {
 <template>
   <PrimeAvatarGroup>
     <div v-for="rating in ratings.slice(0, 3)">
-      <Avatar :image="rating.userProfilePicture" size="large" shape="circle" />
+      <Avatar
+        :image="getProfilePicture(rating.userProfilePicture, rating.username)"
+        size="large"
+        shape="circle"
+      />
     </div>
     <Avatar
       v-if="remainingRatingCount > 0"

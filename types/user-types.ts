@@ -25,3 +25,10 @@ export interface publicProfileData {
   following: number;
   //isFollowing: boolean;
 }
+
+export interface RatingUserAggr {
+  _id: string;
+  count: number;
+  avg: number;
+  user: iUser[];
+}

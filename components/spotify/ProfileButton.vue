@@ -40,7 +40,7 @@ const logout = () => {
     </div>
     <!-- DROPDOWN-->
     <div
-      class="dropdown-content absolute top-16 hidden w-48 rounded-lg bg-[#c1c1c1] text-black"
+      class="dropdown-content absolute top-16 hidden w-48 rounded-lg bg-[#c1c1c1] text-black !z-50"
     >
       <div
         class="dropdown-item p-2 hover:bg-slate-400 hover:cursor-pointer rounded-t-lg"

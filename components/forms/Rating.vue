@@ -12,7 +12,6 @@ const props = defineProps({
   functional: {
     type: Boolean,
     required: false,
-    default: false,
   },
   size: {
     type: String,

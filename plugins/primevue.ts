@@ -13,6 +13,10 @@ import TabView from "primevue/tabview";
 import TabPanel from "primevue/tabpanel";
 import AvatarGroup from "primevue/avatargroup";
 import Skeleton from "primevue/skeleton";
+import DataTable from "primevue/datatable";
+import Column from "primevue/column";
+import ColumnGroup from "primevue/columngroup";
+import Row from "primevue/row";
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.use(PrimeVue, { ripple: true });
@@ -30,4 +34,8 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.component("TabView", TabView);
   nuxtApp.vueApp.component("TabPanel", TabPanel);
   nuxtApp.vueApp.component("Skeleton", Skeleton);
+  nuxtApp.vueApp.component("DataTable", DataTable);
+  nuxtApp.vueApp.component("Column", Column);
+  nuxtApp.vueApp.component("ColumnGroup", ColumnGroup);
+  nuxtApp.vueApp.component("Row", Row);
 });
