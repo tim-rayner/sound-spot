@@ -12,18 +12,8 @@ const toast = useToast();
 const tableData = ref<RatingUserAggr[]>([]);
 const userPlace = ref<number>(0);
 
-await axios
+const { data: topReviewers } = await axios
   .get("http://localhost:3000/api/leaderboards/reviews")
-  .then((resp) => {
-    //first is the current user ID in top 10?
-    if (user) {
-      userPlace.value =
-        resp.data.findIndex(
-          (listedUser) => listedUser._id === user.value?._id
-        ) + 1;
-    }
-    tableData.value = resp.data;
-  })
   .catch((err) => {
     toast.add({
       severity: "error",
@@ -32,6 +22,14 @@ await axios
       life: 3000,
     });
   });
+
+tableData.value = topReviewers;
+if (user) {
+  userPlace.value =
+    tableData.value.findIndex(
+      (listedUser) => listedUser._id === user.value?._id
+    ) + 1;
+}
 
 const stlyeUserCell = (data: any) => {
   if (data._id === user.value?._id) {
@@ -89,6 +87,7 @@ if (userPlace.value === 1) {
             <ProfilePicture
               :username="slotProps.data.user.username"
               :profilePicture="slotProps.data.user.profilePicture"
+              class="w-16"
               size="16"
             />
             <p class="my-auto font-bold mx-2">
