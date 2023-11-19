@@ -12,10 +12,9 @@ const toast = useToast();
 const tableData = ref<RatingUserAggr[]>([]);
 const userPlace = ref<number>(0);
 
-const { data: topReviewers } = await useFetch(
-  "http://localhost:3000/api/leaderboards/reviews",
-  { method: "GET" }
-).catch((err) => {
+const { data: topReviewers } = await useFetch("/api/leaderboards/reviews", {
+  method: "GET",
+}).catch((err) => {
   toast.add({
     severity: "error",
     summary: "Error",
