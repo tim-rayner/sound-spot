@@ -61,11 +61,18 @@ getTopLists();
   <SpotifySearch />
 
   <h3 class="text-xl mx-6">Our Top Tracks</h3>
-  <div class="flex flex-row flex-wrap gap-12 my-12 mt-6 mx-4">
+  <div
+    class="md:flex md:flex-row md:flex-wrap md:gap-12 my-12 mt-6 mx-6 auto-rows-fr"
+  >
     <div v-for="song in topSongs" :key="song.id" v-if="!topSongsLoading">
-      <SongOverview :track="song" />
+      <SongOverview :track="song" class="my-12" />
     </div>
-    <LoaderTile v-else v-for="loader in loaderSkeletons" :key="loader" />
+    <LoaderTile
+      v-else
+      v-for="loader in loaderSkeletons"
+      :key="loader"
+      class="my-12"
+    />
   </div>
 
   <h3 class="text-xl mx-6">Our Top Lists</h3>

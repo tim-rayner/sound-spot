@@ -5,7 +5,7 @@ import Navbar from "~/components/layout/Navbar.vue";
 <template>
   <div>
     <Navbar />
-    <div class="mainContent mt-[64px] md:mt-[88px]">
+    <div class="mainContent mt-[64px] md:mt-[80px]">
       <slot />
     </div>
   </div>
