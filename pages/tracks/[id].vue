@@ -1,7 +1,3 @@
-<!-- 
-    File: /pages/tracks/[id].vue
-    Url:  /tracks/123
- -->
 <script setup lang="ts">
 import type { Item } from "~/types/spotify-types";
 import ExplicitIcon from "~/assets/svg/explicit.svg";
@@ -14,7 +10,6 @@ import type { iRating } from "~/types/rating-types";
 import axios from "axios";
 
 const { authenticated, user } = storeToRefs(useAuthStore());
-const router = useRouter();
 
 definePageMeta({ auth: false });
 
@@ -22,7 +17,9 @@ const route = useRoute();
 const track = ref<Item>();
 const tabActiveIndex = ref(0);
 const suggestedTracks = ref<Item[]>();
+const discussions = ref([]);
 
+//GET TRACK DATA
 const { data: trackData } = await useFetch(
   `/api/items/tracks/${route.params.id}`
 );
@@ -31,6 +28,7 @@ if (trackData.value) {
   track.value = trackData.value;
 }
 
+//GET SUGGESTED TRACKS
 const { data: suggestedTracksData } = await axios.post(
   "/api/items/tracks/suggested",
   {
@@ -40,6 +38,15 @@ const { data: suggestedTracksData } = await axios.post(
 
 if (suggestedTracksData) {
   suggestedTracks.value = suggestedTracksData;
+}
+
+//GET DISCUSSIONS
+const { data: relatedDiscussions } = await axios.get(
+  `/api/discussions/${track.value?.id}`
+);
+
+if (relatedDiscussions) {
+  discussions.value = relatedDiscussions;
 }
 
 const listenOnSpotify = () => {
@@ -78,6 +85,25 @@ const focusRatingInput = async () => {
 
 const setTab = async (tab: number) => {
   tabActiveIndex.value = tab;
+};
+
+const submitComment = async (comment: string) => {
+  //locally add comment to discussions array
+  discussions.value.push(comment);
+
+  // construct payload for discussion comment post request
+  const discussionPayload = {
+    itemId: track.value?.id,
+    owner: user.value?._id,
+    createdAt: new Date(),
+    comments: [comment],
+  };
+  console.log(user.value);
+  console.log(discussionPayload);
+
+  const { data: response } = await axios.post("/api/discussions/item", {
+    discussion: discussionPayload,
+  });
 };
 </script>
 
@@ -151,6 +177,7 @@ const setTab = async (tab: number) => {
 
     <!-- TAB AREA-->
     <TabView class="mx-4" v-model:activeIndex="tabActiveIndex">
+      <!-- REVIEWS -->
       <TabPanel header="Reviews">
         <div class="rating-area">
           <div class="mx-12" v-if="track?.ratings?.length > 3">
@@ -178,6 +205,7 @@ const setTab = async (tab: number) => {
           </div>
         </div>
       </TabPanel>
+      <!-- RELATED -->
       <TabPanel header="Related">
         <div class="related-tracks">
           <div
@@ -185,6 +213,27 @@ const setTab = async (tab: number) => {
           >
             <SongOverview v-for="track in suggestedTracks" :track="track" />
           </div>
+        </div>
+      </TabPanel>
+      <!-- DISCUSSIONS -->
+      <TabPanel header="Discussions">
+        <div class="" v-if="authenticated">
+          <div
+            class="mx-auto text-center items-center"
+            v-if="!discussions.length"
+          >
+            <p class="text-center">No discussions yet</p>
+          </div>
+
+          <div v-else>
+            <DiscussionList :discussions="discussions" />
+          </div>
+          <DiscussionInput @submit-comment="submitComment" />
+        </div>
+        <div v-else>
+          <p class="text-center">
+            <CustomLink link="/login">Login</CustomLink> to join the discussion!
+          </p>
         </div>
       </TabPanel>
       <TabPanel header="Track Info">
