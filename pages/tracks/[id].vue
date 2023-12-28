@@ -169,7 +169,7 @@ const submitComment = async (comment: string) => {
           class="mr-4"
           v-if="authenticated"
         />
-        <Button class="mt-4 mr-4" @click="listenOnSpotify">
+        <Button class="mt-4 mx-4" @click="listenOnSpotify">
           Listen on Spotify
         </Button>
       </div>

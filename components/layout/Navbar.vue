@@ -41,7 +41,9 @@ const redirect = (to: string) => {
       <ul class="flex justify-between p-2 px-5 align-middle items-center">
         <!-- LEFT-->
         <div class="justify-between flex gap-20">
-          <li class="font-bold"><div @click="redirect('/')">SoundSpot</div></li>
+          <li class="font-bold cursor-pointer">
+            <div @click="redirect('/')">SoundSpot</div>
+          </li>
           <li class="font-bold hidden md:flex">
             <nuxt-link to="/leaderboard">Leaderboard</nuxt-link>
           </li>
