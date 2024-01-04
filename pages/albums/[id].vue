@@ -2,6 +2,7 @@
 import axios from "axios";
 import { ref } from "vue";
 import { useAuthStore } from "~/store/auth";
+import type { LastFmWikiAlbum } from "~/types/last-fm-types";
 import type { iRating } from "~/types/rating-types";
 import type { Album } from "~/types/spotify-types";
 
@@ -12,6 +13,7 @@ const { user } = storeToRefs(useAuthStore());
 
 const album = ref<Album>();
 const suggestedAlbums = ref<Album[]>();
+const albumInfo = ref<LastFmWikiAlbum | null>(null);
 
 const { data: trackData } = await useFetch(
   `/api/items/albums/${route.params.id}`
@@ -31,6 +33,18 @@ const { data: suggestedArtistData } = await axios
 
 if (suggestedArtistData) {
   suggestedAlbums.value = suggestedArtistData;
+}
+
+//album info
+const { data: albumInfoResp } = await axios.post(`/api/items/about`, {
+  id: album.value?.id,
+  name: album.value?.name,
+  type: "album",
+  artists: album.value?.artists,
+});
+
+if (albumInfoResp) {
+  albumInfo.value = albumInfoResp.summary;
 }
 
 const ratingPosted = (rating: iRating) => {
@@ -113,15 +127,13 @@ const ratingPosted = (rating: iRating) => {
         </div>
       </TabPanel>
       <TabPanel header="Album Info">
-        <p class="m-0">
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
-          ab illo inventore veritatis et quasi architecto beatae vitae dicta
-          sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-          aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
-          qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit,
-          sed quia non numquam eius modi.
-        </p>
+        <p
+          class="m-0"
+          v-html="
+            albumInfo ??
+            'This album does not have any information available, sorry!'
+          "
+        ></p>
       </TabPanel>
     </TabView>
   </div>

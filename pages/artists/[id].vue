@@ -25,7 +25,7 @@ if (artistData.value) {
   artist.value = artistData.value;
 }
 
-//track info
+//artist info
 const { data: trackInfoResp } = await axios.post(`/api/items/about`, {
   id: artist.value?.id,
   name: artist.value?.name,
