@@ -8,8 +8,6 @@ const show = ref<boolean>(false);
 
 const loaderSkeletons = ref([1, 2, 3, 4]);
 
-// interface SpotifyTrack {
-
 const search = async () => {
   searchLoading.value = true;
 

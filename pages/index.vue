@@ -76,7 +76,9 @@ getTopLists();
   </div>
 
   <h3 class="text-xl mx-6">Our Top Lists</h3>
-  <div class="flex flex-row flex-wrap gap-12 my-12 mt-6 mx-4 auto-rows-fr">
+  <div
+    class="md:flex md:flex-row md:flex-wrap md:gap-12 my-12 mt-6 mx-6 auto-rows-fr"
+  >
     <div v-for="list in topLists" :key="list._id" v-if="!topListsLoading">
       <ListOverview :list="list" />
     </div>

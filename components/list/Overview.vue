@@ -14,11 +14,11 @@ const redirect = () => {
 
 <template>
   <div
-    class="relative shadow-2xl hover:cursor-pointer rounded-lg overflow-hidden w-fit"
+    class="relative shadow-2xl hover:cursor-pointer rounded-lg overflow-hidden w-[65vw] md:w-[20vw] mx-auto md:mx-0 h-full my-12 md:my-0"
     @click="redirect"
   >
     <div class="bg-image">
-      <img :src="list.coverPhoto" class="z-10 w-full h-full" />
+      <img :src="list.coverPhoto" class="z-10 w-fit h-fit" />
     </div>
     <div
       class="overlay absolute top-0 left-0 right-0 bottom-0 bg-black opacity-40 z-20"
