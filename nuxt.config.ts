@@ -23,6 +23,8 @@ export default defineNuxtConfig({
     spotifyClientId: process.env.SPOTIFY_CLIENT_ID,
     spotifyClientSecret: process.env.SPOTIFY_CLIENT_SECRET,
     spotifyRedirectUri: process.env.SPOTIFY_REDIRECT_URI,
+    lastFmKey: process.env.LAST_FM_KEY,
+    lastFmSecret: process.env.LAST_FM_SECRET,
   },
   nitro: {
     plugins: ["~/server/index.ts"],

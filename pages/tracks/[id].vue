@@ -8,6 +8,7 @@ import CustomLink from "~/components/router/CustomLink.vue";
 import type { RatingListedRating } from "#build/components";
 import type { iRating } from "~/types/rating-types";
 import axios from "axios";
+import type { LastFmWiki } from "~/types/last-fm-types";
 
 const { authenticated, user } = storeToRefs(useAuthStore());
 
@@ -18,6 +19,7 @@ const track = ref<Item>();
 const tabActiveIndex = ref(0);
 const suggestedTracks = ref<Item[]>();
 const discussions = ref([]);
+const trackInfo: Ref<LastFmWiki | null> = ref(null);
 
 //GET TRACK DATA
 const { data: trackData } = await useFetch(
@@ -38,6 +40,19 @@ const { data: suggestedTracksData } = await axios.post(
 
 if (suggestedTracksData) {
   suggestedTracks.value = suggestedTracksData;
+}
+
+//GET TRACK INFO
+
+const { data: trackInfoResp } = await axios.post(`/api/items/about`, {
+  id: track.value?.id,
+  name: track.value?.name,
+  type: "track",
+  artists: track.value?.artists,
+});
+
+if (trackInfoResp) {
+  trackInfo.value = trackInfoResp;
 }
 
 //GET DISCUSSIONS
@@ -237,15 +252,13 @@ const submitComment = async (comment: string) => {
         </div>
       </TabPanel>
       <TabPanel header="Track Info">
-        <p class="m-0">
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
-          ab illo inventore veritatis et quasi architecto beatae vitae dicta
-          sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-          aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
-          qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit,
-          sed quia non numquam eius modi.
-        </p>
+        <p
+          class="m-0"
+          v-html="
+            trackInfo?.summary ??
+            'No track data found for this title yet, check back later!'
+          "
+        ></p>
       </TabPanel>
     </TabView>
   </div>

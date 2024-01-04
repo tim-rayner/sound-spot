@@ -5,7 +5,6 @@ import { Rating } from "../../ratings/index.get";
 export default defineEventHandler(async (event): Promise<Item[]> => {
   const { track } = await readBody(event);
   const { spotifyClientAccessToken } = parseCookies(event);
-
   //const albumId = track.album.id;
   const artistIds = track.album.artists.map((artist) => artist.id);
   const trackId = track.id;
