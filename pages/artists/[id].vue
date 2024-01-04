@@ -5,6 +5,7 @@ import type { Artist } from "~/types/spotify-types";
 import type { iRating } from "~/types/rating-types";
 
 import axios from "axios";
+import type { LastFmWikiArtist } from "~/types/last-fm-types";
 
 const { authenticated, user } = storeToRefs(useAuthStore());
 const router = useRouter();
@@ -14,6 +15,7 @@ definePageMeta({ auth: false });
 const route = useRoute();
 const artist = ref<Artist>();
 const suggestedArtists = ref<Artist[]>();
+const artistInfo: Ref<LastFmWikiArtist | null> = ref(null);
 
 const { data: artistData } = await useFetch(
   `/api/items/artists/${route.params.id}`
@@ -21,6 +23,18 @@ const { data: artistData } = await useFetch(
 
 if (artistData.value) {
   artist.value = artistData.value;
+}
+
+//track info
+const { data: trackInfoResp } = await axios.post(`/api/items/about`, {
+  id: artist.value?.id,
+  name: artist.value?.name,
+  type: "artist",
+  artists: artist.value?.name,
+});
+
+if (trackInfoResp) {
+  artistInfo.value = trackInfoResp;
 }
 
 const { data: suggestedArtistData } = await axios
@@ -132,15 +146,13 @@ const ratingPosted = (rating: iRating) => {
         </div>
       </TabPanel>
       <TabPanel header="Artist Info">
-        <p class="m-0">
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
-          ab illo inventore veritatis et quasi architecto beatae vitae dicta
-          sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-          aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
-          qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit,
-          sed quia non numquam eius modi.
-        </p>
+        <p
+          class="m-0"
+          v-html="
+            artistInfo?.summary ??
+            'No data found for this Artist yet, check back later!'
+          "
+        ></p>
       </TabPanel>
     </TabView>
   </div>
