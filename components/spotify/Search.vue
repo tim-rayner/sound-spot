@@ -2,11 +2,11 @@
 import type { SearchResponse } from "~/types/search-types";
 
 const searchQuery = ref<string>("");
-const searchResults = ref<SearchResponse>();
+const searchResults = ref<SearchResponse | null>();
 const searchLoading = ref<boolean>(false);
 const show = ref<boolean>(false);
 
-const loaderSkeletons = ref(["1", "2", "3", "4"]);
+const loaderSkeletons = ref([1, 2, 3, 4]);
 
 // interface SpotifyTrack {
 
@@ -22,11 +22,11 @@ const search = async () => {
   searchResults.value = results.value;
 };
 
-const fieldKeyPress = (event: any) => {
-  if (event.key === "Enter") {
+watch(searchQuery, () => {
+  if (searchQuery.value.length > 1) {
     search();
-  }
-};
+  } else searchResults.value = null;
+});
 </script>
 
 <template>
@@ -36,7 +36,6 @@ const fieldKeyPress = (event: any) => {
         <InputText
           id="search"
           v-model="searchQuery"
-          :onKeypress="fieldKeyPress"
           :autofocus="true"
           class="rounded-r-none"
           placeholder="Search for a song"
