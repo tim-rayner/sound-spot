@@ -11,18 +11,18 @@ export default async (_nitroApp: Nitro) => {
     //create mongodb connectionx
     await mongoose.connect(config.mongodbUri);
     console.log("MongoDB Connected");
-    const response = await axios
-      .get("https://status.spotify.dev/api/v2/status.json")
-      .then((res) => res.data.status.indicator);
+    // const response = await axios
+    //   .get("https://status.spotify.dev/api/v2/status.json")
+    //   .then((res) => res.data.status.indicator);
 
-    if (response === "major") {
-      throw createError({
-        statusCode: 503,
-        statusMessage: "Spotify error: Spotify API is down",
-      });
-    } else {
-      console.log("Spotify API is up");
-    }
+    // if (response === "major") {
+    //   throw createError({
+    //     statusCode: 503,
+    //     statusMessage: "Spotify error: Spotify API is down",
+    //   });
+    // } else {
+    //   console.log("Spotify API is up");
+    // }
   } catch (err) {
     console.log(err);
     throw createError({
