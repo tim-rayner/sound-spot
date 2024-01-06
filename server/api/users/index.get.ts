@@ -8,11 +8,16 @@ const userSchema = new Schema({
   countryCode: String,
   id: String,
   _id: mongoose.Schema.Types.ObjectId,
+  parentalControls: Boolean, //if true, user can't access explicit content
+  favouriteGenres: [String],
 });
 
 userSchema.pre("save", function (next) {
   if (!this._id) {
     this._id = new mongoose.Types.ObjectId();
+  }
+  if (this.parentalControls === undefined) {
+    this.parentalControls = false;
   }
   next();
 });

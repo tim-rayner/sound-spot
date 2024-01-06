@@ -41,6 +41,8 @@ export default defineEventHandler(async (event) => {
           email: spotifyUser?.email,
           countryCode: spotifyUser?.country,
           id: spotifyUser.id,
+          parentralControls: false,
+          favouriteGenres: [],
         });
 
         try {

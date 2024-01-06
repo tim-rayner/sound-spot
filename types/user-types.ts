@@ -32,3 +32,11 @@ export interface RatingUserAggr {
   avg: number;
   user: iUser[];
 }
+
+export interface UserSettings {
+  userId: string;
+  username: string;
+  email: string;
+  parentalControls: boolean;
+  favouriteGenres: string[];
+}
