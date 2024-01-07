@@ -29,8 +29,10 @@ export default defineNuxtConfig({
   nitro: {
     plugins: ["~/server/index.ts"],
   },
-  plugins: [{ src: "~/plugins/primevue.ts", mode: "client" }],
-
+  plugins: [
+    { src: "~/plugins/primevue.ts", mode: "client" },
+    { src: "~/plugins/webPlayer.ts", mode: "client" },
+  ],
   build: {
     transpile: ["vee-validate/dist/rules"],
   },

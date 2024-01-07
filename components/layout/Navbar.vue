@@ -1,7 +1,6 @@
 import type { TransitionGroup } from 'vue';
 <script setup lang="ts">
 import { storeToRefs } from "pinia"; // import storeToRefs helper hook from pinia
-import ColorModeSwitch from "~/components/forms/ColorModeSwitch.vue";
 import { useAuthStore } from "~/store/auth";
 
 const router = useRouter();

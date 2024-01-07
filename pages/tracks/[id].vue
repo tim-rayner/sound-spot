@@ -9,8 +9,10 @@ import type { RatingListedRating } from "#build/components";
 import type { iRating } from "~/types/rating-types";
 import axios from "axios";
 import type { LastFmWiki } from "~/types/last-fm-types";
+import { useSpotifyStore } from "~/store/spotify";
 
 const { authenticated, user } = storeToRefs(useAuthStore());
+const spotifyStore = useSpotifyStore();
 
 definePageMeta({ auth: false });
 
@@ -64,8 +66,12 @@ if (relatedDiscussions) {
   discussions.value = relatedDiscussions;
 }
 
-const listenOnSpotify = () => {
-  window.open(track.value?.external_urls.spotify, "_blank");
+const listenOnSpotify = async () => {
+  console.log("listening on spotify", track.value?.id);
+  axios.post("/api/spotify/playback", {
+    trackuri: track.value?.uri,
+    action: "play",
+  });
 };
 
 //
