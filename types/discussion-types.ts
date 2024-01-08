@@ -28,4 +28,3 @@ export type iDiscussion = {
   ownerName?: string;
   ownerImage?: string;
 };
-}

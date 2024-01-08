@@ -13,11 +13,7 @@ export default defineEventHandler(
   ): Promise<LastFmWikiTrack | LastFmWikiArtist | LastFmWikiAlbum | null> => {
     const { id, name, type, artists } = await readBody(event);
 
-    if (type == "track") {
-      return await useGetTrackInfo(name, artists[0].name).then((res) => {
-        return res?.track?.wiki ?? null;
-      });
-    } else if (type === "artist") {
+    if (type === "artist") {
       return await useGetArtistInfo(name).then((res) => {
         return res.artist?.bio ?? null;
       });

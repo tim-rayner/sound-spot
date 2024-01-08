@@ -3,16 +3,13 @@ import type { Item } from "~/types/spotify-types";
 import ExplicitIcon from "~/assets/svg/explicit.svg";
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "~/store/auth";
-
 import CustomLink from "~/components/router/CustomLink.vue";
 import type { RatingListedRating } from "#build/components";
 import type { iRating } from "~/types/rating-types";
 import axios from "axios";
-import type { LastFmWiki } from "~/types/last-fm-types";
-import { useSpotifyStore } from "~/store/spotify";
+import type { LastFmWikiTrack } from "~/types/last-fm-types";
 
 const { authenticated, user } = storeToRefs(useAuthStore());
-const spotifyStore = useSpotifyStore();
 
 definePageMeta({ auth: false });
 
@@ -21,49 +18,18 @@ const track = ref<Item>();
 const tabActiveIndex = ref(0);
 const suggestedTracks = ref<Item[]>();
 const discussions = ref([]);
-const trackInfo: Ref<LastFmWiki | null> = ref(null);
+const trackInfo: Ref<LastFmWikiTrack | null> = ref(null);
 
-//GET TRACK DATA
-const { data: trackData } = await useFetch(
+// //GET TRACK DATA
+const { data: trackResponse } = await useFetch(
   `/api/items/tracks/${route.params.id}`
 );
 
-if (trackData.value) {
-  track.value = trackData.value;
-}
-
-//GET SUGGESTED TRACKS
-const { data: suggestedTracksData } = await axios.post(
-  "/api/items/tracks/suggested",
-  {
-    track: track.value,
-  }
-);
-
-if (suggestedTracksData) {
-  suggestedTracks.value = suggestedTracksData;
-}
-
-//GET TRACK INFO
-
-const { data: trackInfoResp } = await axios.post(`/api/items/about`, {
-  id: track.value?.id,
-  name: track.value?.name,
-  type: "track",
-  artists: track.value?.artists,
-});
-
-if (trackInfoResp) {
-  trackInfo.value = trackInfoResp;
-}
-
-//GET DISCUSSIONS
-const { data: relatedDiscussions } = await axios.get(
-  `/api/discussions/${track.value?.id}`
-);
-
-if (relatedDiscussions) {
-  discussions.value = relatedDiscussions;
+if (trackResponse.value) {
+  track.value = trackResponse.value.trackData;
+  suggestedTracks.value = trackResponse.value.recommendations;
+  discussions.value = trackResponse.value.comments;
+  trackInfo.value = trackResponse.value.trackInfo;
 }
 
 const listenOnSpotify = async () => {
