@@ -5,7 +5,7 @@ import Navbar from "~/components/layout/Navbar.vue";
 <template>
   <div class="relative h-[92vh]">
     <Navbar />
-    <div class="mainContent mt-[64px] md:mt-[80px]">
+    <div class="mainContent mt-[64px] md:mt-[120px]">
       <slot />
     </div>
     <SpotifyWebPlayback />
