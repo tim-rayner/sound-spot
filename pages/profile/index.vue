@@ -1,29 +1,32 @@
 <script setup lang="ts">
-import axios from "axios";
+import type { List } from "~/types/list-types";
+import type { Album, Item } from "~/types/spotify-types";
 import type { iUser } from "~/types/user-types";
 
 const userFS = localStorage.getItem("ud01xy");
 const user = ref<iUser>();
+const topLists = ref<List[]>([]);
+const topTracks = ref<Item[]>([]);
+const topAlbums = ref<Album[]>([]);
 
 if (userFS) {
   user.value = JSON.parse(userFS);
 }
 
-const topLists = await axios
-  .get(`/api/users/top/list/${user?.value?._id}`)
-  .then((res) => res.data);
+//GET PROFILE DATA
+const { data: profileData } = await useFetch(
+  `/api/users/top/${user?.value?._id}`
+);
 
-const topTracks = await axios
-  .get(`/api/users/top/track/${user?.value?._id}`)
-  .then((res) => res.data);
-
-const topAlbums = await axios
-  .get(`/api/users/top/album/${user?.value?._id}`)
-  .then((res) => res.data);
+if (profileData.value) {
+  topLists.value = profileData.value.topLists!;
+  topTracks.value = profileData.value.topTracks!;
+  topAlbums.value = profileData.value.topAlbums!;
+}
 </script>
 
 <template>
-  <ProfileHeader :user="user" />
+  <ProfileHeader :user="user!" />
 
   <div v-if="topTracks.length">
     <div class="flex flex-row">
