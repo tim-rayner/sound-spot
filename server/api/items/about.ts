@@ -1,4 +1,3 @@
-import { useGetTrackInfo } from "~/composables/getTrackInfo";
 import { useGetArtistInfo } from "~/composables/getArtistInfo";
 import type {
   LastFmWikiTrack,

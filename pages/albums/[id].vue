@@ -15,36 +15,15 @@ const album = ref<Album>();
 const suggestedAlbums = ref<Album[]>();
 const albumInfo = ref<LastFmWikiAlbum | null>(null);
 
-const { data: trackData } = await useFetch(
+//GET ALBUM DATA
+const { data: albumData } = await useFetch(
   `/api/items/albums/${route.params.id}`
 );
 
-if (trackData.value) {
-  album.value = trackData.value;
-}
-
-const { data: suggestedArtistData } = await axios
-  .post("/api/items/albums/suggested", {
-    album: album.value,
-  })
-  .then((res) => {
-    return res;
-  });
-
-if (suggestedArtistData) {
-  suggestedAlbums.value = suggestedArtistData;
-}
-
-//album info
-const { data: albumInfoResp } = await axios.post(`/api/items/about`, {
-  id: album.value?.id,
-  name: album.value?.name,
-  type: "album",
-  artists: album.value?.artists,
-});
-
-if (albumInfoResp) {
-  albumInfo.value = albumInfoResp.summary;
+if (albumData.value) {
+  album.value = albumData.value.AlbumData;
+  albumInfo.value = albumData.value.AlbumInfo.summary ?? null;
+  suggestedAlbums.value = albumData.value.recommendations;
 }
 
 const ratingPosted = (rating: iRating) => {
