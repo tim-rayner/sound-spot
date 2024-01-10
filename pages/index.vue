@@ -19,29 +19,18 @@ const loaderSkeletons = ref(["1", "2", "3", "4"]);
 const topSongsLoading = ref(true);
 const topListsLoading = ref(true);
 
-const getTopSongs = async () => {
-  const { data: songs } = await useFetch("/api/items/tracks/top", {
-    method: "get",
-  });
-  if (songs.value?.length! > 0 || songs.value) {
-    topSongs.value = songs.value?.slice(0, 4)!;
-    topSongsLoading.value = false;
-  }
-};
+//GET HOME DATA
+const { data: pageData } = await useFetch("/api/pages/home", {
+  method: "get",
+});
 
-const getTopLists = async () => {
-  const { data: lists } = await useFetch("/api/lists/top", {
-    method: "get",
-  });
-  if (lists.value) {
-    //@ts-ignore
-    topLists.value = lists.value!;
-    topListsLoading.value = false;
-  }
-};
-
-getTopSongs();
-getTopLists();
+if (pageData.value) {
+  topLists.value = pageData.value.topLists;
+  topListsLoading.value = false;
+  //
+  topSongs.value = pageData.value.topTracks;
+  topSongsLoading.value = false;
+}
 </script>
 <template>
   <div
