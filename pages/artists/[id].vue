@@ -17,36 +17,15 @@ const artist = ref<Artist>();
 const suggestedArtists = ref<Artist[]>();
 const artistInfo: Ref<LastFmWikiArtist | null> = ref(null);
 
+//GET ARTIST DATA
 const { data: artistData } = await useFetch(
   `/api/items/artists/${route.params.id}`
 );
 
 if (artistData.value) {
-  artist.value = artistData.value;
-}
-
-//artist info
-const { data: trackInfoResp } = await axios.post(`/api/items/about`, {
-  id: artist.value?.id,
-  name: artist.value?.name,
-  type: "artist",
-  artists: artist.value?.name,
-});
-
-if (trackInfoResp) {
-  artistInfo.value = trackInfoResp;
-}
-
-const { data: suggestedArtistData } = await axios
-  .post("/api/items/artists/suggested", {
-    artist: artist.value,
-  })
-  .then((res) => {
-    return res;
-  });
-
-if (suggestedArtistData) {
-  suggestedArtists.value = suggestedArtistData;
+  artist.value = artistData.value.artistData;
+  suggestedArtists.value = artistData.value.recommendations;
+  artistInfo.value = artistData.value.artistInfo;
 }
 
 const ratingPosted = (rating: iRating) => {
