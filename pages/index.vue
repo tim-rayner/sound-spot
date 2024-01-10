@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { ListOverview } from "#build/components";
 import { storeToRefs } from "pinia"; // import storeToRefs helper hook from pinia
+
 import { useAuthStore } from "~/store/auth"; // import the auth store we just created
 import type { List } from "~/types/list-types";
 
@@ -53,9 +54,7 @@ if (pageData.value) {
   <div
     class="md:flex md:flex-row md:flex-wrap md:gap-12 my-12 mt-6 mx-6 auto-rows-fr"
   >
-    <div v-for="song in topSongs" :key="song.id" v-if="!topSongsLoading">
-      <SongOverview :track="song" class="my-12" />
-    </div>
+    <ItemCarousel v-if="!topSongsLoading" :items="topSongs" type="track" />
     <LoaderTile
       v-else
       v-for="loader in loaderSkeletons"
@@ -68,9 +67,13 @@ if (pageData.value) {
   <div
     class="md:flex md:flex-row md:flex-wrap md:gap-12 my-12 mt-6 mx-6 auto-rows-fr"
   >
-    <div v-for="list in topLists" :key="list._id" v-if="!topListsLoading">
-      <ListOverview :list="list" />
-    </div>
+    <ItemCarousel v-if="!topListsLoading" :items="topLists" type="list" />
+    <LoaderTile
+      v-else
+      v-for="loader in loaderSkeletons"
+      :key="loader"
+      class="my-12"
+    />
   </div>
 </template>
 <style></style>

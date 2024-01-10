@@ -16,6 +16,7 @@ import Skeleton from "primevue/skeleton";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import ColumnGroup from "primevue/columngroup";
+import Carousel from "primevue/carousel";
 import Row from "primevue/row";
 import Chips from "primevue/chips";
 import MultiSelect from "primevue/multiselect";
@@ -42,4 +43,5 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.component("Row", Row);
   nuxtApp.vueApp.component("Chips", Chips);
   nuxtApp.vueApp.component("MultiSelect", MultiSelect);
+  nuxtApp.vueApp.component("Carousel", Carousel);
 });
