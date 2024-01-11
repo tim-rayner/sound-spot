@@ -41,7 +41,7 @@ const responsiveOptions = ref([
     :showIndicators="false"
   >
     <template #item="slotProps">
-      <div class="w-fit">
+      <div class="w-fit h-full">
         <SongOverview
           v-if="props.type === 'track'"
           :track="slotProps.data"
@@ -55,7 +55,7 @@ const responsiveOptions = ref([
         <ListOverview
           v-if="props.type === 'list'"
           :list="slotProps.data"
-          class="my-12"
+          class="my-12 w-[30vw] h-[25vh]"
         />
         <!-- <ArtistOvervsiew
           v-if="props.type === 'artist'"
