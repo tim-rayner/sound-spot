@@ -14,7 +14,7 @@ const redirect = () => {
 
 <template>
   <div
-    class="relative shadow-2xl hover:cursor-pointer rounded-lg overflow-hidden w-[65vw] md:w-[20vw] mx-auto md:mx-0 h-full my-12 md:my-0"
+    class="relative hover:cursor-pointer rounded-lg overflow-hidden w-[65vw] md:w-[20vw] mx-auto md:mx-0 h-full my-12 md:my-0"
     @click="redirect"
   >
     <div class="bg-image">
