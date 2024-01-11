@@ -37,7 +37,7 @@ export default defineEventHandler(async (event) => {
 
   //TODO: MERGE WITH RATING INFO FROM DB
   const items: Item[] = spotifyResponse.tracks.items
-    .slice(0, 5)
+    .slice(0, 10)
     .map((item: any) => item.track);
 
   items.forEach((track: Item) => {
