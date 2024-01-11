@@ -28,13 +28,12 @@ watch(searchQuery, () => {
 </script>
 
 <template>
-  <div class="mt-12">
+  <div class="my-12">
     <div class="flex flex-row w-fit mx-auto align-middle">
       <span>
         <InputText
           id="search"
           v-model="searchQuery"
-          :autofocus="true"
           class="rounded-r-none"
           placeholder="Search for a song"
           autocomplete="off"
@@ -46,7 +45,7 @@ watch(searchQuery, () => {
     </div>
 
     <Transition>
-      <div class="my-12" v-if="!searchLoading">
+      <div class="my-12 py-6" v-if="!searchLoading">
         <ul
           v-if="searchResults?.items?.length"
           class="flex flex-row flex-wrap gap-12 my-12 mt-6 mx-4"
