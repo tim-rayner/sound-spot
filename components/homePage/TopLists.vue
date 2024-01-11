@@ -1,4 +1,3 @@
-import type log from '~/middleware/log';
 <script setup lang="ts">
 import type { List } from "~/types/list-types";
 

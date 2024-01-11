@@ -48,7 +48,7 @@ watch(searchQuery, () => {
       <div class="my-12 py-6" v-if="!searchLoading">
         <ul
           v-if="searchResults?.items?.length"
-          class="flex flex-row flex-wrap gap-12 my-12 mt-6 mx-4"
+          class="flex flex-row flex-wrap gap-12 my-12 mt-6 mx-4 text-left"
         >
           <li v-for="result in searchResults.items" :key="result.id">
             <SongOverview v-if="result.type === 'track'" :track="result" />
