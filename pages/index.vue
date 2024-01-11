@@ -51,9 +51,7 @@ if (pageData.value) {
   <SpotifySearch />
 
   <h3 class="text-xl mx-6">Our Top Tracks</h3>
-  <div
-    class="md:flex md:flex-row md:flex-wrap md:gap-12 my-12 mt-6 mx-6 auto-rows-fr"
-  >
+  <div class="md:flex md:flex-row md:flex-wrap md:gap-12 my-12 mt-6 mx-6">
     <ItemCarousel v-if="!topSongsLoading" :items="topSongs" type="track" />
     <LoaderTile
       v-else
