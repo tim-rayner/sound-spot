@@ -32,11 +32,26 @@ const redirect = (to: string) => {
   mobileMenuToggled.value = false;
   router.push(to);
 };
+
+//scroll functionality
+const scroll = ref(0);
+const scrollHandler = () => {
+  scroll.value = window.scrollY;
+};
+onMounted(() => {
+  window.addEventListener("scroll", scrollHandler);
+});
 </script>
 
 <template>
   <nav class="z-[100] fixed top-0 w-full">
-    <div class="main-nav bg-[#1e1e1e] p-3 text-[#f0ffff]">
+    <div
+      class="main-nav p-3 text-[#f0ffff]"
+      :class="{
+        'bg-[#1e1e1eea]': scroll > 20,
+        'bg-transparent': scroll <= 20,
+      }"
+    >
       <ul class="flex justify-between p-2 px-5 align-middle items-center">
         <!-- LEFT-->
         <div class="justify-between flex gap-20">
