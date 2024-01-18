@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import axios from "axios";
 import { ref } from "vue";
 import { useAuthStore } from "~/store/auth";
 import type { LastFmWikiAlbum } from "~/types/last-fm-types";
@@ -22,7 +21,7 @@ const { data: albumData } = await useFetch(
 
 if (albumData.value) {
   album.value = albumData.value.AlbumData;
-  albumInfo.value = albumData.value.AlbumInfo.summary ?? null;
+  albumInfo.value = albumData.value.AlbumInfo?.summary ?? null;
   suggestedAlbums.value = albumData.value.recommendations;
 }
 

@@ -152,7 +152,7 @@ const submitComment = async (comment: string) => {
           Leave a rating
         </Button>
         <FormsAddToList
-          :trackId="track!.id"
+          :trackId="track?.id!"
           class="mr-4"
           v-if="authenticated"
         />

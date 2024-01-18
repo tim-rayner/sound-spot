@@ -49,7 +49,7 @@ onMounted(() => {
       class="main-nav p-3 text-[#f0ffff]"
       :class="{
         'bg-[#1e1e1eea]': scroll > 20,
-        'bg-transparent': scroll <= 20,
+        'bg-[#1e1e1e]': scroll <= 20,
       }"
     >
       <ul class="flex justify-between p-2 px-5 align-middle items-center">

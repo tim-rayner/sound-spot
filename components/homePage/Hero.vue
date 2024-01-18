@@ -13,7 +13,7 @@ const loginWithSpotify = () => {
 
 <template>
   <div
-    class="header text-center -mt-[40px] py-24 pb-0 bg-[#1e1e1e] text-[#f0ffff] dark:bg-white dark:text-[#1e1e1e]"
+    class="header text-center -mt-[40px] py-32 bg-[#1e1e1e] text-[#f0ffff] dark:bg-white dark:text-[#1e1e1e]"
   >
     <h1 class="text-5xl font-bold my-4">SoundSpot</h1>
     <h3 class="text-xl">The worlds first social rating platform for music</h3>
