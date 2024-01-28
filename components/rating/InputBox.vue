@@ -144,4 +144,12 @@ const postRating = async () => {
       You rated this {{ itemType }} {{ previousRating }} stars.
     </p>
   </div>
+
+  <div
+    class="card flex flex-col justify-content-center text-center"
+    v-if="!authenticated"
+  >
+    <p class="text-2xl font-bold">Sign in to leave a rating</p>
+    <SpotifyLoginWithSpotifyButton class="w-1/4 mx-auto my-5" />
+  </div>
 </template>

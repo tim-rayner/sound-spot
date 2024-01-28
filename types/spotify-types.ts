@@ -52,6 +52,7 @@ export interface Album {
   uri: string;
   avgRating?: number;
   ratings?: iRating[];
+  tracks: Object;
 }
 
 export interface Artist {

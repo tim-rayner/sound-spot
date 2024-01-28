@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import AlbumListItem, {
+  type AlbumTrack,
+} from "~/components/song/AlbumListItem.vue";
 import { useAuthStore } from "~/store/auth";
 import type { LastFmWikiAlbum } from "~/types/last-fm-types";
 import type { iRating } from "~/types/rating-types";
@@ -13,6 +16,7 @@ const { user } = storeToRefs(useAuthStore());
 const album = ref<Album>();
 const suggestedAlbums = ref<Album[]>();
 const albumInfo = ref<LastFmWikiAlbum | null>(null);
+const albumTracks = ref<AlbumTrack[]>();
 
 //GET ALBUM DATA
 const { data: albumData } = await useFetch(
@@ -23,6 +27,16 @@ if (albumData.value) {
   album.value = albumData.value.AlbumData;
   albumInfo.value = albumData.value.AlbumInfo?.summary ?? null;
   suggestedAlbums.value = albumData.value.recommendations;
+
+  albumTracks.value = album.value?.tracks?.items.map((track) => {
+    return {
+      name: track.name,
+      artists: track.artists,
+      duration_ms: track.duration_ms,
+      track_number: track.track_number,
+      id: track.id,
+    };
+  });
 }
 
 const ratingPosted = (rating: iRating) => {
@@ -64,6 +78,23 @@ const ratingPosted = (rating: iRating) => {
 
     <!-- TAB AREA-->
     <TabView class="mx-4">
+      <TabPanel header="Songs">
+        <div class="album-tracks">
+          <div
+            class="flex flex-col flex-wrap gap-3 my-12 mt-6 auto-rows-fr mx-4"
+          >
+            <AlbumListItem
+              v-if="albumTracks"
+              v-for="track in albumTracks"
+              :name="track.name"
+              :artists="track.artists"
+              :duration_ms="track.duration_ms"
+              :id="track.id"
+              :track_number="track.track_number"
+            />
+          </div>
+        </div>
+      </TabPanel>
       <TabPanel header="Reviews">
         <div class="rating-area">
           <div class="ratings md:px-12 py-4">
